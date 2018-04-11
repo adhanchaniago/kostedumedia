@@ -21,7 +21,6 @@ var BUFFERFORM = {};
 var BUFFERORGorg = {};
 var BUFFERORG = [];
 
-
 //CONFIG IP AJAX
 var URLAPI        = 'http://192.168.1.241:9099/api/';
 var URLINTELBOT   = URLAPI+'rawpesans';
@@ -39,7 +38,8 @@ var URLWINDBASE   = 'http://192.168.1.124:7000/';
 function INITMAP(){
     // MAP SOURCE MAP SOURCE MAP SOURCE MAP SOURCE MAP SOURCE
     var CartoDB_DarkMatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {maxZoom: 19});
-    var standard = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18,});
+    var CartoDB_GreyMatter = L.tileLayer('https://b.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png', {maxZoom: 19});
+    var standard = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,});
     var primar = L.tileLayer.wms("http://primar.ecc.no/primar/wms_session", {    layers: 'cells',    format: 'image/png',    noWrap: true,    transparent: true    });
     var navtoniv = L.tileLayer('https://backend.navionics.io/tile/{z}/{x}/{y}?LAYERS=config_1_20.00_1&TRANSPARENT=FALSE&UGC=TRUE&navtoken=eyJrZXkiOiJOYXZpb25pY3NfaW50ZXJuYWxwdXJwb3NlXzAwMDAxIiwia2V5RG9tYWluIjoid2ViYXBwLm5hdmlvbmljcy5jb20iLCJyZWZlcmVyIjoid2ViYXBwLm5hdmlvbmljcy5jb20iLCJyYW5kb20iOjM2Mjc4fQ');
     var gray = L.esri.basemapLayer('Gray');//.addTo(map);
@@ -49,9 +49,14 @@ function INITMAP(){
     var ocean = L.esri.basemapLayer('Oceans');//.addTo(map);
     var darkgray = L.esri.basemapLayer('DarkGray');//.addTo(map);
     var image = L.esri.basemapLayer('Imagery');//.addTo(map);
+    var imagel = L.esri.basemapLayer('ImageryLabels');//.addTo(map);
+    var imaget = L.esri.basemapLayer('ImageryTransportation');//.addTo(map);
     var shade = L.esri.basemapLayer('ShadedRelief');//.addTo(map);
     var terain = L.esri.basemapLayer('Terrain');//.addTo(map);
     var usa = L.esri.basemapLayer('USATopo');//.addTo(map);
+    var lightgray = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {maxZoom: 19});
+    var satlabel = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {maxZoom: 21});    
+
     // var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {maxZoom: 13});
     // var mid = L.esri.Vector.basemap('MidCentury');//.addTo(map);
     // var news = L.esri.Vector.basemap('Newspaper');//.addTo(map);
@@ -126,33 +131,37 @@ function INITMAP(){
 
     // LAYERCONTROL
     baseMaps = {
-      "Navtonic": navtoniv,
+      // "Navtonic": navtoniv,
       "Black": CartoDB_DarkMatter,
-      "OSM Standard": standard,
-      "Gray": gray, 
-      "Streets": streets,
-      "Topo": topo,
-      "NatGeo": nationalgeo,
-      "Ocean": ocean,
-      "DarkGry": darkgray,
-      "Imagy": image,
-      "Shade": shade,
-      "Terain": terain,
-      "USA topo": usa,
-      "TNI AD":topoindo
+      "Grey": CartoDB_GreyMatter,
+      "Open Street": standard,
+      // "Gray": gray, 
+      // "Streets": streets,
+      // "Topo": topo,
+      // "NatGeo": nationalgeo,
+      // "Ocean": ocean,
+      // "DarkGry": darkgray,
+      // "LightGry":lightgray,
+      "Satelite": image,
+      // "Sat Label": imagel,
+      // "Sat Transport": imaget,
+      // "Shade": shade,
+      // "Terain": terain,
+      // "USA topo": usa,
+      "Topografi":topoindo
       // "Mid": mid,
       // "Spring" : spring,
       // "News": news
     };
 
-    bsm = {
-      "Open Street": standard,
-      "Streets": streets,
-      "Topo": topo,
-      "NatGeo": nationalgeo,
-      "Ocean": ocean,
-      "Imagy": image,
-      "Shade": shade,
+    // bsm = {
+      // "Open Street": standard,
+      // "Streets": streets,
+      // "Topo": topo,
+      // "NatGeo": nationalgeo,
+      // "Ocean": ocean,
+      // "Imagy": image,
+      // "Shade": shade,
       // "Gray": gray, 
       // "DarkGry": darkgray,
       // "Black": CartoDB_DarkMatter,
@@ -161,18 +170,23 @@ function INITMAP(){
       // "Mid": mid,
       // "Spring" : spring,
       // "News": news
-    };
+    // };
 
     var configMap = {
             //indonesia
-            latCenter : 6-(6-(-11))/2,
-            lonCenter : 95+(141-95)/2,
-            zoom :5,
+            // latCenter : 6-(6-(-11))/2,
+            // lonCenter : 95+(141-95)/2,
+            // zoom :5,
 
-            //bandung
-            // latCenter : -6.910,
-            // lonCenter : 107.622,
-            // zoom :12,
+            //jakarta
+            // latCenter : -6.24158,
+            // lonCenter : 106.815948,
+            // zoom :11,
+
+            //gerlong
+            latCenter : -6.862386170,
+            lonCenter : 107.588816285,
+            zoom :17,
 
             mapUrl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             mapStyleId : 22677
@@ -183,7 +197,7 @@ function INITMAP(){
       center: [configMap.latCenter, configMap.lonCenter],
       zoom: configMap.zoom,
       layers: [standard],
-      maxZoom : 18,
+      maxZoom : 19,
       minZoom : 3
       // worldCopyJump : true
     });
@@ -191,17 +205,17 @@ function INITMAP(){
 
 
 function INITICON(){
-    ikanpari = L.icon({iconUrl: 'aset/img/paripari.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanbiru = L.icon({iconUrl: 'aset/img/ikanbiru.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanmerah = L.icon({iconUrl: 'aset/img/ikanmerah.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanoren = L.icon({iconUrl: 'aset/img/ikanoren.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanpink = L.icon({iconUrl: 'aset/img/ikanpink.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanhiu = L.icon({iconUrl: 'aset/img/hiuhiu.png', iconSize: [40,40], iconAnchor:[20,20]});
-    ikanpaus = L.icon({iconUrl: 'aset/img/pauspaus.png', iconSize: [40,40], iconAnchor:[20,20]});
-    kepitingicon = L.icon({iconUrl: 'aset/img/kepiting.png', iconSize: [40,40], iconAnchor:[20,20]});
-    udangicon = L.icon({iconUrl: 'aset/img/udangudang.png', iconSize: [40,40], iconAnchor:[20,20]});
-    cumiicon = L.icon({iconUrl: 'aset/img/cumicumi.png', iconSize: [40,40], iconAnchor:[20,20]});
-    lobstericon = L.icon({iconUrl: 'aset/img/lobterlobster.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanpari = L.icon({iconUrl: 'aset/img/paripari.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanbiru = L.icon({iconUrl: 'aset/img/ikanbiru.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanmerah = L.icon({iconUrl: 'aset/img/ikanmerah.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanoren = L.icon({iconUrl: 'aset/img/ikanoren.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanpink = L.icon({iconUrl: 'aset/img/ikanpink.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanhiu = L.icon({iconUrl: 'aset/img/hiuhiu.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // ikanpaus = L.icon({iconUrl: 'aset/img/pauspaus.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // kepitingicon = L.icon({iconUrl: 'aset/img/kepiting.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // udangicon = L.icon({iconUrl: 'aset/img/udangudang.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // cumiicon = L.icon({iconUrl: 'aset/img/cumicumi.png', iconSize: [40,40], iconAnchor:[20,20]});
+    // lobstericon = L.icon({iconUrl: 'aset/img/lobterlobster.png', iconSize: [40,40], iconAnchor:[20,20]});
     gmpaIcon = L.icon({iconUrl: 'aset/img/epic.gif', iconSize: [50,50], iconAnchor:[25,25]});
     aiscon = L.icon({iconUrl: 'aset/img/v.png', iconSize: [24,24], iconAnchor:[12,12]});
     buletabu = L.icon({iconUrl: 'aset/img/iconabu.png', iconSize: [12,12], iconAnchor:[6,6]});
@@ -236,9 +250,9 @@ function INITPLUGIN(){
     //LEAFLET attribution
     var attrib = new L.Control.Attribution;
     map.addControl(attrib); 
-    attrib.setPrefix('Koordinat : ');
+    attrib.setPrefix('Created by Gopal, 2018');
     map.on('mousemove', function(e) {
-      attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. Created by Gopal, 2017');
+      attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. Created by Gopal, 2018');
     });
 
     //LEAFLET scale nautica
@@ -739,238 +753,442 @@ function INITLAPORANPERSONEL(){
 }
 
 INITICON();
-INITCUACAGEMPA();
-INITBATAS();
+// INITCUACAGEMPA();
+// INITBATAS();
 INITMAP();
 INITPLUGIN();
-INITANGIN();
-INITLAPORANPERSONEL();
+layerControl1 = L.control.layers(baseMaps).addTo(map);
+// INITANGIN();
+// INITLAPORANPERSONEL();
 /////////////////////
 
 
 // INIT IKAN INIT IKAN INIT IKAN INIT IKAN INIT IKAN 
 // INIT IKAN INIT IKAN INIT IKAN INIT IKAN INIT IKAN 
-var tuna= L.layerGroup([]), pari= L.layerGroup([]), hiu= L.layerGroup([]), cakalang= L.layerGroup([]), tongkol= L.layerGroup([]), makarel= L.layerGroup([]), paus= L.layerGroup([]), cumi= L.layerGroup([]), udang= L.layerGroup([]), lobster= L.layerGroup([]), kepiting= L.layerGroup([]); 
+// var tuna= L.layerGroup([]), pari= L.layerGroup([]), hiu= L.layerGroup([]), cakalang= L.layerGroup([]), tongkol= L.layerGroup([]), makarel= L.layerGroup([]), paus= L.layerGroup([]), cumi= L.layerGroup([]), udang= L.layerGroup([]), lobster= L.layerGroup([]), kepiting= L.layerGroup([]); 
 
-$.ajax({
-  type: 'GET',        
-  url: URLIKAN,        
-  success:function(ikan){
-  	// console.log(ikan);
-  	for(var i=0; i<ikan.length; i++){
-  		if(ikan[i].ikan === "tuna"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanmerah})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			tuna.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "pari"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpari})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			pari.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "hiu"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanhiu})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			hiu.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "paus"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpaus})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			paus.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "cakalang"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanbiru})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			cakalang.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "tongkol"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanoren})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			tongkol.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "makarel"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpink})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			makarel.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "cumi"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:cumiicon})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			cumi.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "udang"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:udangicon})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			udang.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "kepiting"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:kepitingicon})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			kepiting.addLayer(mark);
-  		}
-  		if(ikan[i].ikan === "lobster"){
-  			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:lobstericon})
-  			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
-                      "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
-                      "</tr><tr>"+
-                      "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
-                      "</tr></table>"
-                      );
-  			lobster.addLayer(mark);
-  		}
-  	}
+// $.ajax({
+//   type: 'GET',        
+//   url: URLIKAN,        
+//   success:function(ikan){
+//   	// console.log(ikan);
+//   	for(var i=0; i<ikan.length; i++){
+//   		if(ikan[i].ikan === "tuna"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanmerah})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			tuna.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "pari"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpari})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			pari.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "hiu"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanhiu})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			hiu.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "paus"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpaus})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			paus.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "cakalang"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanbiru})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			cakalang.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "tongkol"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanoren})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			tongkol.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "makarel"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:ikanpink})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			makarel.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "cumi"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:cumiicon})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			cumi.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "udang"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:udangicon})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			udang.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "kepiting"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:kepitingicon})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			kepiting.addLayer(mark);
+//   		}
+//   		if(ikan[i].ikan === "lobster"){
+//   			var mark = L.marker([ikan[i].koor.lat, ikan[i].koor.lon], {icon:lobstericon})
+//   			.bindPopup("<table width=100% style='font-size:11px'><tr>"+
+//                       "<td>Ikan </td><td>: "+ikan[i].ikan+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Keterangan </td><td>: "+ikan[i].desc+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Prediksi muncul </td><td>: "+ikan[i].tgl+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Jam muncul </td><td>: "+ikan[i].jam+"</td>"+
+//                       "</tr><tr>"+
+//                       "<td>Lokasi </td><td>: "+ikan[i].koor.lat+", "+ikan[i].koor.lon+"</td>"+
+//                       "</tr></table>"
+//                       );
+//   			lobster.addLayer(mark);
+//   		}
+//   	}
 
-  }, error:function(e){
-  	console.log(e);
-  }
-});
+//   }, error:function(e){
+//   	console.log(e);
+//   }
+// });
 
-var ikan = {
-	"Prediksi Ikan <br>3 hari kedepan ":{
-		"<font color='red'>Tuna</font>" : tuna,
-        "<font color='#009999'>Pari " : pari,
-        "<font color='#006600'>Hiu " : hiu,
-        "<font color='#0066ff'>Cakalang " : cakalang,
-        "<font color='#ff6600'>Tongkol " : tongkol,
-        "<font color='#cc0099'>Makarel " : makarel,
-        "<font color='#0099ff'>Paus " : paus
-	},
-	"Lainnya":{
-		"Cumi": cumi,
-        "<font color='#ff6600'>Udang" : udang,
-        "<font color='#6600ff'>Lobster " : lobster,
-        "<font color='#339966'>Kepiting " : kepiting
-	}
-};
+// var ikan = {
+// 	"Prediksi Ikan <br>3 hari kedepan ":{
+// 		"<font color='red'>Tuna</font>" : tuna,
+//         "<font color='#009999'>Pari " : pari,
+//         "<font color='#006600'>Hiu " : hiu,
+//         "<font color='#0066ff'>Cakalang " : cakalang,
+//         "<font color='#ff6600'>Tongkol " : tongkol,
+//         "<font color='#cc0099'>Makarel " : makarel,
+//         "<font color='#0099ff'>Paus " : paus
+// 	},
+// 	"Lainnya":{
+// 		"Cumi": cumi,
+//         "<font color='#ff6600'>Udang" : udang,
+//         "<font color='#6600ff'>Lobster " : lobster,
+//         "<font color='#339966'>Kepiting " : kepiting
+// 	}
+// };
 
 
 //INIT DRAW AND EDIT CONTROL
 //INIT DRAW AND EDIT CONTROL
 //INIT DRAW AND EDIT CONTROL    
-    var drawnPolygon = L.featureGroup().addTo(map);
-    var drawnPolyline = L.featureGroup().addTo(map);
-    var drawnRectangle = L.featureGroup().addTo(map);
-    var drawnCircle = L.featureGroup().addTo(map);
-    var drawnMarker = L.featureGroup().addTo(map);
-    var drawnMarkerBulat = L.featureGroup().addTo(map);
-    var drawnItems = L.featureGroup().addTo(map);
-    var drawnALL = [];
+var drawnGeojson = L.featureGroup().addTo(map);
+var drawnPolygon = L.featureGroup().addTo(map);
+var drawnPolyline = L.featureGroup().addTo(map);
+var drawnRectangle = L.featureGroup().addTo(map);
+var drawnCircle = L.featureGroup().addTo(map);
+var drawnMarker = L.featureGroup().addTo(map);
+var drawnMarkerBulat = L.featureGroup().addTo(map);
+var drawnItems = L.featureGroup().addTo(map);
+
+INITGAMBARDB();
+var KOSANS = [];
+
+function modalkamar(i,ii){
+  // console.log("bikin append");
+  // console.log(KOSANS);
+  $("#modalcobabody").empty();
+  
+  $("#modalcobabody").append(
+                  '<ul class="nav nav-tabs" role="tablist">'+
+                    '<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
+                    '<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
+                    '<li role="presentation"><a href="#ketpenghuni" aria-controls="ketpenghuni" role="tab" data-toggle="tab">Penghuni (nanti khusus admin)</a></li>'+
+                  '</ul>'+
+                  '<div class="tab-content">'+
+                    '<div role="tabpanel" class="tab-pane active" id="ketdetail">'+
+                      '<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
+                        '<tbody class="list">'+
+                                '<tr><td>Nama :</td>                  <td>'+KOSANS[i].properties.kamar[ii].nama+'</td></tr>'+ 
+                                '<tr><td>Luas :</td>                  <td>'+KOSANS[i].properties.kamar[ii].luas+'</td></tr>'+
+                                '<tr><td>Fasilitas :</td>             <td>'+KOSANS[i].properties.kamar[ii].fasilitas+'</td></tr>'+
+                                '<tr><td>Harga /thn :</td>            <td>'+KOSANS[i].properties.kamar[ii].hargath+'</td></tr>'+
+                                '<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+'</td></tr>'+
+                        '</tbody>'+
+                      '</table>'+
+                    '</div>'+
+                    '<div role="tabpanel" style="text-align: center;" class="tab-pane" id="ketgalery">'+
+                                '<a id="gileft" style="position:absolute; left:10px;" class="fa fa-chevron-left"></a>'+
+                                '<div style="position:absolute; left:50%;" id="modalkamarinfo"> </div>'+
+                                '<a id="giright" style="position:absolute; right:10px;" class="fa fa-chevron-right"></a><br>'+
+                                '<img id="modalkamarviewer" src="" width="80%" />'+
+                    '</div>'+
+                    '<div role="tabpanel" class="tab-pane" id="ketpenghuni">'+
+                      '<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
+                        '<tbody class="list">'+
+                                '<tr><td>Foto :</td>             <td>'+KOSANS[i].properties.kamar[ii].penghunifoto+'</td></tr>'+
+                                '<tr><td>Nama Penghuni:</td>     <td>'+KOSANS[i].properties.kamar[ii].penghuninama+'</td></tr>'+ 
+                                '<tr><td>No HP :</td>            <td>'+KOSANS[i].properties.kamar[ii].penghunihp+'</td></tr>'+
+                                '<tr><td>No HP darurat :</td>    <td>'+KOSANS[i].properties.kamar[ii].penghunihpdarurat+'</td></tr>'+
+                                '<tr><td>Alamat :</td>           <td>'+KOSANS[i].properties.kamar[ii].penghunialamat+'</td></tr>'+
+                                '<tr><td>No KTP :</td>           <td>'+KOSANS[i].properties.kamar[ii].penghuninoktp+'</td></tr>'+
+                                '<tr><td>Foto KTP :</td>         <td><a>'+KOSANS[i].properties.kamar[ii].penghunifotoktp+'</a></td></tr>'+
+                                '<tr><td>Foto KTM :</td>         <td><a>'+KOSANS[i].properties.kamar[ii].penghunifotoktm+'</a></td></tr>'+
+                                '<tr><td>Latar Belakang :</td>   <td>'+KOSANS[i].properties.kamar[ii].penghunilatar+' </td></tr>'+
+                                '<tr><td>Tgl Masuk :</td>        <td>'+KOSANS[i].properties.kamar[ii].tglmasuk+'</td></tr>'+
+                                '<tr><td>Tgl Keluar :</td>       <td>'+KOSANS[i].properties.kamar[ii].tglkeluar+'</td></tr>'+
+                                '<tr><td>Pembayaran :</td>       <td>'+KOSANS[i].properties.kamar[ii].pmbayaran+'</td></tr>'+
+                                '<tr><td>Sisa Pembayaran :</td>  <td>'+KOSANS[i].properties.kamar[ii].sisapmbayaran+' </td></tr>'+
+                        '</tbody>'+
+                      '</table>'+
+                    '</div>'+
+                  '</div>');
+  
+  syncSidebar();
+}
+
+function modalgalery(i){ 
+  // console.log(i);
+  var urldasar = "aset/img/"+KOSANS[i].properties.foto+"/";
+  console.log(urldasar);
+  var pictureIndex = 0;
+  var pictures = [];
+  function getFiles() {
+    $.ajax({
+      type: 'GET',        
+      url: urldasar,        
+      success:function(data){
+    // $.ajax(urldasar).success(function(data) {
+      pictures = [];
+      $(data).find("a[href]").each(function() {
+        var href = $(this).attr('href');
+        if (href.indexOf('.JPG') > 0 || href.indexOf('.jpg') > 0 || href.indexOf('.png') > 0 || href.indexOf('.jpeg') > 0) {
+          pictures.push(href);
+        }
+      });
+      // console.log(pictures.length + " pictures loaded!");
+      changePicture(0);
+    // });
+    }});
+  }
+  function changePicture(indexOffset) {
+    pictureIndex += indexOffset;
+    if (pictureIndex >= pictures.length) {
+      pictureIndex = 0;
+    } else if (pictureIndex < 0) {
+      pictureIndex = pictures.length - 1;
+    }
+    $('#modalgaleryviewer').attr('src', urldasar + pictures[pictureIndex]);
+    $('#modalgaleryinfo').text((pictureIndex + 1) + "/" + pictures.length);
+  }
+  getFiles();
+  // setInterval(function(){ changePicture(1); }, 2000);
+  $('#goright').on('click', function(){changePicture(1); return false;});
+  $('#goleft').on('click', function(){changePicture(-1); return false;});
+  $(document).keydown(function(e){
+    var left = -1, right = 1;
+      if (e.keyCode == 37) {
+         changePicture(left); return false;
+      } else if (e.keyCode == 39) {
+        changePicture(right); return false;
+      }
+  });
+}
+
+function gambarkamar(i,ii){ 
+  // console.log(i,ii);
+  var urldasar = "aset/img/"+KOSANS[i].properties.foto+"/"+(ii+1)+"/";
+  // console.log(urldasar);
+  var pictureIndex = 0;
+  var pictures = [];
+  function getFiles() {
+    $.ajax({
+      type: 'GET',        
+      url: urldasar,        
+      success:function(data){
+    // $.ajax(urldasar).success(function(data) {
+      pictures = [];
+      $(data).find("a[href]").each(function() {
+        var href = $(this).attr('href');
+        if (href.indexOf('.JPG') > 0 || href.indexOf('.jpg') > 0 || href.indexOf('.png') > 0 || href.indexOf('.jpeg') > 0) {
+          pictures.push(href);
+        }
+      });
+      // console.log(pictures.length + " pictures loaded!");
+      changePicture(0);
+    // });
+    }});
+  }
+  function changePicture(indexOffset) {
+    pictureIndex += indexOffset;
+    if (pictureIndex >= pictures.length) {
+      pictureIndex = 0;
+    } else if (pictureIndex < 0) {
+      pictureIndex = pictures.length - 1;
+    }
+    $('#modalkamarviewer').attr('src', urldasar + pictures[pictureIndex]);
+    $('#modalkamarinfo').text((pictureIndex + 1) + "/" + pictures.length);
+  }
+  getFiles();
+  // setInterval(function(){ changePicture(1); }, 2000);
+  $('#giright').on('click', function(){changePicture(1); return false;});
+  $('#gileft').on('click', function(){changePicture(-1); return false;});
+  $(document).keydown(function(e){
+    var left = -1, right = 1;
+      if (e.keyCode == 37) {
+         changePicture(left); return false;
+      } else if (e.keyCode == 39) {
+        changePicture(right); return false;
+      }
+  });
+}
+
+function INITGAMBARDB(){
+  $.get("json/edumedia.json", function(data, status){
+        // console.log(data.features);
+        for(var i=0; i<data.features.length; i++){
+            KOSANS.push(data.features[i]);
+            var fasum,foto,kontak,lokasi,desclok,kamarmandi;
+            var desc="";
+            for (var ii=0; ii<data.features[i].properties.kamar.length; ii++){
+                desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-book'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+"&nbsp;&nbsp;</a></i></td></tr>"
+            }
+            fasum = data.features[i].properties.fasum;
+            foto = data.features[i].properties.foto;
+            kontak = data.features[i].properties.kontak;
+            lokasi = data.features[i].properties.lokasi;
+            desclok = data.features[i].properties.desclok;  
+            kamarmandi = data.features[i].properties.kamarmandi;
+            
+            var binpop =  "<b> "+data.features[i].properties.judul+"</b></br>"+
+                          "<i>"+data.features[i].properties.desc+"</i><hr style='margin-top: 0.3em; margin-bottom: 0.3em;'><i>"+desclok+"</i><hr style='margin-top: 0.3em; margin-bottom: 0.3em;'>"+
+                          "<i>Jumlah Kamar :&nbsp;"+data.features[i].properties.kamar.length+"</i></br>"+
+                          "<table border=\"1\" class=\"table-striped\" style='font-size:11px'>"+desc+"</table>"+
+                          "<table style='font-size:11px'>"+
+                            "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>"+
+                            "<tr><td>foto kostan</td><td>:&nbsp;<a onclick=\"modalgalery("+i+")\" data-toggle='modal' href='#modalgalery'>Galery</a></td></tr>"+ 
+                            "<tr><td>fasilitas umum</td><td>:&nbsp;"+fasum+"</td></tr>"+
+                            "<tr><td>jml kmr mandi</td><td>:&nbsp;"+kamarmandi+"</td></tr>"+
+                            "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>"+
+                            '<tr><td>link lokasi (direction)</td><td>:&nbsp;<a href="'+lokasi+'">Google Maps</a></td></tr>'+
+                            "<tr><td>kontak</td><td>:&nbsp;"+kontak+"</td></tr>"+
+                          "</table>";
+            // BINpop.push(binpop);
+            var gelo = L.geoJSON(data.features[i]).bindPopup(binpop,{minWidth : 300}).addTo(map);
+            gelo.properties = data.features[i].properties;
+            drawnGeojson.addLayer(gelo);
+            // desc ="";
+            // if(data.features[i].geometry.type == 'circle'){layer.jenis="circle"; drawnCircle.addLayer(layer)}; 
+        }
+        // opsipenyakit(data.features, BINpop);
+        drawnGeojson.on("add",function(){STgeo = true;syncSidebar();});
+        drawnGeojson.on("remove",function(){STgeo = false;syncSidebar();});
+      
+        // BINpop = [];
+        // KOSANS.push(data.features);
+        // console.log(drawnGeojson);
+        // console.log(KOSANS);
+        syncSidebar();
+    }); //ajax
+} //INITGAMBARDB
+
+
     
     var ldraw = new L.Control.Draw({
         edit: {
@@ -1012,54 +1230,52 @@ var ikan = {
         if(event.layerType == 'circle'){layer.jenis="circle"; drawnCircle.addLayer(layer)}; 
         if(event.layerType == 'marker'){layer.jenis="marker"; drawnMarker.addLayer(layer)}; 
         if(event.layerType == 'markerbulat'){layer.jenis="markerbulat"; drawnMarkerBulat.addLayer(layer)}; 
-        drawnALL.push(event);
         syncSidebar();
-        // console.log(drawnALL);
     });
-
-// tinggal manggil drawnALL buat di tabel kiri
-// iterasi[i].layerType = "polygon"
-// iterasi[i].layer._popup._content = "gopalgopel"
-
-var gambargambar = {
-  "Gambar - Gambar":{
-    "Polyline" : drawnPolyline,
-    "Polygon" : drawnPolygon,
-    "Rectangle" : drawnRectangle,
-    "Circle" : drawnCircle,
-    "Marker" : drawnMarker,
-    "MarBulat" : drawnMarkerBulat
-    // "SEMUA" : drawnItems
-  }
-};
-
-var layerControl5 = L.control.groupedLayers(null,gambargambar, {position:'topright'}).addTo(map);
 
 // window prompt, asking bindpopup!    
 function myBindPopUp(objek) {
     var pop1 = prompt("Masukan JUDUL dari gambar / marker", "");
     var pop2 = prompt("Masukan DESKRIPSI dari gambar / marker", "");
     if ((pop1 != null)&&(pop2!= null)) {
-        objek.bindPopup("<table style='font-size:14px'><tr>"+
-                      "<td><b> "+pop1+"</b></td>"+
-                      "</tr></table></br><i>"+pop2+"</i>"
+        objek.bindPopup(
+                      "<table style='font-size:14px'>"+
+                        "<tr><td><b>"+pop1+"</b></td></tr>"+
+                      "</table></br>"+
+                        "<i>"+pop2+"</i></br>"
                       );
         objek.judul = pop1;
         objek.desc = pop2;
     }
 }
 //window prompt, asking bindpopup!
+function flyto(nelat,nelng,swlat,swlng) {
+  map.flyToBounds(L.latLngBounds(L.latLng(nelat,nelng),L.latLng(swlat,swlng)));
+}
+function panto(lat,lng) {
+  map.flyTo(L.latLng(lat,lng),19);
+}
 
 function syncSidebar() {
   /* Empty sidebar features */
   $("#feature-list tbody").empty();
   // $("#feature-lost tbody").empty();
+
+  /* GEOJSON */
+  drawnGeojson.eachLayer(function (layer) {
+    // console.log(layer);
+    if (map.getBounds().contains(layer._layers[(layer._leaflet_id-1)].getLatLng())) {
+      $("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+    }
+  });
+  
+  
   /* POLYLINE */ 
   drawnPolyline.eachLayer(function (layer) {
     // if (map.hasLayer(drawnPolyline)) {
-      console.log(layer);
+      // console.log(layer._bounds);
       if (map.getBounds().contains(layer.getBounds())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
@@ -1068,7 +1284,7 @@ function syncSidebar() {
     // if (map.hasLayer(drawnPolygon)) {
       // console.log(layer);
       if (map.getBounds().contains(layer.getBounds())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
@@ -1077,7 +1293,7 @@ function syncSidebar() {
     // if (map.hasLayer(drawnRectangle)) {
       // console.log(layer);
       if (map.getBounds().contains(layer.getBounds())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
@@ -1086,25 +1302,25 @@ function syncSidebar() {
     // if (map.hasLayer(drawnCircle)) {
       // console.log(layer);
       if (map.getBounds().contains(layer.getBounds())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
   /* MARKER */
   drawnMarker.eachLayer(function (layer) {
     // if (map.hasLayer(drawnMarker)) {
-      console.log(layer);
+      // console.log(layer);
       if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
   /* MARKERBULAT */
   drawnMarkerBulat.eachLayer(function (layer) {
     // if (map.hasLayer(drawnMarkerBulat)) {
-      console.log(layer);
+      // console.log(layer);
       if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     // }
   });
@@ -1309,7 +1525,7 @@ function bebersihform(){
   $("#formtabelorg tbody").empty();
 }
 
-INITTABELLAPORAN();
+// INITTABELLAPORAN();
 function INITTABELLAPORAN(){
   $.get(URLAPI+"laporan", function(data, status){
         console.log(data);
@@ -1331,10 +1547,22 @@ function INITTABELLAPORAN(){
 
 // LEFTBAR
 $("#download-btn").click(function() {
-  console.log(drawnItems);
-  var namafile = "gambar.geojson";
-  var print = JSON.stringify(drawnItems.toGeoJSON())
-  var popup = prompt("Tulis nama filenya. extension jangan diubah", ".geojson");  
+  // console.log(drawnItems);
+  var namafile = "gambar.json";
+  var buff = drawnItems.toGeoJSON();
+  console.log(buff);
+  var i=0;
+  drawnItems.eachLayer(function (layer) {
+    console.log(layer);
+    buff.features[i].properties.judul = layer.judul;
+    buff.features[i].properties.jenis = layer.jenis;
+    buff.features[i].properties.desc = layer.desc;
+    buff.features[i].properties.color = layer.options.color;
+    buff.features[i].properties.radius = layer._mRadius;
+    i++;
+  });
+  var print = JSON.stringify(buff);
+  var popup = prompt("Tulis nama filenya. extension jangan diubah", ".json");  
     if (popup != null) {
         namafile = popup;
     }
@@ -1390,7 +1618,7 @@ function IsJsonString(str) {try {JSON.parse(str)}catch (e) {return false}return 
 
 
 // animateSidebar();
-// animateRightbar();
+animateRightbar();
 
 
 

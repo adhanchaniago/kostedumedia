@@ -1,0 +1,275 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "judul" : "Rumah 01",
+        "desc" : "Jalan Kayu Manis no32 Jakarta Timur",
+        "penghuni" : [
+          {
+            "nama" : "Ahmad Shiddiq Almunawar",
+            "ttl" : "Malang, 26-05-1972",
+            "bb" : 90,
+            "tb" : 165,
+            "diagnosis" : "Hidung mampet, menelan agak sakit",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "130/90",
+            "vaksin_lengkap" : "tidak",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "ya"
+          },
+          {
+            "nama" : "Maya Estianti Risyan",
+            "ttl" : "Surabaya, 27-01-1976",
+            "bb" : 60,
+            "tb" : 160,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "tidak",
+            "hamil" : "ya",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.88630282878877,
+              -6.18695275358132
+            ],
+            [
+              106.88638597726823,
+              -6.186939420648285
+            ],
+            [
+              106.88638865947725,
+              -6.187006085310087
+            ],
+            [
+              106.8863081932068,
+              -6.187016751655187
+            ],
+            [
+              106.88630282878877,
+              -6.18695275358132
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "judul" : "Rumah 02",
+        "desc" : "Jalan Kayu Putih no16 Jakarta Timur",
+        "penghuni" : [
+          {
+            "nama" : "Dhani Wibowo Tsani",
+            "ttl" : "Malang, 27-06-1972",
+            "bb" : 70,
+            "tb" : 170,
+            "diagnosis" : "insomnia",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "130/90",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "ya"
+          },
+          {
+            "nama" : "Mulan Jamila ",
+            "ttl" : "Garut, 23-08-1979",
+            "bb" : 60,
+            "tb" : 162,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "ya"
+          },
+          {
+            "nama" : "Safia Nadiya Shani",
+            "ttl" : "Garut, 26-02-2010",
+            "bb" : 20,
+            "tb" : 100,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "tidak",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.88620626926422,
+              -6.18695542016788
+            ],
+            [
+              106.88627600669862,
+              -6.186950086994733
+            ],
+            [
+              106.8862894177437,
+              -6.187067416791516
+            ],
+            [
+              106.88621968030931,
+              -6.187078083135382
+            ],
+            [
+              106.88620626926422,
+              -6.18695542016788
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "judul" : "Rumah 03",
+        "desc" : "Jalan Kayu Jati no84 Jakarta Timur",
+        "penghuni" : [
+          {
+            "nama" : "Ashraf Bin Thawaf",
+            "ttl" : "UK, 18-09-1979",
+            "bb" : 70,
+            "tb" : 175,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "130/90",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          },
+          {
+            "nama" : "Bunga Citra Lestari",
+            "ttl" : "Jakarta, 22-03-1983",
+            "bb" : 60,
+            "tb" : 168,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "ya",
+            "dm" : "tidak"
+          },
+          {
+            "nama" : "Noah El Farisi M",
+            "ttl" : "Jakarta, 22-09-2010",
+            "bb" : 20,
+            "tb" : 100,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.88673198223115,
+              -6.186878089151996
+            ],
+            [
+              106.8868499994278,
+              -6.186867422804085
+            ],
+            [
+              106.88685804605487,
+              -6.1869474204081465
+            ],
+            [
+              106.88674539327624,
+              -6.1869634199275
+            ],
+            [
+              106.88673198223115,
+              -6.186878089151996
+            ]
+          ]
+        ]
+      }      
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "judul" : "Rumah 04",
+        "desc" : "Jalan Kayu Ambon no1123 Jakarta Timur",
+        "penghuni" : [
+          {
+            "nama" : "Namhaqu Arribawa S",
+            "ttl" : "UK, 18-09-1979",
+            "bb" : 70,
+            "tb" : 175,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "130/90",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          },
+          {
+            "nama" : "Nurbi Shadaqati",
+            "ttl" : "Jakarta, 22-09-2010",
+            "bb" : 20,
+            "tb" : 100,
+            "diagnosis" : "",
+            "gula_darah" : 0,
+            "kolesterol" : 120,
+            "asam_urat" : 500,
+            "tensi" : "100/70",
+            "vaksin_lengkap" : "ya",
+            "hamil" : "tidak",
+            "tbc" : "tidak",
+            "dm" : "tidak"
+          }
+        ]
+      },
+      "geometry": {"type":"Polygon","coordinates":[[[106.88668370246887,-6.186227441535798],[106.886702477932,-6.186363437620131],[106.88684463500978,-6.186350104672237],[106.88683390617372,-6.186198109042418],[106.88675075769426,-6.186222108355296],[106.88668370246887,-6.186227441535798]]]}    
+    }
+
+
+  ]
+}
