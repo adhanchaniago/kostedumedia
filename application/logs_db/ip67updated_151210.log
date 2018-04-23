@@ -1,0 +1,24 @@
+[151122] -- SKM17
+.Menambahkan data berikut ke dalam tabel defined_area_category (harus urut, tinggal copas semuanya ke SQL Query pgadmin)
+	INSERT INTO defined_area_category VALUES (DEFAULT, 'Barat', 'red');
+	INSERT INTO defined_area_category VALUES (DEFAULT, 'Tengah', 'green');
+	INSERT INTO defined_area_category VALUES (DEFAULT, 'Timur', 'blue');
+
+[151204] --SKM17
+Tambah tabel port untuk menu pelabuhan dg query berikut:
+---------------------------------------
+CREATE TABLE port
+(
+  port_id serial NOT NULL,
+  port_name character varying(50),
+  port_lat double precision,
+  port_lon double precision,
+  port_desc character varying(255),
+  CONSTRAINT pk PRIMARY KEY (port_id )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE port
+  OWNER TO postgres;
+---------------------------------------

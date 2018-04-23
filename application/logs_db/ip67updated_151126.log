@@ -1,0 +1,57 @@
+Log perubahan db [YYMMDD]
+
+
+[151001] --Albert Freddy Sagala
+tabel message
+	- Mengubah Data type untuk field id_to dan id_from yang semula smallint menjadi varchar (250)
+
+[151103] -- SKM17
+Bikin tabel message_baru
+--------------------------------------------
+CREATE TABLE message_baru
+(
+  msg_id serial NOT NULL,
+  id_from character varying(5),
+  id_to character varying(5),
+  msg character varying(255),
+  changed_state_time timestamp with time zone DEFAULT now(),
+  created_time timestamp without time zone,
+  state smallint,
+  msg_type smallint,
+  CONSTRAINT msg_pkey PRIMARY KEY (msg_id )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE message_baru
+  OWNER TO postgres;
+---------------------------------------------
+Running this query for inserting data from old message table
+	insert into message_baru (id_from, id_to, msg, changed_state_time, created_time, state, msg_type)
+		select id_from, id_to, msg, changed_state_time, created_time, state, msg_type from message where msg_id>34;
+
+Running this query for changing message state to the new state
+.UPDATE message_baru SET state = 2 WHERE state = 3
+.UPDATE message_baru SET state = 3 WHERE state = 4
+.UPDATE message_baru SET state = 1 WHERE state = 5
+.UPDATE message_baru SET state = 4 WHERE state = 6
+.UPDATE message_baru SET state = 5 WHERE state = 7
+.DELETE FROM message_baru WHERE state = 0
+
+[151122] -- SKM17
+.bikin tabel baru utk pewarnaan area dg query berikut
+------------------------------------------------------------
+CREATE TABLE defined_area_category
+(
+  dac_id serial NOT NULL,
+  dac_description character varying,
+  dac_color character varying,
+  CONSTRAINT def_area_cat_pkey PRIMARY KEY (dac_id )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE defined_area_category
+  OWNER TO postgres;
+------------------------------------------------------------
+.Tambahkan kolom dac_id (smallint) di tabel `defined_area`

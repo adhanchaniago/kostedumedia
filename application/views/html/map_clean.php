@@ -1,0 +1,317 @@
+<html>
+
+<!-- include another html page -->
+<script>
+var LOGINSTAT = false;
+function includeHTML() {
+	var z, i, elmnt, file, xhttp;
+	/*loop through a collection of all HTML elements:*/
+	z = document.getElementsByTagName("*");
+	for (i = 0; i < z.length; i++) {
+		elmnt = z[i];
+		/*search for elements with a certain atrribute:*/
+		file = elmnt.getAttribute("w3-include-html");
+		if (file) {
+			/*make an HTTP request using the attribute value as the file name:*/
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4) {
+					if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+					if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+					/*remove the attribute, and call this function once more:*/
+					elmnt.removeAttribute("w3-include-html");
+					includeHTML();
+				}
+			}      
+			xhttp.open("GET", file, true);
+			xhttp.send();
+			/*exit the function:*/
+			return;
+		}
+	}
+};
+</script>
+<!-- include another html page,, cara makenya: -->
+<!-- <div w3-include-html="h1.html"></div>  -->
+
+<head>
+	<style>
+			@font-face { font-family: sshh; src: url('../aset/fonts/sshh.ttf'); } 
+			h1 {font-family: sshh}
+	</style>
+	<meta charset=utf-8 />
+	<title>Kost Putri EDUMEDIA</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+<!-- klo ngambil dari luar -->
+	<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet-src.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.6"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+
+	<!-- bootstrap dan font awesome -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+	<link rel="icon" type="image/x-icon" href="<?php echo base_url() ?>favicon.ico">
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/font-awesome.min.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleaf/leaflet.groupedlayercontrol.css" />
+	<!-- <link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleaf/L.Control.Locate.css" /> -->
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/ResilientMaps.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleaf/app.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet102/leaflet.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/MarkerCluster.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/L.Control.BetterScale.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leafletdraw/leaflet.draw.css"/>
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-search.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-measure-path.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/wind-js-leaflet.css" />
+</head>
+
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<img class="pull-left" style="width:41px;height:41px;margin-top:5px;z-index:999;" src="<?php echo base_url() ?>aset/img/1.png">
+				<a class="navbar-brand" style="font-family:sshh;font-size:30;font-weight: normal;margin-top:0px;" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn">&nbsp;Kost Putri EDUMEDIA</a>
+			</div>
+			<!-- <div class="navbar-collapse collapse"> -->
+				<ul class="nav navbar-nav pull-right">         
+					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn"><i class="fa fa-list "></i>&nbsp;&nbsp;Legend</a></li> -->
+					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-form-btn"><i class="fa fa-pencil "></i>&nbsp;&nbsp;Form</a></li> -->
+					<li class="btn-group btn-group-sm" style="margin-top:10px;" role="group">
+						<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Backend</button>
+						<button type="button" class="btn btn-danger" id="logout"><i class="fa fa-sign-out"></i>  Logout</button>          
+				</ul>
+			<!-- </div> /.navbar-collapse  -->
+		</div>
+	</div>
+
+	<!-- <div id="atasbar">
+			<div id="logonoah"><img src="<?php echo base_url() ?>aset/img/logo atas.png"></div>
+			<div style="font-size:24;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TPAS </b>
+				<l style="font-size:13;">- Theatre Planning Analysis System</l>
+						<button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn">KANAN</button>
+						<button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn">KIRI</button>      
+			</div>
+	</div>  -->
+	
+	<!-- <div id="infokiri">sdgdfgdfgdfg</div> -->
+	<!-- <div id="infokanan"></div> -->
+	
+
+	<div id="container">
+		<div id="sidebar">
+			<div class="sidebar-wrapper">
+				<!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
+				<div class="panel panel-default" style="max-height: 100%; " id="features">
+					
+					<!-- <div class="panel-heading">
+						<h3 class="panel-title">Legend Draw Map
+						<button type="button" class="btn btn-xs btn-default pull-right" id="tutupS"><i class="fa fa-chevron-left"></i></button></h3>
+					</div>
+
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-8 col-md-8">
+								<input type="text" class="form-control search" placeholder="Filter" />
+							</div>
+							<div class="col-xs-4 col-md-4">
+								<button type="button" class="btn btn-primary pull-right sort" data-sort="feature-name" id="download-btn"><i class="fa fa-download"></i>&nbsp;&nbsp;Download All</button>
+							</div>
+						</div>
+					</div> -->
+					
+					<div class="sidebar-table">
+						<table class="table table-hover table-striped table-condensed" id="feature-list" style="font-size:12px;" >
+							<!-- <thead class="hidden"> -->
+							<thead>
+								<tr>
+									<th>Jenis</th>
+									<th>Judul</th>
+									<th>Deskripsi</th>
+								<tr>
+							</thead>
+							<tbody class="list">
+							 <!--  <tr>
+									<td><img src="<?php echo base_url() ?>aset/img/lingkaran.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr>
+								<tr>
+									<td><img src="<?php echo base_url() ?>aset/img/marker.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr>
+								<tr>
+									<td><img src="<?php echo base_url() ?>aset/img/markerbulat.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr><tr>
+									<td><img src="<?php echo base_url() ?>aset/img/polyline.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr>
+								<tr>
+									<td><img src="<?php echo base_url() ?>aset/img/polygon.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr>
+								<tr>
+									<td><img src="<?php echo base_url() ?>aset/img/kotak.png" width="20" height="20"></td>
+									<td>kawasan bajak laut</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+
+		
+		<div id="map"></div>
+
+		<!-- Modal content -->
+		<!-- <div id="modalcoba" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			</div>
+		</div> -->
+					<div class="modal fade" id="modalcoba" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Detail Kamar</h4>
+								</div>
+								<div id="modalcobabody" class="modal-body">
+									<!-- EMPTY -->
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+					<!-- MODAL GALERY -->
+					<div class="modal fade" id="modalgalery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<!-- <div class="modal-dialog modal-lg" role="document"> -->
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">GALERY</h4>
+								</div>
+								<div class="modal-body" style="text-align: center;">
+									
+									<a id="goleft" style="position:absolute; left:10px;" class="fa fa-chevron-left"></a>
+									<div style="position:absolute; left:50%;" id="modalgaleryinfo"> </div>
+									<a id="goright" style="position:absolute; right:10px;" class="fa fa-chevron-right"></a><br>
+									<img id="modalgaleryviewer" src="" width="100%" />
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+	</div>
+
+	<!-- <div id="map"></div>    -->
+	<!-- <div id="logoresilient" > -->
+		<!-- <img src="<?php echo base_url() ?>aset/img/logosk.png"> -->
+	<!-- </div> -->
+
+
+
+
+	<!-- leaflet -->
+	<script src="<?php echo base_url() ?>aset/leaflet102/leaflet-src.js"></script>
+	<script src="<?php echo base_url() ?>aset/leaflet.rotatedMarker.js"></script>
+	<script src="<?php echo base_url() ?>aset/esri-leaflet-2.0.6.js"></script>
+	<script src="<?php echo base_url() ?>aset/esri-leaflet-cluster-debug.js"></script>
+	<script src="<?php echo base_url() ?>aset/jQuery-v3.1.1.js"></script>
+
+	<!-- leaflet search -->
+	<script src="<?php echo base_url() ?>aset/leaflet-search.js"></script>
+
+	<!-- leaflet grouplayer -->
+	<script src="<?php echo base_url() ?>aset/bootleaf/leaflet.groupedlayercontrol.js"></script>
+
+	<!-- wind -->
+	<script src="<?php echo base_url() ?>aset/wind-js-leaflet.js"></script>
+
+	<!-- leaflet control locate -->
+	<!-- <script src="<?php echo base_url() ?>aset/bootleaf/L.Control.Locate.min.js"></script> -->
+
+	<!-- marker cluster -->
+	<script src="<?php echo base_url() ?>aset/MarkerCluster.js"></script>
+	<script src="<?php echo base_url() ?>aset/DistanceGrid.js"></script>
+	<script src="<?php echo base_url() ?>aset/MarkerClusterGroup.js"></script>
+	<script src="<?php echo base_url() ?>aset/MarkerOpacity.js"></script>
+	<script src="<?php echo base_url() ?>aset/MarkerClusterGroup.Refresh.js"></script>
+	<script src="<?php echo base_url() ?>aset/MarkerCluster.Spiderfier.js"></script>
+	<script src="<?php echo base_url() ?>aset/MarkerCluster.QuickHull.js"></script>
+
+	<!-- scale -->
+	<script src="<?php echo base_url() ?>aset/leaflet.nauticscale.js"></script>
+	<script src="<?php echo base_url() ?>aset/L.Control.BetterScale.js"></script>
+
+	<!-- measurement -->
+	<script src="<?php echo base_url() ?>aset/leaflet-measure-path.js"></script>
+	
+	<!-- draw -->
+	<script src="<?php echo base_url() ?>aset/leafletdraw/Leaflet.draw.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/Leaflet.Draw.Event.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/Toolbar.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/Tooltip.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/GeometryUtil.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/LatLngUtil.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/LineUtil.Intersect.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/Polygon.Intersect.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/Polyline.Intersect.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/ext/TouchEvents.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/DrawToolbar.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Feature.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.SimpleShape.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Polyline.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Circle.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Marker.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerMerah.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerBulat.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerBiru.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerAbu.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerHijau.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.MarkerUngu.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Polygon.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/draw/handler/Draw.Rectangle.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/EditToolbar.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/EditToolbar.Edit.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/EditToolbar.Delete.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/Control.Draw.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/Edit.Poly.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/Edit.SimpleShape.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/Edit.Circle.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/Edit.Rectangle.js"></script>
+	<script src="<?php echo base_url() ?>aset/leafletdraw/edit/handler/Edit.Marker.js"></script>
+
+	<!-- button menu -->
+	<!-- <script src="<?php echo base_url() ?>aset/easy-button.js"></script> -->
+	<!-- <link rel="stylesheet" href="<?php echo base_url() ?>aset/easy-button.css" /> -->
+	<script src="<?php echo base_url() ?>aset/Leaflet.Control.Custom.js"></script>
+	
+	<!-- ESRI -->
+	<!-- <script src="https://unpkg.com/esri-leaflet-vector@1.0.5"></script> -->
+	<!-- <script src="https://unpkg.com/esri-leaflet-cluster@2.0.0"></script> -->
+
+
+	<!-- bootstrap -->
+	<script src="<?php echo base_url() ?>aset/bootstrap.min.js"></script>
+
+	<!-- JSONjs -->
+	<script src="<?php echo base_url() ?>aset/JSONjs/json2.js"></script>
+
+	<!-- MAP ASLI -->
+	<script src="<?php echo base_url() ?>aset/ResilientMaps.js"></script>
+
+</body>
+</html>

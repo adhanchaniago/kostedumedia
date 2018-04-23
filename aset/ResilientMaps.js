@@ -1045,7 +1045,7 @@ function modalkamar(i,ii){
 
 function modalgalery(i){ 
   // console.log(i);
-  var urldasar = "aset/img/"+KOSANS[i].properties.foto+"/";
+  var urldasar = "../aset/img/"+KOSANS[i].properties.foto+"/";
   console.log(urldasar);
   var pictureIndex = 0;
   var pictures = [];
@@ -1140,7 +1140,7 @@ function gambarkamar(i,ii){
 }
 
 function INITGAMBARDB(){
-  $.get("json/edumedia.json", function(data, status){
+  $.get("../json/edumedia.json", function(data, status){
         // console.log(data.features);
         for(var i=0; i<data.features.length; i++){
             KOSANS.push(data.features[i]);
@@ -1265,7 +1265,7 @@ function syncSidebar() {
   drawnGeojson.eachLayer(function (layer) {
     // console.log(layer);
     if (map.getBounds().contains(layer._layers[(layer._leaflet_id-1)].getLatLng())) {
-      $("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+      $("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
     }
   });
   
@@ -1595,7 +1595,7 @@ $("#logout").click(function() {
 });
 
 $("#backend").click(function() {
-  window.location.href = "backend.html";
+  window.location.href = "../admin/users_ctrl";
 });
 
 function animateSidebar() {

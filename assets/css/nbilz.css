@@ -1,0 +1,446 @@
+/***********************************************
+Puskodal
+URL: ?
+AUTHOR: Nabil Amer Thabit (nbilz//lab//dsign | @nbilz)
+EMAIL: nbilz@live.com
+DATE: Jun 20, 2013
+REVISION: 1
+NAME: nbilz.css
+TYPE: Cascading Style Sheet
+DESCRIPTION: Combat Management System
+************************************************/
+
+body{
+    margin: 0;
+}
+
+a,a:visited {
+    color: #333;
+}
+
+input.text,
+textarea.text,
+select.selecting{
+    background: #DFEFFC;
+    border: 1px solid #C5DBEC;
+    color: #2E6E9E;
+    width: 100%;
+    margin: 2px 0 12px 0;
+    box-shadow: inset 0 1px 3px #C5DBEC;
+    transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+}
+
+select.selecting{
+    padding: 2px;
+    height: 25px;
+}
+
+input.text:hover,
+textarea.text:hover,
+select.selecting:hover{
+    border: 1px solid #A5BBCC;
+}
+
+input.text:focus,
+textarea.text:focus,
+select.selecting:focus{
+    outline: none;
+    border: 1px solid #859BAC;
+}
+
+.button-yes{
+    -webkit-appearance: none;
+    -webkit-box-align: center;
+    background: rgb(223, 239, 252) url('redmond/images/ui-bg_glass_85_dfeffc_1x400.png');
+    border: 1px solid rgb(197, 219, 236);
+    box-sizing: border-box;
+    color: rgb(46, 110, 158);
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    float: right;
+    height: 23px;
+    letter-spacing: normal;
+    line-height: normal;
+    margin-top: 5px 4px 5px 0px;
+    outline-color: rgb(46, 110, 158);
+    outline-style: none;
+    outline-width: 0px;
+    overflow-x: visible;
+    overflow-y: visible;
+    padding-bottom: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-transform: none;
+    vertical-align: middle;
+    width: 96px;
+    word-spacing: 0px;
+}
+
+div.sidebar-container.left {
+    border-radius: 0 10px 10px 0;
+    box-shadow: inset 0 0 10px #5F8FBF;
+    height: 250px;
+}
+
+#radiosetview{
+    margin: 0 -20px 0 20px;
+}
+
+#radiosetview:hover{
+    margin: 0 -20px 0 20px;
+}
+
+#lRight{
+    position: absolute;
+    height: 92%;
+    top: 2%;
+    right: 0;
+}
+
+.ui-widget-header,
+.ui-widget-content{
+    border: none;
+}
+
+.ui-widget-header{
+    background: rgba(46, 110, 158, 0.9);
+    border-radius: 10px 0 0 0;
+    box-shadow: inset 0 0 10px #5F8FBF;
+}
+
+.ui-widget-content{
+    border-radius: 5px;
+}
+
+#kridata{
+    height: 100%;
+    overflow-y: scroll;
+    border-radius: 0 0 0 10px;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"],
+.ui-widget-content[aria-describedby="dialog-post-area"],
+.ui-widget-content[aria-describedby="dialog-post-marker"],
+.ui-widget-content[aria-describedby="dialog-post-circle"],
+.ui-widget-content[aria-describedby="dialog-postarea-manual"]{
+    background: transparent;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] .ui-widget-header,
+.ui-widget-content[aria-describedby="dialog-post-area"] .ui-widget-header,
+.ui-widget-content[aria-describedby="dialog-post-marker"] .ui-widget-header,
+.ui-widget-content[aria-describedby="dialog-post-circle"] .ui-widget-header,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] .ui-widget-header{
+    background: rgba(46, 110, 158, 0.9);
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset 0 0 10px #5F8FBF;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] .ui-widget-header span.ui-dialog-title,
+.ui-widget-content[aria-describedby="dialog-post-area"] .ui-widget-header span.ui-dialog-title,
+.ui-widget-content[aria-describedby="dialog-post-marker"] .ui-widget-header span.ui-dialog-title,
+.ui-widget-content[aria-describedby="dialog-post-circle"] .ui-widget-header span.ui-dialog-title,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] .ui-widget-header span.ui-dialog-title{
+    padding: 3px 0;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] .ui-widget-header .ui-dialog-titlebar-close,
+.ui-widget-content[aria-describedby="dialog-post-area"] .ui-widget-header .ui-dialog-titlebar-close,
+.ui-widget-content[aria-describedby="dialog-post-marker"] .ui-widget-header .ui-dialog-titlebar-close,
+.ui-widget-content[aria-describedby="dialog-post-circle"] .ui-widget-header .ui-dialog-titlebar-close,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] .ui-widget-header .ui-dialog-titlebar-close{
+    border-radius: 7px;
+    margin-right: 1px;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] #dialog-chat,
+.ui-widget-content[aria-describedby="dialog-post-area"] #dialog-post-area,
+.ui-widget-content[aria-describedby="dialog-post-marker"] #dialog-post-marker,
+.ui-widget-content[aria-describedby="dialog-post-circle"] #dialog-post-circle,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] #dialog-postarea-manual{
+    background: #FFF;
+    border-radius: 0;
+    margin-top: 1px;
+    padding-top: 8px;
+}
+
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] #dialog-postarea-manual{
+    border-radius: 0 0 10px 10px;
+    padding-bottom: 10px;
+    
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] #dialog-chat{
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] #dialog-chat fieldset,
+.ui-widget-content[aria-describedby="dialog-post-area"] #dialog-post-area fieldset,
+.ui-widget-content[aria-describedby="dialog-post-marker"] #dialog-post-marker fieldset,
+.ui-widget-content[aria-describedby="dialog-post-circle"] #dialog-post-circle fieldset,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] #dialog-postarea-manual fieldset{
+    margin: 0;
+}
+
+.ui-widget-content[aria-describedby="dialog-chat"] .ui-dialog-buttonpane,
+.ui-widget-content[aria-describedby="dialog-post-area"] .ui-dialog-buttonpane,
+.ui-widget-content[aria-describedby="dialog-post-marker"] .ui-dialog-buttonpane,
+.ui-widget-content[aria-describedby="dialog-post-circle"] .ui-dialog-buttonpane,
+.ui-widget-content[aria-describedby="dialog-postarea-manual"] .ui-dialog-buttonpane{
+    margin-top: 0;
+    padding: 5px;
+    border-top: 1px solid rgba(46, 110, 158, 0.9);
+    border-radius: 0 0 10px 10px;
+}
+
+a#logout{
+    border: 1px solid #AAA;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    position: absolute;
+    color: #AAA;
+    background: #FFF;
+    z-index: 9999;
+    right: 0;
+    text-shadow: 0 1px 1px #FFF;
+    margin: 10px 60px 0 0;
+    box-shadow: 0 0 10px #888, inset 0 -10px 10px #EEE;
+}
+
+a#logout:hover{
+    border: 1px solid #7777;
+    color: #777;
+    text-shadow: 0 -1px 1px #FFF;
+    box-shadow: 0 0 10px #888, inset 0 10px 10px #EEE;
+}
+
+a#logout span#chat-num{
+    color: rgba(46, 110, 158, 1);
+    font-weight: bold;
+}
+
+a.chat-nav{
+    border: 1px solid #CCC;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 10px 0;
+    color: #666;
+    text-shadow: 0 1px 1px #FFF;
+    box-shadow: inset 0 -10px 10px #EEE;
+}
+
+ul#contact-list{
+    width: 150px;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    float: left;
+    height: 92%;
+    margin: -10px 0 -15px -11px;
+    /*overflow-y: scroll;*/
+}
+
+ul#contact-list li{
+    border-bottom: 1px solid #CCC;
+}
+
+ul#contact-list li a{
+    text-shadow: 0 1px 1px #FFF;
+    padding: 10px 5px;
+    display: block;
+    box-shadow: inset 0 -10px 10px #EEE;
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+ul#contact-list li a:hover{
+    box-shadow: inset 0 10px 10px #EEE;
+}
+
+ul#contact-list li a.activate{
+    background: rgba(46, 110, 158, 0.9);
+    color: #FFF;
+    text-shadow: 0 1px 1px #333;
+    box-shadow: inset 0 -10px 10px rgba(40, 104, 154, 1);
+}
+
+ul#contact-list li a.close-chat{
+    float: left;
+    border-radius: 10px;
+    padding: 3px 5px 4px 5px;
+    display: block;
+    font-size: 9px;
+    background: #CCC;
+    box-shadow: none;
+    margin: 8px 5px -10px 5px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #999;
+}
+
+ul#contact-list li a.close-chat:hover{
+    background: #DDD;
+    color: #666;
+}
+
+#chat-content{
+    overflow-y: scroll;
+    float: left;
+    height: 92%;
+    margin: -10px 0 -15px 0;
+    border-bottom: 1px solid #CCC;
+}
+
+#chat-content .chat-me,
+#chat-content .chat-you{
+    width: 300px;
+    padding: 5px;
+    line-height: 14px;
+    border-bottom: 1px solid #EEE;
+}
+
+#chat-content .chat-me{}
+
+#chat-content .chat-you{
+    text-align: right;
+}
+
+#chat-content .chat-me span.name,
+#chat-content .chat-you span.name{
+    font-size: 10px;
+    color: #666;
+    font-weight: bold;
+}
+
+#chat-content .chat-me span.timing{
+    float: right;
+    font-size: 9px;
+    color: #999;
+}
+
+#chat-content .chat-you span.timing{
+    float: left;
+    font-size: 9px;
+    color: #999;
+}
+
+textarea#chat-input{
+    position: absolute;
+    margin: 515px 0 0 -170px;
+    border-radius: 0 0 0 5px;
+    border: 1px solid #CCC;
+    height: 35px;
+    width: 400px;
+    padding: 0 5px;
+}
+
+textarea#chat-input:focus{
+    border: 1px solid #999;
+    box-shadow: 0 0 2px #DDD;
+}
+
+input#chat-submit{
+    position: absolute;
+    margin: 515px -2px 0 397px;
+    border-radius: 0 0 5px 0;
+    border: 1px solid #CCC;
+    height: 35px;
+    color: #666;
+    width: 81px;
+    padding: 0 5px;
+    box-shadow: inset 0 0 5px #FFF;
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+input#chat-submit:hover{
+    color: #333;
+    border: 1px solid #999;
+    box-shadow: inset 0 0 2px #FFF;
+}
+
+.dropdowen{
+    border: 1px solid #AAA;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+    color: #AAA;
+    background: #FFF;
+    z-index: 9999;
+    display: block;
+    right: 0;
+    text-align: center;
+    text-shadow: 0 1px 1px #FFF;
+    margin: 10px 255px 0 0;
+    box-shadow: 0 0 10px #888, inset 0 -10px 10px #EEE;
+}
+
+.dropdowen:hover{
+    border: 1px solid #7777;
+    color: #777;
+    text-shadow: 0 -1px 1px #FFF;
+    box-shadow: 0 0 10px #888, inset 0 10px 10px #EEE;
+}
+
+ul.hasil-drop{
+    margin: 5px 0 0 0;
+}
+
+ul.hasil-drop li{}
+
+ul.hasil-drop li a{
+    font-weight: normal;
+    border: 1px solid #AAA;
+    border-bottom: none;
+    display: block;
+    padding: 5px;
+    font-size: 12px;
+    color: #AAA;
+    z-index: 9999;
+    text-shadow: 0 1px 1px #FFF;
+    box-shadow: inset 0 -10px 10px #EEE;
+}
+
+ul.hasil-drop li a:hover{
+    border: 1px solid #7777;
+    color: #777;
+    text-shadow: 0 -1px 1px #FFF;
+    box-shadow: inset 0 10px 10px #EEE;
+}
+
+ul.hasil-drop li:first-child a{
+    border-radius: 5px 5px 0 0;
+}
+
+ul.hasil-drop li:last-child a{
+    border-radius: 0 0 5px 5px;
+    border-bottom: 1px solid #AAA;
+}
+
+span.symbol{
+    position: absolute;
+    font-size: 16px;
+}

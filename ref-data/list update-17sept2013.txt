@@ -1,0 +1,29 @@
+/*
+	db update
+	zaky rahim (zaky.rahim@gmail.com)
+	17 september 2013
+
+*/
+
+refs :
+
+-R70
+-R71
+-R72
+-R73
+-R74
+-R75
+-R76
+-R77
+
+fieds	:
+
+-shipops_seq : serial
+-shipops_create_time : timestamp
+
+tables : 
+
+-aeroplane_viewability
+-marines_viewability
+-station_viewability
+

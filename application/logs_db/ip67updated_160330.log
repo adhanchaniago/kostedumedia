@@ -1,0 +1,145 @@
+Log perubahan db [YYMMDD]
+
+[151108] -- SKM17
+.Delete table formation
+.Delete table ship_formation
+
+[160304] -- SKM17
+Di table groundstation
++Tambahin kolom gs_frec (int)
+
+[160315] -- SKM17
+Buat tabel baru dg me-run query berikut (stripny diikutkan jg ga masalah):
+--------------------
+CREATE TABLE myfleet
+(
+  mf_mmsi integer NOT NULL,
+  mf_name character varying(25),
+  mf_imo integer,
+  mf_callsign character varying(7),
+  mf_flag character varying(255),
+  mf_photos character varying,
+  mf_publicurl character varying,
+  mf_type character varying(50),
+  mf_lat double precision,
+  mf_lon double precision,
+  mf_hdg double precision,
+  mf_course double precision,
+  mf_speed double precision,
+  mf_draught double precision,
+  mf_nav_status character varying(70),
+  mf_location character varying(70),
+  mf_destination character varying(25),
+  mf_etatime timestamp with time zone,
+  mf_positionreceived timestamp with time zone,
+  mf_lastevent_event character varying(255),
+  mf_lastevent_eventtime timestamp with time zone,
+  mf_lastport_arrival timestamp with time zone,
+  mf_lastport_departure timestamp with time zone,
+  mf_lastport_locode character varying(10),
+  mf_lastport_name character varying(50),
+  mf_nextport_country character varying(30),
+  mf_nextport_countryiso2 character varying(5),
+  mf_nextport_locode character varying(10),
+  mf_nextport_name character varying(50),
+  mf_last_reload timestamp with time zone DEFAULT now(),
+  CONSTRAINT myfleet_pk PRIMARY KEY (mf_mmsi )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE myfleet
+  OWNER TO postgres;
+--------------------
+CREATE TABLE myfleet_history
+(
+  mfh_mmsi integer NOT NULL,
+  mfh_name character varying(25),
+  mfh_imo integer,
+  mfh_callsign character varying(7),
+  mfh_flag character varying(255),
+  mfh_photos character varying,
+  mfh_publicurl character varying,
+  mfh_type character varying(50),
+  mfh_lat double precision,
+  mfh_lon double precision,
+  mfh_hdg double precision,
+  mfh_course double precision,
+  mfh_speed double precision,
+  mfh_draught double precision,
+  mfh_nav_status character varying(70),
+  mfh_location character varying(70),
+  mfh_destination character varying(25),
+  mfh_etatime timestamp with time zone,
+  mfh_positionreceived timestamp with time zone,
+  mfh_lastevent_event character varying(255),
+  mfh_lastevent_eventtime timestamp with time zone,
+  mfh_lastport_arrival timestamp with time zone,
+  mfh_lastport_departure timestamp with time zone,
+  mfh_lastport_locode character varying(10),
+  mfh_lastport_name character varying(50),
+  mfh_nextport_country character varying(30),
+  mfh_nextport_countryiso2 character varying(5),
+  mfh_nextport_locode character varying(10),
+  mfh_nextport_name character varying(50),
+  mfh_last_reload timestamp with time zone DEFAULT now()
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE myfleet_history
+  OWNER TO postgres;
+--------------------
+INSERT INTO features (feat_id, feat_name) VALUES ('#myfleet_ctrl', 'Daftar MyFleet');
+INSERT INTO feature_access VALUES ('#myfleet_ctrl', 3, 7);
+--------------------
+INSERT INTO setting VALUES (DEFAULT, 'Tampilkan Kapal MyFleet', 'Ya', '["Ya", "Tidak"]');
+--------------------
+INSERT INTO groundstation VALUES (DEFAULT, 'Cirebon', -6.721944, 108.5725, NULL, '192.168.160.201', FALSE, 8706);
+INSERT INTO groundstation VALUES (DEFAULT, 'Makasar', -5.112778, 119.417222, NULL, '192.168.107.10', FALSE, 8187);
+INSERT INTO groundstation VALUES (DEFAULT, 'Tarakan', 3.266667, 117.616667, NULL, '192.168.182.200', FALSE, NULL);
+INSERT INTO groundstation VALUES (DEFAULT, 'Ambon', -3.656667, 128.218333, NULL, '192.168.115.200', FALSE, NULL);
+INSERT INTO groundstation VALUES (DEFAULT, 'Belawan', 3.784167, 98.680833, NULL, '192.168.110.200', FALSE, NULL);
+INSERT INTO groundstation VALUES (DEFAULT, 'Surabaya', -7.218533, 112.743291, NULL, '192.168.105.201', FALSE, 9041);
+INSERT INTO groundstation VALUES (DEFAULT, 'Batam', 1.082828, 104.030457, NULL, '192.168.230.201', FALSE, NULL);
+
+[160405] -- SKM17
+  Just FYI ini kode utk update data myfleet. Dihapus dr kode, cuma dibackup disini karena sayang barangkali suatu hari nanti dipake lg, riweuh nulisny lg klo nulis ulang
+    client.query(
+      "UPDATE myfleet SET mf_name = $1, mf_imo = $2, mf_callsign = $3, mf_flag = $4, mf_photos = $5, mf_publicurl = $6, mf_type = $7, mf_lat = $8, mf_lon = $9, mf_hdg = $10, mf_course = $11, mf_speed = $12, mf_draught = $13, mf_nav_status = $14, mf_location = $15, mf_destination = $16, mf_etatime = $17, mf_positionreceived = $18, mf_lastevent_event = $19, mf_lastevent_eventtime = $20, mf_lastport_arrival = $21, mf_lastport_departure = $22, mf_lastport_locode = $23, mf_lastport_name = $24, mf_nextport_country = $25, mf_nextport_countryiso2 = $26, mf_nextport_locode = $27, mf_nextport_name = $28, mf_last_reload = DEFAULT WHERE mf_mmsi = $29", 
+      [
+        obj.name, 
+        obj.imonumber,
+        obj.callsign,
+        obj.flag,
+        obj.photos,
+        obj.publicurl,
+        obj.type,
+        obj.latitude, 
+        obj.longitude,
+        obj.heading, 
+        obj.course, 
+        obj.speed, 
+        obj.draught, 
+        obj.navigationstatus, 
+        obj.location, 
+        obj.destination, 
+        obj.etatime, 
+        obj.positionreceived, 
+        obj.lastevent.event, 
+        obj.lastevent.eventtime, 
+        obj.lastport.arrival, 
+        obj.lastport.departure, 
+        obj.lastport.locode, 
+        obj.lastport.name, 
+        obj.nextport.country, 
+        obj.nextport.country_iso2, 
+        obj.nextport.locode, 
+        obj.nextport.name,
+        obj.mmsinumber
+      ], 
+      function(err, result){
+        if (err != null){
+          console.log("Query update storeMyFleet error -> " + err);
+        }
+    });

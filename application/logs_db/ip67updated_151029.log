@@ -1,0 +1,13 @@
+Log perubahan db
+
+[151001] --Albert Freddy Sagala
+table enemy _force
+	- Menambah Field enmap_image dengan type data varchar (250) -> berfungsi untuk menyimpan image
+
+[151009] --GopalGopel
+add new table "running_text" with 5 columns:
+- pk (serial, Primary Key)
+- day (char var 30)
+- datetime (timestamp without timezone)
+- status_desc (char var 255)
+- status (char var 255)

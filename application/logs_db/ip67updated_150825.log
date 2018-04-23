@@ -1,0 +1,96 @@
+Log perubahan db
+
+[150814]
+tabel ship_images -> untuk menyimpan daftar gambar yg diterima dari kapal (sudah ada)
+	+ shipimg_timestamp (timestamp without time zone)
+tabel ship_gallery -> untuk menyimpan daftar gambar yg diupload dari client (belum ada. Jd perlu ditambahkan jika memang ada fitur upload gambar)
+
+[150821]
+Mengubah fungsi postgres:
+~~upsert_ado~~
+declare
+	res record;
+begin
+	insert into ship_ado(ship_id , ado_report) values($1, $2);
+
+	return true;
+exception
+	when others 
+		then return false;
+end
+
+~~upsert_logistics~~
+declare
+	res record;
+begin
+
+	select * into res from ship_logistics
+		where ship_id = $1 and logitem_id = $2;
+
+	if (res is null) then
+		insert into ship_logistics(ship_id , logitem_id, shiplog_value) values($1 , $2, $3);
+	else
+		update ship_logistics set shiplog_value = $3 where ship_id = $1 and logitem_id = $2;
+	end if;
+
+	return true;
+
+exception
+	when others 
+		then return false;
+end
+
+~~upsert_ops~~
+declare
+	res record;
+begin
+
+	select * into res from ship_ops where ship_id = $1 and operation_id = $2;
+
+	if(res is null) then
+		insert into ship_ops(ship_id , ops_stat_id, operation_id) values($1, 1, $2);
+	else
+		delete from ship_ops where ship_id = $1;
+		insert into ship_ops(ship_id , ops_stat_id, operation_id) values($1, 1, $2);
+	end if;
+
+	return true;
+exception
+	when others
+	then return false;
+end
+
+~~upsert_personnel~~
+declare
+	res record;
+begin
+
+	select * into res from personnel
+		where ship_id = $1 and psntype_id = $2;
+
+	raise notice 'ship id : % , psntype : % , psnval : %',$1, $2, $3;
+
+	if (res is null) then
+		if($2 = 10) then
+			insert into personnel(ship_id, psntype_id, psnreff_nrp) values($1, $2, $3);
+		else
+			insert into personnel(ship_id, psntype_id, psn_value) values($1, $2, $3);
+		end if;
+
+	else
+		if($2 = 10) then
+			update personnel set psnreff_nrp = $3 where ship_id = $1 and psntype_id = $2;
+		else
+			update personnel set psn_value = $3 where ship_id = $1 and psntype_id = $2;
+		end if;
+	end if;
+
+	return true;
+	
+exception
+	when others
+	then return false;
+end
+
+
+~~~~~~~~~ABOVE HAD BEEN APPLIED IN PUSKODAL AT 150825~~~~~~~

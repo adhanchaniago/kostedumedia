@@ -1,0 +1,1189 @@
+<html>
+    <head>
+        <title>Map</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/reset.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet-search.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/redmond/jquery-ui-1.10.2.custom.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/ui.panel.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.ie.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.ie.css" /><![endif]-->
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.jgrowl.css" />
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/blue-glass/sidebar.css" />
+        <!--<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.mobile-1.3.1.css" />-->
+
+        <style>
+            body {
+                font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+                font-size: 62.5%;
+            }
+            label, input { display:block; }
+            input.text { margin-bottom:12px; width:95%; padding: .4em; }
+            fieldset { padding:0; border:0; margin-top:25px; }
+            h1 { font-size: 1.2em; margin: .6em 0; }
+            .ui-dialog .ui-state-error { padding: .3em; }
+            .ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+                border-top-right-radius: 0px;
+            }
+            .ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+                border-bottom-left-radius: 0px;
+            }
+            .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+                border-bottom-right-radius: 0px;
+            }
+            .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+                border-top-left-radius: 0px;
+            }
+            .validateTips { border: 1px solid transparent; padding: 0.3em; }
+            div.jGrowl div.warning {
+                background: 		#5c9ccc;
+                color: 					white;
+                border : black;
+            }
+            .leaflet-popup-content-wrapper {
+                border: 1px solid #a6c9e2;
+                background: #dfeffc url('<?php echo base_url() ?>assets/css/redmond/images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x;
+                -webkit-border-radius: 0px;
+                border-radius: 0px;
+            }
+
+            .leaflet-popup-content-wrapper .leaflet-popup-content {
+                background: #dfeffc url('<?php echo base_url() ?>assets/css/redmond/images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x;
+                color: #1d5987;
+            }
+
+
+        </style>
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/nbilz.css" />
+        <script src="<?php echo base_url() ?>assets/js/jquery-1.7.2.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/jquery-ui-1.10.2.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/ui.panel.min.js"></script>
+        <script type="text/javascript" src="<?php echo $this->config->item('socket_ip') ?>/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet-search.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/Marker.Rotate.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.jgrowl.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.sidebar.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/geo.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/latlon.js"></script>
+
+        <script type="text/javascript">
+            var measuring_line = null;
+			var stat_ukur_jarak = false;
+            var start_draw = false;
+            var stop_draw = false;
+            var start_lat = null;
+            var start_lon = null;
+            var distancePopup = false;
+			
+            var configMap = {
+                latCenter : -2.108899,
+                lonCenter : 117.509766,
+                zoom :6,
+                mapUrl : '<?php echo $this->config->item('map_url')?>',
+                mapStyleId : 22677
+            };
+            var conf = {
+                url : '<?php echo base_url() ?>'
+            };
+            var map,marker = new Array(),groupMarkerPoi,markerPoi = new Array(),dataMarkerPoi = new Array(),temp_path = new Array(),polygon_area = new Array(),data_area = new Array(),circle_area = new Array(),data_area_circle = new Array();
+            var count_area = 0,count_area_circle=0,count_marker=0;
+            var bounds = new L.LatLngBounds(new L.LatLng(-18.729502,147.260742), new L.LatLng(18.062312,80.419922));
+            var socket = io.connect('<?php echo $this->config->item('socket_ip') ?>');
+            var markersLayer = new Array();
+            var markerKRI = new Array(),markerKRIdata = new Array();
+            var stat_view = {kri:true,track:false,marine:false,station:false,intelegent:false};
+            var dataMarine,dataStation,dataIntelegent = null;
+            var markerAdditional = new Array();
+			var markerTrack = null;
+            var ShipMarker = L.Icon.extend({
+                options: {
+                    iconSize:     [20, 20],
+                    iconAnchor: [8, 20],
+                }
+            });
+            var IconKI = new ShipMarker({iconUrl:conf.url+'assets/img/icon-ship/blue2/1.-KI.png'}),//MEMASUKAN GAMBAR IKON 
+            IconUnk = new ShipMarker({iconUrl: conf.url+'assets/img/icon-ship/non-kri/1.-Non-NKRI-(Red).png'}),
+            IconMarine = new ShipMarker({iconUrl: conf.url+'assets/img/icon-ship/non-kri/1.-Non-NKRI-(Blue).png'}),
+            IconIntelegent = new ShipMarker({iconUrl: conf.url+'assets/img/icon-ship/non-kri/1.-Non-NKRI-(Green).png'}),
+            IconStation = new ShipMarker({iconUrl: conf.url+'assets/img/icon-ship/non-kri/1.-Non-NKRI-(Yellow).png'});
+            var tempTrack = new Array();
+            $(document).ready(function(){
+                init();
+                getPushdata();
+                kriUpdate();
+                trackUpdate();
+                getMarines();
+                getIntelegentInfo();
+                getStation();
+                var attrib = new L.Control.Attribution;
+                map.addControl(attrib);	
+                attrib.setPrefix('Koordinat : ');
+                function onMouseMove(e) {
+                    attrib.setPrefix('Koordinat : '+viewableCoordinate(e.latlng.lat,'lat') + ", " + viewableCoordinate(e.latlng.lng,'lon'));
+                    if(start_draw==true && !stop_draw){
+                        measuring_line.setLatLngs([start_lat,new L.LatLng(e.latlng.lat,e.latlng.lng)]);
+                        var centerPos = new L.LatLng((start_lat.lat + e.latlng.lat)/2, 
+                        (start_lat.lng + e.latlng.lng)/2);
+                        var distance = start_lat.distanceTo(e.latlng);
+                
+                        popup_distance(distance, new L.LatLng(e.latlng.lat,e.latlng.lng));
+                        map.addLayer(distancePopup)
+                        .fire('popupopen', { popup: distancePopup });
+                    }
+                }
+                map.on('mousemove', onMouseMove);
+                map.on('contextmenu',function(e){
+					if(stat_ukur_jarak){
+						if(!start_draw){
+							start_draw = true;
+							measuring_line = new L.Polyline([new L.LatLng(e.latlng.lat,e.latlng.lng),new L.LatLng(e.latlng.lat,e.latlng.lng)], {color: 'red'}).addTo(map);
+							start_lat = new L.LatLng(e.latlng.lat,e.latlng.lng);
+						}else if(start_draw==true && !stop_draw){
+							stop_draw = true;
+							measuring_line.setLatLngs([start_lat,new L.LatLng(e.latlng.lat,e.latlng.lng)]);
+							var centerPos = new L.LatLng((start_lat.lat + e.latlng.lat)/2, 
+							(start_lat.lng + e.latlng.lng)/2);
+							var distance = start_lat.distanceTo(e.latlng);
+					
+							popup_distance(distance, centerPos,start_lat,new L.LatLng(e.latlng.lat,e.latlng.lng));
+							map.addLayer(distancePopup)
+							.fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+						}
+					}
+                });
+				
+                $("ul#demo_menu2").sidebar({
+                    position:"left"
+                });
+            });
+	
+            function init(){
+                var minimal   = L.tileLayer(configMap.mapUrl, {styleId: configMap.mapStyleId,continuousWorld: 'false'});
+                var southWest = new L.LatLng(85, -180);
+				var northEast = new L.LatLng(-85, 180);
+				var bounds = new L.LatLngBounds(southWest, northEast);
+				map = new L.map('map', {
+                    center: [configMap.latCenter, configMap.lonCenter],
+                    zoom: configMap.zoom,
+					maxBounds : bounds,
+                    layers: [minimal],
+                    maxZoom : 15,
+                    minZoom : 3
+                });
+                var baseLayers = {
+                    "Default": minimal,
+                };
+                // L.control.layers(baseLayers).addTo(map);		
+                
+                init_dialog();
+			
+            }
+		
+		
+            function init_dialog(){
+                $("#radioset_area_circle,#radioset_area_polygon,#radioset_marker").buttonset();
+                $("#radiosetview").buttonset();
+                
+                $("#dialog-chat").dialog({
+                    autoOpen: false,
+                    height: 600,
+                    width: 500,
+                    modal: true
+                });
+			
+            }
+			
+            function viewMarker(id){
+                var tempMarine = [];
+                var tempStation = [];
+                var tempIntelegent = [];
+                switch(id){
+                    case 'radio-kri':
+                        if($("#"+id).attr('checked')=="checked"){
+                            stat_view.kri = true;
+                            socket.emit('reqSubscribe',{mode:'kri'});
+                        }else{
+                            stat_view.kri = false;
+                            socket.emit('reqUnsubscribe',{mode:'kri'});
+                        }
+                        break;
+                    case 'radio-track':
+                        if($("#"+id).attr('checked')=="checked"){
+                            socket.emit('reqSubscribe',{mode:'track'});
+                            stat_view.track = true;
+                        }else{
+                            socket.emit('reqUnsubscribe',{mode:'track'});
+							stat_view.track = false;
+							if(markerTrack!=null){
+								removeTrack();
+							}
+							markerTrack=null;
+                        }
+                        break;
+                    case 'radio-base':
+                        if($("#"+id).attr('checked')=="checked"){
+                            if(markerAdditional['station']!=undefined){
+                                removeAdditional(markerAdditional['station']);
+                            }
+                            if(dataStation!=null){
+                                $.each(dataStation,function(i,item){
+                                    item.station_lat = parseFloat(item.station_lat);
+                                    item.station_lon = parseFloat(item.station_lon);
+                                    tempMarine.push(L.marker([item.station_lat,item.station_lon],{icon:IconStation}).bindLabel('<p align="center">'+item.station_name+'<br />'+viewableCoordinate(item.station_lat,'lat')+' , '+viewableCoordinate(item.station_lon,'lon')+'</p>')
+                                    .on('contextmenu',function(e){
+                                        if(!start_draw){
+                                            start_draw = true;
+                                            measuring_line = new L.Polyline([new L.LatLng(item.station_lat,item.station_lon),new L.LatLng(item.station_lat,item.station_lon)], {color: 'red'}).addTo(map);
+                                            start_lat = new L.LatLng(item.station_lat,item.station_lon);
+                                        }else if(start_draw==true && !stop_draw){
+                                            stop_draw = true;
+                                            measuring_line.setLatLngs([start_lat,new L.LatLng(item.station_lat,item.station_lon)]);
+                                            var centerPos = new L.LatLng((start_lat.lat + item.station_lon)/2, 
+                                            (start_lat.lng + item.station_lon)/2);
+                                            var distance = start_lat.distanceTo(new L.LatLng(item.station_lat,item.station_lon));
+                                            popup_distance(distance, centerPos,start_lat,new L.LatLng(item.station_lat,item.station_lon));
+                                            map.addLayer(distancePopup)
+                                            .fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+                                        }
+                                    })
+                                );
+                                });
+                                markerAdditional['station'] =  L.layerGroup(tempMarine);
+                                map.addLayer(markerAdditional['station']);
+                            }
+                            stat_view.stattion = true;
+                        }else{
+                            stat_view.stattion = false;
+                            if(markerAdditional['station']!=undefined){
+                                removeAdditional(markerAdditional['station']);
+                            }
+                        }
+                        break;
+                    case 'radio-marinir':
+                        if($("#"+id).attr('checked')=="checked"){
+                            stat_view.marine = true;
+                            if(markerAdditional['marine']!=undefined){
+                                removeAdditional(markerAdditional['marine']);
+                            }
+                            if(dataMarine!=null){
+                                $.each(dataMarine,function(i,item){
+                                    item.mar_lat = parseFloat(item.mar_lat);
+                                    item.mar_lon = parseFloat(item.mar_lon);
+                                    tempMarine.push(L.marker([item.mar_lat,item.mar_lon],{icon:IconMarine}).bindLabel('<p align="center">'+item.corps_name+'<br />'+viewableCoordinate(item.mar_lat,'lat')+' , '+viewableCoordinate(item.mar_lon,'lon')+'</p>')
+                                    .on('contextmenu',function(e){
+										if(stat_ukur_jarak){
+											if(!start_draw){
+												start_draw = true;
+												measuring_line = new L.Polyline([new L.LatLng(item.mar_lat,item.mar_lon),new L.LatLng(item.mar_lat,item.mar_lon)], {color: 'red'}).addTo(map);
+												start_lat = new L.LatLng(item.mar_lat,item.mar_lon);
+											}else if(start_draw==true && !stop_draw){
+												stop_draw = true;
+												measuring_line.setLatLngs([start_lat,new L.LatLng(item.mar_lat,item.mar_lon)]);
+												var centerPos = new L.LatLng((start_lat.lat + item.mar_lon)/2, 
+												(start_lat.lng + item.mar_lon)/2);
+												var distance = start_lat.distanceTo(new L.LatLng(item.mar_lat,item.mar_lon));
+												popup_distance(distance, centerPos,start_lat,new L.LatLng(item.mar_lat,item.mar_lon));
+												map.addLayer(distancePopup)
+												.fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+											}
+										}
+                                    })
+                                );
+                                });
+                                markerAdditional['marine'] =  L.layerGroup(tempMarine);
+                                map.addLayer(markerAdditional['marine']);
+                            }
+                        }else{
+                            stat_view.marine = false;
+                            if(markerAdditional['marine']!=undefined){
+                                removeAdditional(markerAdditional['marine']);
+                            }
+                        }
+                        break;
+                    case 'radio-intelejen':
+                        if($("#"+id).attr('checked')=="checked"){
+                            stat_view.intelegent = true;
+                            if(markerPoi.length>0){
+                                for(var i in markerPoi){
+                                    markerPoi[i].setOpacity(1);
+                                }
+                            }
+                            if(circle_area.length>0){
+                                for(var i in circle_area){
+                                    circle_area[i].setStyle({'fillOpacity':0.5});
+                                }
+                            }	
+                            if(polygon_area.length>0){
+                                for(var i in polygon_area){
+                                    polygon_area[i].setStyle({'fillOpacity':0.5});
+                                }
+                            }
+                        }else{
+                            stat_view.intelegent = false;
+                            if(markerPoi.length>0){
+                                for(var i in markerPoi){
+                                    markerPoi[i].setOpacity(0);
+                                }
+                            }
+                            if(circle_area.length>0){
+                                for(var i in circle_area){
+                                    circle_area[i].setStyle({'fillOpacity':0});
+                                }
+                            }
+                            if(polygon_area.length>0){
+                                for(var i in polygon_area){
+                                    polygon_area[i].setStyle({'fillOpacity':0});
+                                }
+                            }
+                        }
+                        break;
+                    }
+				
+                    for(var i in markerKRI){
+                        if(stat_view.kri==true && (markerKRI[i]['kri']!=undefined || markerKRI[i]['kri']!=null )){
+                            markerKRI[i]['kri'].setOpacity(1);
+                            markerKRIdata[i]['kri'].view=true;
+                        }else if(stat_view.kri==false && (markerKRI[i]['kri']!=undefined || markerKRI[i]['kri']!=null )){
+                            markerKRI[i]['kri'].setOpacity(0);
+                            markerKRIdata[i]['kri'].view=false;
+						}
+                    }
+                }
+		
+                function drawMarker(item){
+                    var icon = L.icon({
+                        iconUrl: conf.url+'assets/img/x-green.jpg',
+                        iconSize: [25, 25]
+                    });
+                    var text = "<p><span style='font-weight:bold;'>Nama Marker:</span><br />"+item.name+"</p>"+
+                        "<p><span style='font-weight:bold;'>Deskripsi</span><br />"+item.desc+"</p>"+
+                        "<p><span style='font-weight:bold;'>Tipe</span><br />Intelegent Info</p>";
+                        
+                    markerPoi[count_marker] = new L.marker([parseFloat(item.lat), parseFloat(item.lon)],{icon:icon,opacity:0}).bindPopup(text);
+                    dataMarkerPoi[count_marker] = {poi_name:item.name,poi_description:item.desc,poi_lat:item.lat,poi_lon:item.lon,aoipoi_type_id:0,poi_id:item.id};	
+                    count_marker++;
+                    groupMarkerPoi = L.layerGroup(markerPoi);
+                    map.addLayer(groupMarkerPoi);
+                }
+		
+                function drawCircle(item){
+                    var text = "<p><span style='font-weight:bold;'>Nama Area:</span><br />"+item.name+"</p>"+
+                        "<p><span style='font-weight:bold;'>Deskripsi</span><br />"+item.desc+"</p>"+
+                        "<p><span style='font-weight:bold;'>Tipe</span><br />Intelegent Info</p>";
+                        
+                    circle_area[count_area_circle] = new L.circle([parseFloat(item.lat), parseFloat(item.lon)], parseFloat(item.rad),{color:"red",weight:0,fillOpacity:0}).bindPopup(text);
+                    map.addLayer(circle_area[count_area_circle]);
+                    data_area_circle[count_area_circle] = {'aoi_name':item.name,'aoi_description':item.desc,'aoipoi_type_id':0,'aoi_id':item.id,'aoi_circle_lon':item.lon,'aoi_circle_lat':item.lat,'aoi_circle_rad':item.rad};
+                    count_area_circle++;
+                }
+		
+                function drawArea(item){
+                    temp_path = [];
+                    var path_bound = new Array();
+                    $.each(item.points,function(j,path){
+                        temp_path.push([parseFloat(path.lat),parseFloat(path.lon)]);
+                        path_bound.push({lat:parseFloat(path.lat),lng:parseFloat(path.lon)});
+                    });
+                    var text = "<p><span style='font-weight:bold;'>Nama Area:</span><br />"+item.name+"</p>"+
+                        "<p><span style='font-weight:bold;'>Deskripsi</span><br />"+item.desc+"</p>"+
+                        "<p><span style='font-weight:bold;'>Tipe</span><br />Intelegent Info</p>";
+                   
+                    polygon_area[count_area] = new L.Polygon(temp_path,{color:"red",weight:0,fillOpacity:0}).bindPopup(text);
+                    map.addLayer(polygon_area[count_area]);
+                    data_area[count_area] = {'aoi_name':item.name,'aoi_description':item.desc,'aoipoi_type_id':0,'path':path_bound,'aoi_id':item.id};
+			
+                    count_area++;
+                }
+		
+                function getPushdata(){
+                    socket.emit('reqInitData', {});
+                    socket.once('resInitData', function (data) {
+                        data = eval('('+data+')');
+                        console.log(data);
+                        $.each(data,function(j,data){
+                            if(markerKRI[data.name] === undefined){
+                                markerKRIdata[data.name] = [];
+                                markerKRI[data.name] = [];
+                                $.each(data.ships,function(i,item){
+                                    if(item.protocol=="pos"){
+                                        markerKRIdata[data.name]['kri'] = {title:item.shipId,shipId:item.shipId,lat:item.lat,lon:item.lon,view:true,name:item.name};
+                                        var text = '<div style="margin: 10px; width: 250px;">'+
+                                            '<a href="#" class="chat-nav">Chat</a>'+
+                                            '<div id="ship"></div><br /><br />'+
+                                            '<div id="personnel"></div><br /><br />'+
+                                            '<div id="logistic"></div><br /><br />'+
+                                            '<div id="ado"></div>'+
+                                            '</div>';
+                                        markerKRI[data.name]['kri'] = new L.marker([item.lat,item.lon],{icon:IconKI,iconAngle: parseInt(item.direction),zIndexOffset:1000})
+                                        .bindLabel('<p align="center">'+item.name+'-'+item.shipId+'<br />'+viewableCoordinate(item.lat,'lat')+' , '+viewableCoordinate(item.lon,'lon')+'<br />Direction: '+item.direction+', Speed: '+item.speed+'</p>')
+                                        .on('click', function(){
+                                            ship_data(item.shipId);
+                                            $('#panelRight_1').show();
+                                            $('#kridata').empty();
+                                            $('#kridata').append(text);
+                                        });
+                                        map.addLayer(markerKRI[data.name]['kri']);
+                                        markerKRI[data.name]['kri'].on('contextmenu',function(e){
+                                            if(stat_ukur_jarak){
+												if(!start_draw){
+													start_draw = true;
+													measuring_line = new L.Polyline([new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon)),new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon))], {color: 'red'}).addTo(map);
+													start_lat = new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon));
+												}else if(start_draw==true && !stop_draw){
+													stop_draw = true;
+													measuring_line.setLatLngs([start_lat,new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon))]);
+													var centerPos = new L.LatLng((start_lat.lat + parseFloat(markerKRIdata[data.name]['kri'].lat))/2, 
+													(start_lat.lng + parseFloat(markerKRIdata[data.name]['kri'].lon))/2);
+													var distance = start_lat.distanceTo(new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon)));
+
+													popup_distance(distance, centerPos,start_lat,new L.LatLng(parseFloat(markerKRIdata[data.name]['kri'].lat),parseFloat(markerKRIdata[data.name]['kri'].lon)));
+													map.addLayer(distancePopup)
+													.fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+												}
+											}
+                                        });
+                                        checkContainLatlngCircleArea(markerKRI[data.name]['kri'],'');
+                                        checkContainLatlngPolygonArea(markerKRI[data.name]['kri'],'');
+                                    }
+                                });
+                            }
+                        });
+                    });
+			
+                }
+				
+				function kriUpdate(){
+					socket.on('kriUpdate', function (data) {
+                        data = eval('('+data+')');
+						console.log(data);
+                        $.each(data,function(j,data){
+                            if(markerKRI[data.name] === undefined){ 
+                                markerKRIdata[data.name] = [];
+                                markerKRI[data.name] = [];
+                                $.each(data.ships,function(i,item){
+                                    if(item.protocol=="pos"){
+                                        markerKRIdata[data.name]['kri'] = {title:item.shipId,shipId:item.shipId,lat:item.lat,lon:item.lon,view:true,name:item.name};
+                                        var text = '<div align="center">'+
+                                            '<div id="ship"></div><br /><br />'+
+                                            '<div id="personnel"></div><br /><br />'+
+                                            '<div id="logistic"></div><br /><br />'+
+                                            '<div id="ado"></div>'+
+                                            '</div>';
+                                        markerKRI[data.name]['kri'] = new L.marker([item.lat,item.lon],{icon:IconKI,iconAngle: parseInt(item.coarse),zIndexOffset:1000})
+                                        .bindLabel('<p align="center">'+item.name+'-'+item.shipId+'<br />'+viewableCoordinate(item.lat,'lat')+' , '+viewableCoordinate(item.lon,'lon')+'</p>')
+                                        .on('click', function(){
+                                            ship_data(item.shipId);
+                                            $('#panelRight_1').show();
+                                            $('#kridata').empty();
+                                            $('#kridata').append(text);
+                                        });
+                                        map.addLayer(markerKRI[data.name]['kri']);
+                                        checkContainLatlngCircleArea(markerKRI[data.name]['kri'],'');
+                                        checkContainLatlngPolygonArea(markerKRI[data.name]['kri'],'');
+                                    }
+                                });
+                            }else{
+								console.log(data.ships);
+								$.each(data.ships,function(i,item){
+									if(stat_view.kri==true){
+										markerKRI[data.name]['kri'].setOpacity(1);
+										markerKRIdata[data.name]['kri'] = {title:item.shipId,shipId:item.shipId,lat:item.lat,lon:item.lon,view:true,name:item.name};
+										markerKRIdata[data.name]['kri'].view=true;
+										markerKRI[data.name]['kri'].unbindLabel();
+										markerKRI[data.name]['kri'].bindLabel('<p align="center">'+item.name+'-'+item.shipId+'<br />'+viewableCoordinate(item.lat,'lat')+' , '+viewableCoordinate(item.lon,'lon')+'<br />Direction: '+item.direction+', Speed: '+item.speed+'</p>');
+										markerKRI[data.name]['kri'].setIconAngle(parseInt(item.coarse));
+										markerKRI[data.name]['kri'].setLatLng(new L.LatLng(item.lat , item.lon));
+										markerKRI[data.name]['kri'].update();
+										checkContainLatlngCircleArea(markerKRI[data.name]['kri'],'');
+										checkContainLatlngPolygonArea(markerKRI[data.name]['kri'],'');
+									}
+								});
+								if(stat_view.kri==false && (markerKRI[data.name]['kri']!=undefined || markerKRI[data.name]['kri']!=null)){
+										markerKRI[data.name]['kri'].setOpacity(0);
+										markerKRIdata[data.name].view = false;
+								}else{
+									if(markerKRI[data.name]['kri']!=undefined || markerKRI[data.name]['kri']!=null){
+										markerKRI[data.name]['kri'].setOpacity(1);
+										markerKRIdata[data.name].view = true;
+									}
+								}
+                            }
+                        });
+                    });
+				}
+				
+				function trackUpdate(){
+					socket.on('trackUpdate', function (data) {
+                        data = eval('('+data+')');
+						console.log(data);
+                        $.each(data,function(j,data){
+							if(markerTrack!=null){
+								removeTrack();
+							}
+							tempTrack = [];
+							$.each(data.ships,function(i,item){
+								if(markerTrack!=null){
+									removeTrack();
+								}
+								tempTrack.push(L.marker([item.lat,item.lon],{icon:IconUnk}).bindLabel('<p align="center">'+item.shipId+'<br />'+viewableCoordinate(item.lat,'lat')+' , '+viewableCoordinate(item.lon,'lon')+'</p>')
+								.on('contextmenu',function(e){
+									if(stat_ukur_jarak){
+										if(!start_draw){
+											start_draw = true;
+											measuring_line = new L.Polyline([new L.LatLng(parseFloat(item.lat),parseFloat(item.lon)),new L.LatLng(parseFloat(item.lat),parseFloat(item.lon))], {color: 'red'}).addTo(map);
+											start_lat = new L.LatLng(parseFloat(item.lat),parseFloat(item.lon));
+										}else if(start_draw==true && !stop_draw){
+											stop_draw = true;
+											measuring_line.setLatLngs([start_lat,new L.LatLng(parseFloat(item.lat),parseFloat(item.lon))]);
+											var centerPos = new L.LatLng((start_lat.lat + parseFloat(item.lat))/2, 
+											(start_lat.lng + parseFloat(item.lon))/2);
+											var distance = start_lat.distanceTo(new L.LatLng(parseFloat(item.lat),parseFloat(item.lon)));
+											popup_distance(distance, centerPos,start_lat,new L.LatLng(parseFloat(item.lat),parseFloat(item.lon)));
+											map.addLayer(distancePopup)
+											.fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+										}
+									}
+								})
+								);
+							});
+							if(stat_view.track==false && markerTrack!=null){
+									removeTrack();
+							}else if(stat_view.track==true){
+								if(tempTrack.length>0){
+									markerTrack =  L.layerGroup(tempTrack);
+									map.addLayer(markerTrack);
+								}
+							}
+                            
+                        });
+                    });
+				}
+            
+                function ship_data(id){
+                    getDataAdo(id,"ado");
+                    getDataPersonnel(id,"personnel");
+                    getDataLogistic(id,"logistic");
+                    getDataShip(id,"ship");
+                }
+		
+                function changeMode(currMode){
+                    socket.emit('reqChangeMode', {'mode': currMode});
+                }
+		
+                function getDataLogistic(id,type){
+                    socket.emit('reqLogistics', { shipId: id });
+                    socket.once('resLogistics', function (data) {
+                        console.log(data);
+                        $("#logistic").html("");
+                        var content = '<p style="font-weight:bold;" align="center">Informasi Logistik</p>';
+                        $("#logistic").append(content);
+                        $.each(data,function(i,item){
+                            var result = '<p>'+item.log_desc+' :  '+item.log_value+' '+item.log_metric+'</p>';
+                            $("#logistic").append(result);
+                        });
+                    });
+                }
+		
+                function getDataShip(id,type){
+                    socket.emit('reqShip', { shipId: id });
+                    socket.once('resShip', function (data) {
+                        console.log(data);
+                        $("#ship").html("");
+                        $.each(data,function(i,item){
+                            var result = '<p style="font-weight:bold;" align="center">'+item.ship_name+'-'+item.ship_id+'</p>'+
+                                '<p>Posisi :  '+viewableCoordinate(item.ship_lat,'lat')+' , '+viewableCoordinate(item.ship_long,'lon')+'</p>'+
+                                '<p>Halu :  '+item.ship_direction+'</p>'+
+                                '<p>Cpt :  '+item.ship_speed+' Knott</p>'+
+                                '<p>Pemilik :  '+item.corps_name+' </p>'+
+                                '<p>Nama Operasi :  '+item.operation_name+' </p>'+
+                                '<p>Deskripsi Operasi :  '+item.operation_description+' </p>';
+                            $("#ship").append(result);
+                        });
+                    });
+                }
+		
+                function getDataAdo(id,type){
+                    socket.emit('reqADO', { shipId: id });
+                    socket.once('resADO', function (data) {
+                        console.log(data);
+                        $("#ado").html("");
+                        var content = '<p style="font-weight: bold;" align="center">ADO</p><p>Laporan : </p>';
+                        $("#ado").append(content);
+                        var result = '';
+						var time = null;
+                        $.each(data,function(i,item){
+							time = (item.ado_time)?item.ado_time:'';
+                            result += '<p style="border-top: 1px solid #2E6E9E; padding: 5px 0; line-height: 12px;">'
+                                + '<span style="font-size: 10px; font-weight: bold; color: #999;">'+time+'</span> <br /><span style="font-size:12px; line-height: 13px;">' + item.ado_report + '</span></p>'; 
+					
+                        });
+                        $("#ado").append(result);
+                    });
+                }
+			
+                function getDataPersonnel(id,type){
+                    socket.emit('reqPersonnel', { shipId: id });
+                    socket.once('resPersonnel', function (data) {
+                        console.log(data);
+                        $("#personnel").html("");
+                        var content = '<p style="font-weight:bold;" align="center">Informasi Personil</p>';
+                        $("#personnel").append(content);
+                        var result = '';
+                        $.each(data,function(i,item){
+                            if(item.psn_code==10){
+                                $("#personnel").append('<p>'+item.psn_desc+' : '+item.psn_name+'</p>');
+                            }else{
+                                result += '<p>Jumlah '+item.psn_desc+':  '+item.psn_value+' '+item.psn_metric+'</p>';
+                            }
+                        });
+                        $("#personnel").append(result);
+                    });
+                }
+			
+                function getMarines(){
+				
+                    socket.emit('reqMarines', {});
+                    socket.once('resMarines', function (data) {
+						console.log('marine');
+						console.log(data);
+                        $.each(data,function(i,item){
+                            dataMarine = data;
+                        });
+					
+                    
+                    });
+                }
+			
+                function getStation(){
+				
+                    socket.emit('reqStation', {});
+                    socket.once('resStation', function (data) {
+						console.log('station');
+						console.log(data);
+                        dataStation = data;
+                    });
+                }
+			
+                function getIntelegentInfo(){
+				
+                    socket.emit('reqIntelligence', {});
+                    socket.once('resIntelligence', function (data) {
+						console.log('intelegent');
+						if(data.length>0){
+							for(var i in data){
+								dataIntelegent = data[i].find_intelligence_info;
+							}
+							dataIntelegent = eval('('+dataIntelegent+')');
+							$.each(dataIntelegent,function(i,item){
+								if(item.type=="circle"){
+									drawCircle(item);
+								}else if(item.type=="polygon"){
+									drawArea(item);
+								}else if(item.type=="point"){
+									drawMarker(item);
+								}
+							});
+						}
+                    });
+                }
+		
+                function removeLayer(id) {
+                    map.removeLayer(markersLayer[id]);				
+                }
+		
+                function removeTrack() {
+					map.removeLayer(markerTrack);				
+				}
+			
+                function removeAdditional(name){
+                    map.removeLayer(name);
+                }
+		
+                function popup_distance(distance, coord,start_pos,stop_pos) {
+                    start_pos = start_pos || "";
+                    stop_pos = stop_pos || "";
+                    var baringan = ""; 
+                    if (!distancePopup) {
+                        distancePopup = new L.Popup(this.options, this);
+                    }
+                    var miles = parseFloat((distance/1000) * 0.6214);
+                    if(stop_draw){
+                        if(start_pos!="" && stop_pos!=""){
+                            baringan = "<b>Baringan: </b><br />"+calculate_bearing(start_pos,stop_pos)+"<br />";
+                        }
+                        distancePopup.setContent("<b>Jarak: </b></br>"+miles.toFixed(2)+" mil<br />"+baringan+"<input type='button' onclick='hapus_jarak();' value='Hapus Jarak' />");
+                    }else{
+                        distancePopup.setContent("<b>Jarak: </b></br>"+miles.toFixed(2)+" mil");
+                    }
+                    distancePopup.setLatLng(coord);
+                }
+		
+                function OnmouseClickTrack(e){
+					if(stat_ukur_jarak){
+						if(!start_draw){
+							start_draw = true;
+							measuring_line = new L.Polyline([new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon),new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon)], {color: 'red'}).addTo(map);
+							start_lat = new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon);
+						}else if(start_draw==true && !stop_draw){
+							stop_draw = true;
+							measuring_line.setLatLngs([start_lat,new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon)]);
+							var centerPos = new L.LatLng((start_lat.lat + markerKRIdata[data.name]['kri'].lat)/2, 
+							(start_lat.lng + markerKRIdata[data.name]['kri'].lon)/2);
+							var distance = start_lat.distanceTo(new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon));
+
+							popup_distance(distance, centerPos,start_lat,new L.LatLng(markerKRIdata[data.name]['kri'].lat,markerKRIdata[data.name]['kri'].lon));
+							map.addLayer(distancePopup)
+							.fire('popupopen', { popup: distancePopup }).on('popupclose',function(e){hapus_jarak()});
+						}
+					}
+                }
+		
+                function hapus_jarak(){
+                    start_draw = false;
+                    stop_draw = false;
+                    start_lat = null;
+                    start_lon = null;
+                    if(measuring_line!=null){
+                        map.removeLayer(measuring_line);
+                    }
+                    measuring_line = null;
+                    if(distancePopup!=null){
+                        map.removeLayer(distancePopup);
+                    }
+                    distancePopup = false;
+                }
+		
+                function calculate_bearing(start_pos,stop_pos){
+                    var lat1 = Geo.parseDMS(start_pos.lat);
+                    var lon1 = Geo.parseDMS(start_pos.lng);
+                    var lat2 = Geo.parseDMS(stop_pos.lat);
+                    var lon2 = Geo.parseDMS(stop_pos.lng);
+                    var p1 = new LatLon(lat1, lon1);
+                    var p2 = new LatLon(lat2, lon2);
+
+                    return Geo.toBrng(p1.bearingTo(p2),'dm');
+                }
+		
+                function viewableCoordinate(deg,type){
+                    var sign = '';
+                    if(type=='lat'){
+                        var result = Geo.toLat(deg,'dms',4);
+                    }else{
+                        var result = Geo.toLon(deg,'dms',4);
+                    }
+                    // if(deg < 0){
+                        // sign = '-';
+                    // }
+                    var deg = Math.floor(Math.abs(deg));
+
+                    return sign+result;
+                }
+		
+                function checkContainLatlngCircleArea(marker,i){
+                    if(i==''){
+                        for(var i in circle_area){
+                            var text = '';
+						
+						
+                            if(isPointInCircle(circle_area[i]._latlng.lat,circle_area[i]._latlng.lng,(circle_area[i].getRadius()/1000),marker._latlng.lat,marker._latlng.lng)){
+                                text += marker.options.title+', ';
+                            }
+						
+					
+                            if(text!=""){
+                                text.substr(-2);
+                                text +=' berada di wilayah '+data_area_circle[i].aoi_name+'';
+                                messageWarning(text);
+                            }
+                        }
+                    }else{
+                        var text = '';
+				
+					
+                        if(isPointInCircle(circle_area[i]._latlng.lat,circle_area[i]._latlng.lng,(circle_area[i].getRadius()/1000),marker._latlng.lat,marker._latlng.lng)){
+                            text += marker.options.title+', ';
+                        }
+					
+
+                        if(text!=""){
+                            text.substr(-2);
+                            text +=' berada di wilayah '+data_area_circle[i].aoi_name+'';
+                            messageWarning(text);
+                        }
+                    }
+                }
+                function checkContainLatlngPolygonArea(marker,i){
+                    if(i==''){
+                        for(var i in polygon_area){
+                            var text = '';
+						
+                            if(polygon_area[i].getBounds().contains(marker._latlng)){
+                                text += marker.options.title+', ';
+                            }
+					
+                            if(text!=''){
+                                text.substr(-2);
+                                text +=' berada di wilayah '+data_area[i].aoi_name+'';
+                                messageWarning(text);
+                            }
+					
+                        }
+                    }else{
+                        var text = '';
+					
+                        if(polygon_area[i].getBounds().contains(marker._latlng)){
+                            text += marker.options.title+', ';
+                        }
+				
+                        if(text!=''){
+                            text.substr(-2);
+                            text +=' berada di wilayah '+data_area[i].aoi_name+'';
+                            messageWarning(text);
+                        }
+                    }
+                }
+		
+                function messageWarning(text){
+                    if(text!=''){
+                        $.jGrowl(text, { 
+                            header: 'Peringatan !!',
+                            theme: 'warning',
+                            speed: 'slow',
+                            animateOpen: { 
+                                height: "show"
+                            },
+                            animateClose: { 
+                                height: "hide"
+                            }
+                        });
+                    }
+                }
+
+                function isPointInCircle(centerX,centerY,radius,x,y)
+                {
+                    var R = 6371; // Radius of the Earth in km
+                    var dLat = (x - centerX) * Math.PI / 180;
+                    var dLon = (y - centerY) * Math.PI / 180;
+                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(centerX * Math.PI / 180) * Math.cos(x * Math.PI / 180) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    var d = R * c;
+                    if( d < radius ){
+                        return true;
+                    }
+                    return false;
+                }
+                
+                var count_line=2;
+                function add_more_line(){
+                    var line = document.createElement('div');
+                    line.setAttribute('id', 'line'+ count_line);
+                    line.innerHTML =
+                        '<p style="border-bottom: 1px solid #CCC; padding-bottom: 5px; margin-bottom: 5px;">Titik' + count_line + '</p>'+
+                        '<label for="lattitude">Lattitude :</label>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lat_degree'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#176;</div>'+
+                        '</div>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lat_minute'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#39;</div>'+
+                        '</div>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lat_second'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#34;</div>'+
+                        '</div>'+
+                        '<select name="pol_lat_point'+count_line+'" class="selecting" style="width: 91px;">'+
+                        '<option value="U">U</option>'+
+                        '<option value="S">S</option>'+
+                        '</select>'+
+                        '<label for="lattitude">Longitude :</label>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lon_degree'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#176;</div>'+
+                        '</div>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lon_minute'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#39;</div>'+
+                        '</div>'+
+                        '<div style="width: 104px; float: left; margin: 0 20px 0 0;">'+
+                        '<input type="text" name="pol_lon_second'+count_line+'" size="5" class="text ui-widget-content ui-corner-all" style="float: left; margin-right: 3px;" /> <span class="symbol">&#34;</div>'+
+                        '</div>'+
+                        '<select name="pol_lon_point'+count_line+'" class="selecting" style="width: 91px;">'+
+                        '<option value="T">T</option>'+
+                        '<option value="B">B</option>'+
+                        '</select>';
+                    $("#add_more_line").append(line);
+                    $("#total_line_polygon").val(count_line);
+                    count_line++;
+                }
+        </script>
+        <script type="text/javascript">
+                $(document).ready(function(){
+					$('.ukur_jarak').click(function(event){
+						event.preventDefault();
+						if(stat_ukur_jarak){
+							stat_ukur_jarak = false;
+							hapus_jarak();
+							$(this).text('Ukur Jarak');
+						}else{
+							stat_ukur_jarak = true;
+							$(this).text('Batal Ukur Jarak');
+						}
+					});
+                    $('#panelRight_1').panel({
+                        collapseType:'slide-right',
+                        'collapsible':false,
+                        trueVerticalText:true,
+                        vHeight:'10px',
+                        width:'200px'
+                    });
+                    $('#panelRight_1').hide();
+                
+                    $('a.chat-nav, .chat-tok').live('click', function(e){
+                        e.preventDefault();
+                    
+                        $('#dialog-chat').dialog('open');
+                        $('ul#contact-list li a').removeClass('activate');
+                        $('ul#contact-list li:first-child a').addClass('activate'); //Ini default kalo kita pilih kapal yang mana
+                    
+                    });
+                
+                    $('ul#contact-list li a').live('click', function(e){
+                        e.preventDefault();
+                    
+                        $('ul#contact-list li a').removeClass('activate');
+                        $(this).addClass('activate');
+                    });
+                
+                });
+        </script>
+    </head>
+    <body>
+        <a href="#" id="logout" class="ukur_jarak" style="margin: 10px 380px 0 0; width: 100px; text-align: center;">Ukur Jarak</a>
+
+        <a href="#" id="logout" style="margin: 10px 130px 0 0; width: 100px; text-align: center;" class="chat-tok">Chat <span id="chat-num">(1)</span></a>
+        <a href="<?php echo base_url()?>home/logout" id="logout">Log Out</a>
+        <div id="lRight">
+            <div id="panelRight_1" class="panel" style="position:relative; z-index: 9999; width: auto !important;">
+                <h3><div style="margin: 5px 10px;">Informasi Kapal<span onclick="$('#panelRight_1').hide();" style="float: right;">Tutup</span></div></h3>
+                <div id="kridata"></div>
+            </div>
+        </div>
+        <div style="width:100%; height:100%" id="map"></div>
+        <div id="dialog-chat" title="Chat">
+            <ul id="contact-list">
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Yos Sudarso-12</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Gatot Kaca-182</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Burgerkill-666</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Jalak Harupat-11</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Mas Kambai-1945</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Yos Sudarso-12</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Gatot Kaca-182</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Burgerkill-666</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Jalak Harupat-11</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Mas Kambai-1945</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Yos Sudarso-12</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Gatot Kaca-182</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Burgerkill-666</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Jalak Harupat-11</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Mas Kambai-1945</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Yos Sudarso-12</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Gatot Kaca-182</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Burgerkill-666</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Jalak Harupat-11</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Mas Kambai-1945</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Yos Sudarso-12</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Gatot Kaca-182</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Burgerkill-666</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Jalak Harupat-11</a>
+                </li>
+                <li>
+                    <a href="#" class="close-chat">X</a>
+                    <a href="#">Mas Kambai-1945</a>
+                </li>
+            </ul>
+            <div id="chat-content">
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:04</span>
+                    <span class="name">Operator:</span><br />
+                    Hello!
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    Yup?
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Where are you came from?<br />
+                    Are you Human?
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    We are from Mars!
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Hello!
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    Yup?
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Where are you came from?<br />
+                    Are you Human?
+                </div>
+                <div class="chat-you">
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    We are from Mars!
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Hello!
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    Yup?
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Where are you came from?<br />
+                    Are you Human?
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    We are from Mars!
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Hello!
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    Yup?
+                </div>
+                <div class="chat-me">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Operator:</span><br />
+                    Where are you came from?<br />
+                    Are you Human?
+                </div>
+                <div class="chat-you">
+                    <span class="timing">June 24, 2013 - 23:10:23</span>
+                    <span class="name">Yos Sudarso-12:</span><br />
+                    We are from Mars!
+                </div>
+            </div>
+            <textarea id="chat-input"></textarea>
+            <input type="submit" value="Send" id="chat-submit" />
+        </div>
+
+        <div id="dialog-marker-option" title="">
+            <div id="result">
+
+            </div>
+        </div>
+        <ul id="demo_menu2">
+            <li>
+                <div id="radiosetview">
+                    <input type="checkbox" value="radio-kri" id="radio-kri" class="view" name="radio" checked="checked" onclick="viewMarker(this.id);"/><label for="radio-kri" style="width: 90px;">KRI</label><br />
+                    <input type="checkbox" value="radio-track" id="radio-track" class="view" name="radio" onclick="viewMarker(this.id);" /><label for="radio-track" style="width: 90px;"  >TRACK</label><br />
+                    <input type="checkbox" value="radio-base" id="radio-base" class="view" name="radio" onclick="viewMarker(this.id);" /><label for="radio-base" style="width: 90px;"  >PANGKALAN</label><br />
+                    <input type="checkbox" value="radio-marinir" id="radio-marinir" class="view" name="radio" onclick="viewMarker(this.id);" /><label for="radio-marinir" style="width: 90px;"  >MARINIR</label><br />
+                    <input type="checkbox" value="radio-intelejen" id="radio-intelejen" class="view" name="radio" onclick="viewMarker(this.id);" /><label for="radio-intelejen" style="width: 90px;"  >INFORMASI INTELEJEN</label><br />
+                    <input type="checkbox" value="radio-imss" id="radio-imss" class="view" name="radio" onclick="viewMarker(this.id);" /><label for="radio-imss" style="width: 90px;"  >IMSS</label><br />
+                    <!--<span style="color:navy;cursor:pointer;" onClick="$('#panelRight_1').panel('enable')">disable this panel</span>.</div>-->
+                    <!--<input type="checkbox" value="radio-kriais" class="view" name="radio" /><label for="radio-kriais" style="width:75px;">KRI + TRACK</label>-->
+                </div>
+            </li>
+        </ul>
+    </body>
+</html>

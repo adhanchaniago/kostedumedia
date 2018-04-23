@@ -1,0 +1,47 @@
+Icon Spesicication :
+
+*Icon type : vector image
+
+*Color type RGB
+
+*size layar .png: 
+resolusi 400px
+heigth 25px
+width 15px
+
+*size sandar .png: 
+resolusi 400px
+heigth 22px
+width 22px
+
+Pasenger : 
+outline 98;77;43;11
+fill 95;49;1;0
+
+Fishing :
+outline 41;100;98;4
+fill 0;28;24;0
+
+cargo :
+outline 95;44;98;13
+fill 20;0;60;0
+
+tanker :
+outline 52;98;96;11
+fill 4;99;93;0
+
+yacht :
+outline 52;98;96;11
+fill 153;6;148
+
+highspeed :
+outline 123;0;0
+fill 248;295;0
+
+tug :
+outline 10;11;12
+fill 182;221;199
+
+other :
+outline 31;26;23
+fill 131;130;129
