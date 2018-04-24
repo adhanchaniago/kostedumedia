@@ -230,6 +230,7 @@ class Html extends CI_Controller {
         // } end ADDED */
         
         $this->data['user'] = $user;
+        $this->data['permission'] = $permission;
     }
     
     function logged_in() {

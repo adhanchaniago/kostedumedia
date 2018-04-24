@@ -84,7 +84,7 @@ function includeHTML() {
 					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-form-btn"><i class="fa fa-pencil "></i>&nbsp;&nbsp;Form</a></li> -->
 					<li class="btn-group btn-group-sm" style="margin-top:10px;" role="group">
 						<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Backend</button>
-						<button type="button" class="btn btn-danger" id="logout"><i class="fa fa-sign-out"></i>  Logout</button>          
+						<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>          
 				</ul>
 			<!-- </div> /.navbar-collapse  -->
 		</div>
@@ -312,6 +312,95 @@ function includeHTML() {
 
 	<!-- MAP ASLI -->
 	<script src="<?php echo base_url() ?>aset/ResilientMaps.js"></script>
-
+	<script>
+		
+<?php if (is_has_access('ssat', $permission)) { ?>
+	function modalkamar(i,ii){
+		// console.log("bikin append");
+		// console.log(KOSANS);
+		$("#modalcobabody").empty();
+		
+		$("#modalcobabody").append(
+			'<ul class="nav nav-tabs" role="tablist">'+
+				'<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
+				'<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
+				'<li role="presentation"><a href="#ketpenghuni" aria-controls="ketpenghuni" role="tab" data-toggle="tab">Penghuni (nanti khusus admin)</a></li>'+
+			'</ul>'+
+			'<div class="tab-content">'+
+				'<div role="tabpanel" class="tab-pane active" id="ketdetail">'+
+					'<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
+						'<tbody class="list">'+
+							'<tr><td>Nama :</td>                  <td>'+KOSANS[i].properties.kamar[ii].nama+'</td></tr>'+ 
+							'<tr><td>Luas :</td>                  <td>'+KOSANS[i].properties.kamar[ii].luas+'</td></tr>'+
+							'<tr><td>Fasilitas :</td>             <td>'+KOSANS[i].properties.kamar[ii].fasilitas+'</td></tr>'+
+							'<tr><td>Harga /thn :</td>            <td>'+KOSANS[i].properties.kamar[ii].hargath+'</td></tr>'+
+							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+'</td></tr>'+
+						'</tbody>'+
+					'</table>'+
+				'</div>'+
+				'<div role="tabpanel" style="text-align: center;" class="tab-pane" id="ketgalery">'+
+					'<a id="gileft" style="position:absolute; left:10px;" class="fa fa-chevron-left"></a>'+
+					'<div style="position:absolute; left:50%;" id="modalkamarinfo"> </div>'+
+					'<a id="giright" style="position:absolute; right:10px;" class="fa fa-chevron-right"></a><br>'+
+					'<img id="modalkamarviewer" src="" width="80%" />'+
+				'</div>'+
+				'<div role="tabpanel" class="tab-pane" id="ketpenghuni">'+
+					'<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
+						'<tbody class="list">'+
+							'<tr><td>Foto :</td>             <td>'+KOSANS[i].properties.kamar[ii].penghunifoto+'</td></tr>'+
+							'<tr><td>Nama Penghuni:</td>     <td>'+KOSANS[i].properties.kamar[ii].penghuninama+'</td></tr>'+ 
+							'<tr><td>No HP :</td>            <td>'+KOSANS[i].properties.kamar[ii].penghunihp+'</td></tr>'+
+							'<tr><td>No HP darurat :</td>    <td>'+KOSANS[i].properties.kamar[ii].penghunihpdarurat+'</td></tr>'+
+							'<tr><td>Alamat :</td>           <td>'+KOSANS[i].properties.kamar[ii].penghunialamat+'</td></tr>'+
+							'<tr><td>No KTP :</td>           <td>'+KOSANS[i].properties.kamar[ii].penghuninoktp+'</td></tr>'+
+							'<tr><td>Foto KTP :</td>         <td><a>'+KOSANS[i].properties.kamar[ii].penghunifotoktp+'</a></td></tr>'+
+							'<tr><td>Foto KTM :</td>         <td><a>'+KOSANS[i].properties.kamar[ii].penghunifotoktm+'</a></td></tr>'+
+							'<tr><td>Latar Belakang :</td>   <td>'+KOSANS[i].properties.kamar[ii].penghunilatar+' </td></tr>'+
+							'<tr><td>Tgl Masuk :</td>        <td>'+KOSANS[i].properties.kamar[ii].tglmasuk+'</td></tr>'+
+							'<tr><td>Tgl Keluar :</td>       <td>'+KOSANS[i].properties.kamar[ii].tglkeluar+'</td></tr>'+
+							'<tr><td>Pembayaran :</td>       <td>'+KOSANS[i].properties.kamar[ii].pmbayaran+'</td></tr>'+
+							'<tr><td>Sisa Pembayaran :</td>  <td>'+KOSANS[i].properties.kamar[ii].sisapmbayaran+' </td></tr>'+
+						'</tbody>'+
+					'</table>'+
+				'</div>'+
+			'</div>');
+		
+		syncSidebar();
+	}
+<?php } else { ?>
+	function modalkamar(i,ii){
+		// console.log("bikin append");
+		// console.log(KOSANS);
+		$("#modalcobabody").empty();
+		
+		$("#modalcobabody").append(
+			'<ul class="nav nav-tabs" role="tablist">'+
+				'<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
+				'<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
+			'</ul>'+
+			'<div class="tab-content">'+
+				'<div role="tabpanel" class="tab-pane active" id="ketdetail">'+
+					'<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
+						'<tbody class="list">'+
+							'<tr><td>Nama :</td>                  <td>'+KOSANS[i].properties.kamar[ii].nama+'</td></tr>'+ 
+							'<tr><td>Luas :</td>                  <td>'+KOSANS[i].properties.kamar[ii].luas+'</td></tr>'+
+							'<tr><td>Fasilitas :</td>             <td>'+KOSANS[i].properties.kamar[ii].fasilitas+'</td></tr>'+
+							'<tr><td>Harga /thn :</td>            <td>'+KOSANS[i].properties.kamar[ii].hargath+'</td></tr>'+
+							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+'</td></tr>'+
+						'</tbody>'+
+					'</table>'+
+				'</div>'+
+				'<div role="tabpanel" style="text-align: center;" class="tab-pane" id="ketgalery">'+
+					'<a id="gileft" style="position:absolute; left:10px;" class="fa fa-chevron-left"></a>'+
+					'<div style="position:absolute; left:50%;" id="modalkamarinfo"> </div>'+
+					'<a id="giright" style="position:absolute; right:10px;" class="fa fa-chevron-right"></a><br>'+
+					'<img id="modalkamarviewer" src="" width="80%" />'+
+				'</div>'+
+			'</div>');
+		
+		syncSidebar();
+	}
+<?php } ?>
+	</script>
 </body>
 </html>
