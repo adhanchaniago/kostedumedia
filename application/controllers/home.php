@@ -18,27 +18,7 @@ class Home extends CI_Controller {
 
     public function index() {
         $this->is_logged_in();
-
-        $this->load->view('home/home');
     }
-
-//    public function login() {
-//        if ($this->session->userdata('user_login')) {
-//            redirect('');
-//        }
-//        $this->form_validation->set_rules('login', 'Login', 'trim|required|xss_clean');
-//        $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-//        if ($this->form_validation->run() === TRUE) {
-//            if (strtolower($this->input->post('login')) == 'operator' && strtolower($this->input->post('password')) == 'operator') {
-//                $this->session->set_userdata('user_login', 'operator');
-//                redirect('');
-//            } else if (strtolower($this->input->post('login')) == 'viewer' && strtolower($this->input->post('password')) == 'viewer') {
-//                $this->session->set_userdata('user_login', 'viewer');
-//                redirect('');
-//            }
-//        }
-//        $this->load->view('home/login');
-//    }
 
     /**
      * Login user on the site
@@ -141,10 +121,6 @@ class Home extends CI_Controller {
         }
     }
 
-//    public function logout() {
-//        $this->session->unset_userdata('user_login');
-//        redirect('');
-//    }
     /**
      * Logout user
      *
@@ -159,7 +135,7 @@ class Home extends CI_Controller {
     private function is_logged_in() {
         $sess = $this->session->userdata('user_login');
         if (!isset($sess) || $sess == false) {
-            redirect('home/login');
+            redirect('html/map_clean');
         }
     }
 

@@ -12,13 +12,19 @@ class Html extends CI_Controller {
         parent::__construct();      
         $this->load->helper('acl');
         $this->load->helper('url');
-       $this->load->helper('string');
-       $this->load->library('session');
-       $this->load->library('tank_auth');
-       $this->load->database();
-       $this->load->library('dao/user_role_dao');
-       $this->load->library('dao/role_dao');
-       $this->logged_in();
+        $this->load->helper('string');
+        $this->load->library('session');
+        $this->load->library('tank_auth');
+        $this->load->database();
+        $this->load->library('dao/user_role_dao');
+        $this->load->library('dao/role_dao');
+        $this->logged_in();
+    }
+    
+    function logged_in() {
+        if (!$this->tank_auth->is_logged_in()) {
+            $this->map_clean();
+        }
     }
 
     public function index() {
@@ -35,55 +41,33 @@ class Html extends CI_Controller {
     }
 
     public function map_clean() {
-           
         $this->role_user();
-        // print_r($this->role); exit();
-        $map_url = $this->config->item('map_url');
-        if(!is_null($this->role->role_mapurl) && $this->role->role_mapurl != '' ){
-            $map_url = $this->role->role_mapurl;
-        }
-
-        $this->data['map_url'] = $map_url;
-		// $this->data['marker_category'] = $this->db->query("SELECT * FROM generic_marker_category ORDER BY gmarkcat_id ASC")->result();
-        // $this->data['ship_types'] = json_encode($this->db->query("SELECT shiptype_id AS id, shiptype_icon AS file FROM ship_type")->result());
-        
-        //TODO running text di non aktifkan untuk keperluan running di database lokal, nyalain lagi kalau udah beres
-        // $obj_run_text = $this->db->query("SELECT * FROM running_text WHERE status = 'on'")->result();
-        // if($obj_run_text != null){
-        //    $date = new DateTime($obj_run_text[0]->datetime);                
-        //    $this->data['running_text'] = $obj_run_text[0]->status_desc;
-        //    // $this->data['running_text'] = $obj_run_text[0]->day.", ".$date->format('d-m-Y H:i:s').": ".$obj_run_text[0]->status_desc;
-
-        //    // kl jd current day
-        //    //  $dayNames = array(                      
-        //    //      0=>'Senin', 
-        //    //      1=>'Selasa', 
-        //    //      2=>'Rabu', 
-        //    //      3=>'Kamis', 
-        //    //      4=>'Jumat', 
-        //    //      5=>'Sabtu', 
-        //    //      6=>'Minggu'
-        //    //   );
-        //    //  $day_of_week = date('N', strtotime(date("l")));
-
-        //    // $date = new DateTime();
-        //    // $this->data['running_text'] = $dayNames[$day_of_week-1].", ".$date->format('d-m-Y H:i:s').": ".$obj_run_text[0]->status_desc;
-        // } else
-        //     $this->data['running_text'] = '';
-
-        // Get status for displaying kri's hull number
-        // $obj_kri_numb_display = $this->db->query("SELECT value FROM setting WHERE id_param = 2")->result();
-        // $this->data['display_kri_number'] = $obj_kri_numb_display[0]->value;
-
-        // // Get status for displaying pesud's hull number
-        // $obj_pesud_numb_display = $this->db->query("SELECT value FROM setting WHERE id_param = 3")->result();
-        // $this->data['display_pesud_number'] = $obj_pesud_numb_display[0]->value;
-
-        // // Get status for displaying myfleet
-        // $obj_myfleet_display = $this->db->query("SELECT value FROM setting WHERE id_param = 4")->result();
-        // $this->data['display_myfleet'] = $obj_myfleet_display[0]->value;
-
         $this->load->view('html/map_clean',$this->data);
+    }
+    
+    /**role and permission**/
+    private function role_user(){
+        $user_id = $this->tank_auth->get_user_id();
+        // echo $user_id;
+        // die();
+        if ($user_id) {
+            $user = $this->user_role_dao->fetch_record($user_id);
+            $this->role = $this->role_dao->by_id(array('role_id'=>$user->role_id));
+
+            // added by SKM17 for checking backend access {
+            $permission = all_permission_string($user_id); 
+            if (is_has_access('backend', $permission)) { 
+                $user->backend_access = true;
+            } else { 
+                $user->backend_access = false;
+            }
+            $user->user_group = get_data_restriction($this->session->userdata(SESSION_USERGROUP));
+            // } end ADDED */
+            
+            $this->data['user'] = $user;
+            $this->data['permission'] = $permission;
+        } else
+            $this->data['permission'] = '';
     }
 
     public function backend() {
@@ -211,32 +195,6 @@ class Html extends CI_Controller {
 
         $html = $this->load->view('html/pdf-laporan-harian-kesiapan-ranpur-marinir', '', true);
         pdf_create($html, "Laporan Harian Kesiapan RANPUR MARINIR");
-    }
-    
-    /**role and permission**/
-    private function role_user(){
-        $user_id = $this->tank_auth->get_user_id();
-        $user = $this->user_role_dao->fetch_record($user_id);
-        $this->role = $this->role_dao->by_id(array('role_id'=>$user->role_id));
-
-        // added by SKM17 for checking backend access {
-        $permission = all_permission_string($user_id); 
-        if (is_has_access('backend', $permission)) { 
-        	$user->backend_access = true;
-        } else { 
-        	$user->backend_access = false;
-        }
-        $user->user_group = get_data_restriction($this->session->userdata(SESSION_USERGROUP));
-        // } end ADDED */
-        
-        $this->data['user'] = $user;
-        $this->data['permission'] = $permission;
-    }
-    
-    function logged_in() {
-        if (!$this->tank_auth->is_logged_in()) {
-            redirect('home/login');
-        }
     }
 
 }
