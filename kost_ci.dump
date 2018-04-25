@@ -1,0 +1,716 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: feature_access; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.feature_access (
+    feat_id character varying(100) NOT NULL,
+    role_id character varying(10) NOT NULL,
+    featacc_access integer
+);
+
+
+ALTER TABLE public.feature_access OWNER TO postgres;
+
+--
+-- Name: features; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.features (
+    feat_id character varying(100) NOT NULL,
+    feat_name character varying(150),
+    feat_uri character varying(255),
+    feat_itemdata character varying(100)
+);
+
+
+ALTER TABLE public.features OWNER TO postgres;
+
+--
+-- Name: login_attempts; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.login_attempts (
+    la_id integer NOT NULL,
+    la_ip_address character varying(16),
+    la_login character varying(50),
+    la_time date
+);
+
+
+ALTER TABLE public.login_attempts OWNER TO postgres;
+
+--
+-- Name: login_attempts_la_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.login_attempts_la_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.login_attempts_la_id_seq OWNER TO postgres;
+
+--
+-- Name: login_attempts_la_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.login_attempts_la_id_seq OWNED BY public.login_attempts.la_id;
+
+
+--
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.role (
+    role_id character varying(10) NOT NULL,
+    role_name character(10),
+    role_mapurl character varying(255)
+);
+
+
+ALTER TABLE public.role OWNER TO postgres;
+
+--
+-- Name: user_role; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.user_role (
+    role_id character varying(10) NOT NULL,
+    user_id integer NOT NULL,
+    revoked boolean
+);
+
+
+ALTER TABLE public.user_role OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.users (
+    user_id integer NOT NULL,
+    corps_id integer,
+    username character varying(50),
+    password character varying(255),
+    email character varying(100),
+    activated integer,
+    banned integer,
+    ban_reason character varying(255),
+    new_password_key character varying(50),
+    new_password_requested date,
+    new_email character varying(100),
+    new_email_key character varying(50),
+    last_ip character varying(40),
+    last_login date,
+    modified date,
+    created date,
+    users_isactive boolean,
+    msg_acc_id integer
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO postgres;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
+
+
+--
+-- Name: la_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.login_attempts ALTER COLUMN la_id SET DEFAULT nextval('public.login_attempts_la_id_seq'::regclass);
+
+
+--
+-- Name: user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: feature_access; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.feature_access (feat_id, role_id, featacc_access) FROM stdin;
+.types	1	7
+.misc	1	5
+#backend	1	7
+#backend	3	7
+#enemy_force_flag	3	7
+#myfleet_ctrl	3	7
+.misc	3	7
+.status	3	7
+.support	3	7
+.report	3	7
+.ssat	3	7
+#operation	3	7
+#operation_type	3	7
+#station_type	3	7
+#areal_report	3	7
+#personnel_ref	3	7
+#ops_status	3	7
+#ship_status	3	7
+#violation_type	3	7
+#aeroplane_type	3	7
+#ship_type	3	7
+#personnel_type	3	7
+#logistic_item	3	7
+#aeroplane_ctrl	3	7
+#marines_ctrl	3	7
+#station_ctrl	3	7
+#corps_ctrl	3	7
+.edit	3	7
+.insert	3	7
+.types	3	7
+#users_ctrl	3	7
+#role_ctrl	3	7
+#ship_ctrl	3	7
+#defined_area_ctrl	3	7
+#unit_ctrl	3	7
+#cctv_location_ctrl	3	7
+#enemy_force_ctrl	3	7
+.intelligent	3	7
+#force_component_ctrl	3	7
+#aeroplane_icon_ctrl	3	7
+#marine_icon_ctrl	3	7
+.setting	3	7
+#port_ctrl	3	7
+#poi_ctrl	3	7
+#gs_ctrl	3	7
+.icon	3	7
+#aoipoi_type_ctrl	3	7
+*	1	7
+\.
+
+
+--
+-- Data for Name: features; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.features (feat_id, feat_name, feat_uri, feat_itemdata) FROM stdin;
+.misc	Lain-lain	\N	\N
+.status	Status	\N	\N
+.support	Data Pendukung	\N	\N
+.report	Laporan	\N	\N
+.ssat	SSAT	\N	\N
+#operation	Operasi	\N	\N
+#operation_type	Tipe Operasi	\N	\N
+#station_type	Tipe Pangkalan	\N	\N
+#areal_report	Laporan Situasi	\N	\N
+#personnel_ref	Personil	\N	\N
+#ops_status	Status Operasi	\N	\N
+#ship_status	Status Kapal	\N	\N
+#violation_type	Jenis Pelanggaran	\N	\N
+#ship_type	Jenis Kapal	\N	\N
+#personnel_type	Jenis Personil	\N	\N
+#logistic_item	Barang Logistik	\N	\N
+#aeroplane_ctrl	Pesawat	\N	\N
+#marines_ctrl	Marinir	\N	\N
+#station_ctrl	Pangkalan	\N	\N
+#corps_ctrl	Komando	\N	\N
+.edit	Edit	\N	\N
+.delete	Delete	\N	\N
+.insert	Insert	\N	\N
+*	Izinkan Semua	\N	\N
+.types	Jenis	\N	\N
+#users_ctrl	Pengguna	\N	\N
+#role_ctrl	Role	\N	\N
+.user	Administrator	\N	\N
+#ship_ctrl	KRI	\N	\N
+#defined_area_ctrl	Area	\N	\N
+#unit_ctrl	Satuan	\N	\N
+#cctv_location_ctrl	Lokasi CCTV	\N	\N
+.intelligent	Intelejen	\N	\N
+#backend	Akses Backend (Dislokasi Unsur)	\N	\N
+#enemy_force_ctrl	Kekuatan Lawan	\N	\N
+#enemy_force_flag	Bendera Pangkalan Lawan	\N	\N
+#force_component_ctrl	Komponen Kekuatan Lawan	\N	\N
+#aeroplane_icon_ctrl	Jenis Pesawat	\N	\N
+#aeroplane_type	Tipe Pesawat	\N	\N
+#marine_icon_ctrl	Jenis Satuan Marinir	\N	\N
+.setting	Pengaturan	\N	\N
+#myfleet_ctrl	Daftar MyFleet	\N	\N
+#port_ctrl	Pelabuhan	\N	\N
+#aoipoi_type_ctrl	Tipe POI	\N	\N
+#poi_ctrl	POI	\N	\N
+#gs_ctrl	Groundstation	\N	\N
+.icon	Atur Ikon	\N	\N
+\.
+
+
+--
+-- Data for Name: login_attempts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.login_attempts (la_id, la_ip_address, la_login, la_time) FROM stdin;
+1	118.96.222.221	operator	\N
+2	118.96.222.221	operator	\N
+3	118.96.222.221	operator	\N
+4	118.96.222.221	admin	\N
+5	118.96.222.221	admin	\N
+34	203.130.249.57	'	\N
+35	203.130.249.57	' or 1='1	\N
+36	203.130.249.57	AS	\N
+37	203.130.249.57	%a%' or 1='1	\N
+38	203.130.249.57	%a%' or 1='1	\N
+40	180.243.28.232	admin	\N
+41	180.243.28.232	administrator	\N
+43	::1	superadmin	\N
+51	192.168.1.44	superadmin	\N
+52	202.138.243.249	kasal	\N
+53	::1	operasi	\N
+54	192.168.1.14	administrator	\N
+55	192.168.1.32	administrator	\N
+56	192.168.1.32	administrator	\N
+57	192.168.1.32	puskodal	\N
+58	192.168.1.32	puskodal	\N
+59	192.168.1.32	puskodal	\N
+64	192.168.254.22	operator	\N
+65	192.168.1.14	administrator	\N
+68	192.168.160.10	abadi1	\N
+69	192.168.160.10	puskodal	\N
+74	192.168.254.204	puskodal	\N
+75	192.168.5.219	Kodal	\N
+77	192.168.160.10	cirebon	\N
+78	192.168.160.10	cirebon	\N
+79	192.168.160.10	lanal cirebon	\N
+80	192.168.5.220	admins	\N
+81	192.168.254.113	login	\N
+82	192.168.254.190	admin 	\N
+83	192.168.254.190	admin 	\N
+84	192.168.254.205	operator	\N
+85	192.168.254.204	kasubsilahta	\N
+86	192.168.254.204	kasubsilahta	\N
+88	192.168.254.204	kasubsilahta	\N
+89	192.168.254.205	a	\N
+90	192.168.254.200	ADMIN	\N
+91	192.168.8.30	puskodal_tnial	\N
+92	192.168.254.113	ADMIN	\N
+93	192.168.107.13	lantama6_mks	\N
+94	192.168.107.13	lantama6_mks	\N
+95	192.168.254.185	ADMIN	\N
+96	192.168.254.205	rahiasia	\N
+97	192.168.254.205	puskodal31	\N
+98	10.10.10.2	as	\N
+99	192.168.254.217	viewer	\N
+100	192.168.254.217	viewer	\N
+101	192.168.254.213	a	\N
+102	192.168.105.156	oparmatim	\N
+103	192.168.105.156	oparmatim	\N
+104	192.168.105.156	oparmatim	\N
+105	192.168.105.156	oparmatim	\N
+106	192.168.105.156	oparmatim	\N
+107	192.168.1.14	puskodal01	\N
+108	192.168.1.30	ADMIN	\N
+109	192.168.105.25	puskodal arti	\N
+110	172.25.192.34	root	\N
+111	172.25.192.34	root	\N
+112	192.168.254.213	armabar	\N
+113	192.168.254.213	armabar	\N
+114	192.168.254.205	armatim	\N
+115	192.168.105.25	opsarmatim	\N
+119	192.168.254.213	rahasia	\N
+120	192.168.1.14	puskodal_tnial	\N
+121	192.168.254.204	kolinlami	\N
+123	192.168.254.222	puskodal_tnial	\N
+124	192.168.254.222	puskodal_tnial	\N
+128	192.168.1.36	kasal@tnial.mil.id	\N
+129	192.168.1.36	Pukodal2	\N
+131	192.168.1.15	aqdmin	\N
+132	192.168.1.15	aqdmin	\N
+136	192.168.254.213	puskoda	\N
+139	192.168.106.225	ADMIN	\N
+141	192.168.105.25	koarmatim	\N
+144	192.168.106.25	armabr	\N
+146	192.168.106.25	ar	\N
+151	192.168.106.25	armabarl	\N
+152	192.168.106.25	armabarl	\N
+153	192.168.106.25	armabarl lnk	\N
+157	192.168.1.40	lantamal9_amb	\N
+161	192.168.1.201	puskodal@tnial.mil.id	\N
+162	192.168.1.201	bagario	\N
+163	192.168.1.201	bagario03	\N
+168	192.168.106.225	puskodal_	\N
+169	192.168.106.225	puskodal_arba	\N
+170	192.168.106.225	puskodal_arba	\N
+171	192.168.106.225	puskodal_arba	\N
+175	192.168.115.106	admin	\N
+176	192.168.115.106	admin	\N
+177	192.168.115.106	puskoda;	\N
+178	192.168.108.202	Puskodal	\N
+179	192.168.108.202	Puskodal	\N
+180	192.168.108.202	Puskodal	\N
+181	192.168.108.202	Puskodalkolin	\N
+182	192.168.254.182	armabar	\N
+183	192.168.254.182	armabar	\N
+184	192.168.108.202	kolinlamiul	\N
+189	192.168.254.170	rahasia	\N
+191	192.168.105.25	puskodal_arti	\N
+192	192.168.105.25	puskodal_arti	\N
+193	192.168.1.23	puskodal_tnial	\N
+194	192.168.105.158	a	\N
+195	192.168.254.170	PUSKODAL	\N
+196	192.168.254.199	armatim	\N
+197	192.168.254.170	rahasia	\N
+198	192.168.254.170	rahasia	\N
+199	192.168.254.170	A	\N
+200	192.168.106.143	puskodalbar	\N
+201	192.168.106.143	puskodalbar	\N
+202	192.168.254.199	PUSDALOPS TNI 	\N
+203	192.168.254.199	PUSDALOPS TNI 	\N
+204	192.168.254.199	PUSDALOPS TNI 	\N
+205	192.168.254.199	PUSDALOPS TNI 	\N
+206	192.168.21.13	PUSDALOPSTNI	\N
+207	192.168.21.13	PUSDALOPSTNI	\N
+208	192.168.21.13	PUSDALOPSTNI	\N
+209	192.168.21.13	PUSDALOPSTNI	\N
+210	192.168.21.13	PUSDALOPSTNI	\N
+223	192.168.106.143	puskdal	\N
+224	192.168.106.143	puskdalarmabar	\N
+227	192.168.254.122	PUSDALOPS TNI	\N
+228	192.168.254.122	PUSDALOPS TNI	\N
+229	192.168.254.122	PUSDALOPS TNI	\N
+230	192.168.254.122	PUSDALOPS TNI	\N
+231	192.168.254.122	PUSDALOPS TNI	\N
+232	192.168.5.88	infolahtal	\N
+233	192.168.5.88	infolahtal	\N
+234	192.168.5.88	disinfolahtal	\N
+235	192.168.5.88	lantamal1_blw	\N
+236	192.168.5.88	lantamal1_blw	\N
+237	192.168.254.60	PUSDALOP	\N
+238	192.168.254.60	PUSDALOPS	\N
+239	192.168.254.60	pusdalopstni	\N
+240	192.168.254.60	pusdalopstni	\N
+241	192.168.254.60	pusdalopstni	\N
+242	192.168.254.220	lanal_banten	\N
+243	192.168.254.220	PUSKODALOPS TNI	\N
+244	192.168.106.143	puskodalarmabar	\N
+279	192.168.254.64	PUSDALOPS	\N
+280	192.168.254.64	pusdalops	\N
+281	192.168.254.64	pusdalops	\N
+282	192.168.254.64	pusdalops	\N
+283	192.168.254.65	PUSDALOPS TNI 	\N
+249	192.168.254.113	j	\N
+250	192.168.254.69	pusdal ops tni	\N
+251	192.168.254.69	PUSDALOPS 	\N
+252	192.168.254.69	pusdalops	\N
+253	192.168.254.190	pusdalops TNI	\N
+284	192.168.254.189	adminskm	\N
+285	192.168.254.189	adminskm	\N
+256	192.168.254.185	adimin	\N
+257	192.168.254.185	adminskm	\N
+258	192.168.254.70	 	\N
+259	192.168.254.70	PUSDALOPS_TNI	\N
+260	192.168.254.70	PUSDALOPS_TNI	\N
+261	192.168.254.70	PUSDALOPS	\N
+262	192.168.1.201	pusdalops_tni	\N
+263	192.168.254.220	lanal_sabang	\N
+264	192.168.254.220	lanal_sabang	\N
+265	192.168.254.220	adminlsm	\N
+266	192.168.254.197	adminskm	\N
+267	192.168.254.197	adminskm	\N
+268	192.168.254.185	admina	\N
+269	192.168.254.33	pusdalopstni	\N
+270	192.168.254.33	pusdalopstni	\N
+271	192.168.105.199	puskodal_arti	\N
+272	192.168.105.199	puskodal_arti	\N
+273	192.168.105.199	puskodal_arti	\N
+287	192.168.5.200	KASIIOPS DISINFOLAHTAL	\N
+288	192.168.5.200	KASIIOPS DISINFOLAHTAL	\N
+277	192.168.4.217	diskomlek	\N
+278	192.168.4.217	diskomlek	\N
+297	192.168.1.119	dika	\N
+\.
+
+
+--
+-- Name: login_attempts_la_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.login_attempts_la_id_seq', 297, true);
+
+
+--
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.role (role_id, role_name, role_mapurl) FROM stdin;
+2	viewer    	\N
+1	operator  	\N
+3	admin     	\N
+\.
+
+
+--
+-- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_role (role_id, user_id, revoked) FROM stdin;
+2	32	\N
+1	27	\N
+3	29	\N
+2	30	\N
+2	33	\N
+1	28	\N
+1	35	\N
+1	36	\N
+1	37	\N
+2	39	\N
+2	41	\N
+3	1	\N
+2	43	\N
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (user_id, corps_id, username, password, email, activated, banned, ban_reason, new_password_key, new_password_requested, new_email, new_email_key, last_ip, last_login, modified, created, users_isactive, msg_acc_id) FROM stdin;
+28	40	kolinlamil	$2a$08$jwvpEn1IenAe9tNZAaOlV.SC0UhOi.4xVhmMiLOy6U6266wIPD1FK	kolinlamil@tnial.mil.id	1	\N	\N	\N	\N	\N	4386d9fd977c4262513f82e92dcd0504	192.168.108.202	2016-09-01	\N	2014-05-16	t	5
+33	40	v_kolinlamil	$2a$08$cJ5ISl9dgtN253CxCNORteujSwU3YIx8ViWQsCkgjT3VsESPJQupi	vkolinlamil	1	\N	\N	\N	\N	\N	6e902833c1f30e164d91d3c3ae211a61	192.168.254.216	2014-06-26	\N	2014-06-26	t	\N
+36	2	guspurlatim	$2a$08$72arJKAkDCwvp5XwrmtSFevcXk4gvqZe5y/vI3gSmUsqvIHnhiDeW	guspurlatim@tnial.mil.id	1	\N	\N	\N	\N	\N	e07a65c963fbe23af312c73aec2eafc0	192.168.105.21	2016-08-22	\N	2015-04-22	t	\N
+39	27	PUSDALOPS TNI	$2a$08$BT9a4IfNUzB..z4DbQ7raeqfZXCnuUDcrx5dtifq4sv3hjfbdSFcu	pusdalopstni@yahoo.co.id	1	\N	\N	\N	\N	\N	baf381af07dbb09650cdcf78333767db	192.168.254.220	2016-09-10	\N	2015-05-20	t	\N
+35	1	armabar	$2a$08$aym.J//RnV3JznvsHI5baOM2ATGmsvXmnmgjRLpvWYRoyp7j6pdMG	armabar@tnial.mil.id	1	\N	\N	\N	\N	\N	9731ef3c58180c47eee60a5e8dc535f1	192.168.106.225	2015-02-23	\N	2015-02-17	t	\N
+41	27	KASISIOPS DISINFOLAHTAL	$2a$08$fXf89unIBaue0HGDusxI6.rFboCiiiPBQXzmeYcjvi2Ug.dQy3UuW	kasisiopslog@tnial.mil.id	1	\N	\N	\N	\N	\N	4c31511be5e13f51f4d928cd4eca0a92	192.168.5.248	2016-07-29	\N	2015-07-28	t	\N
+32	27	v_mabesal	$2a$08$J9W24UkNEt9CLonjzonP.e4igy2LkORF7OSyvYuTQ2Mv0o/F183Wi	vmabesal	1	\N	\N	\N	\N	\N	407ae9cc3c012ba9be3ce9b9c67e7197	192.168.1.17	2016-08-29	\N	2014-06-26	t	\N
+37	2	op_koarmatim	$2a$08$UrgkuhrQ1fptLCcajd.XHem.175CfZkjID9WP7ewFGhxB8cunFcuu	koarmatim@tni.al.id	1	\N	\N	\N	\N	\N	88862427f7ffe05b3abe948f92bc4f0c	192.168.254.199	2015-04-23	\N	2015-04-23	t	\N
+29	27	pkdlmbal	$2a$08$i6/2t/L3jB0FGwqnzoUHleByko8i5ZoLM/9zg2c95JCU0VjHgegim	puskodal@tnial.mil.id	1	\N	\N	\N	\N	\N	ec8afdd50784bff8ed04fc1697cf49d5	192.168.254.205	2014-05-16	\N	2014-05-16	t	\N
+43	27	diskomlekal	$2a$08$Bdfkprcbl30PwCSuDZXPhebt1sXhsTuXyNfHQOfq/VPueCF86Bbxe	diskomlekal@gmail.com	1	\N	\N	\N	\N	\N	7b4ede6dc60f07745014ff51b000f264	192.168.4.66	2016-03-08	\N	2016-03-08	t	\N
+42	27	uji2okt	$2a$08$KDLKSHESuaeDIQZuVZPTp.I7t9jtxam18YqnEJjq11QMWDLNZmAs.	ujicoba@gmail.com	1	\N	\N	\N	\N	\N	2cc4b5030eecff60a9be249d142e5999	192.168.254.199	\N	\N	2015-10-02	t	\N
+27	2	armatim	$2a$08$rrZ9nV6/MTx53ZhJS/.K0.dLQu5CTIBWnt9VFpPbvdmZjS6cXr4pe	admin@puskodal.com	1	\N	\N	\N	\N	\N	a68879d603629c2064f97bbf5f633469	192.168.105.213	2016-08-23	\N	2014-05-16	t	3
+1	27	admin	$2a$08$KotfT.Os6kHqZ6uN/s1I4.tni9Msf1pqyu/kDMuYgvjd1NM2RsmK6	admin@puskodal.com	1	\N	\N	\N	\N	\N	64e70546da90431fd064e1dc9550dc17	192.168.1.124	2018-04-24	\N	2013-07-24	t	1
+30	1	panglima	$2a$08$KotfT.Os6kHqZ6uN/s1I4.tni9Msf1pqyu/kDMuYgvjd1NM2RsmK6	admin@puskodal.com	1	\N	\N	\N	\N	\N	9ccdc65079942a30bf6a2517ac717a58	192.168.1.124	2018-04-24	\N	2014-05-16	t	\N
+\.
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 43, true);
+
+
+--
+-- Name: pk_feature_access; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.feature_access
+    ADD CONSTRAINT pk_feature_access PRIMARY KEY (feat_id, role_id);
+
+
+--
+-- Name: pk_features; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.features
+    ADD CONSTRAINT pk_features PRIMARY KEY (feat_id);
+
+
+--
+-- Name: pk_login_attempts; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.login_attempts
+    ADD CONSTRAINT pk_login_attempts PRIMARY KEY (la_id);
+
+
+--
+-- Name: pk_role; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT pk_role PRIMARY KEY (role_id);
+
+
+--
+-- Name: pk_user_role; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.user_role
+    ADD CONSTRAINT pk_user_role PRIMARY KEY (role_id, user_id);
+
+
+--
+-- Name: pk_users; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT pk_users PRIMARY KEY (user_id);
+
+
+--
+-- Name: feature_access_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX feature_access_pk ON public.feature_access USING btree (feat_id, role_id);
+
+
+--
+-- Name: features_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX features_pk ON public.features USING btree (feat_id);
+
+
+--
+-- Name: login_attempts_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX login_attempts_pk ON public.login_attempts USING btree (la_id);
+
+
+--
+-- Name: r19_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX r19_fk ON public.user_role USING btree (role_id);
+
+
+--
+-- Name: r50_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX r50_fk ON public.users USING btree (corps_id);
+
+
+--
+-- Name: r57_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX r57_fk ON public.user_role USING btree (user_id);
+
+
+--
+-- Name: r79_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX r79_fk ON public.feature_access USING btree (feat_id);
+
+
+--
+-- Name: r80_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX r80_fk ON public.feature_access USING btree (role_id);
+
+
+--
+-- Name: role_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX role_pk ON public.role USING btree (role_id);
+
+
+--
+-- Name: user_role_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX user_role_pk ON public.user_role USING btree (role_id, user_id);
+
+
+--
+-- Name: users_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX users_pk ON public.users USING btree (user_id);
+
+
+--
+-- Name: fk_feature__r79_features; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feature_access
+    ADD CONSTRAINT fk_feature__r79_features FOREIGN KEY (feat_id) REFERENCES public.features(feat_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: fk_feature__r80_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feature_access
+    ADD CONSTRAINT fk_feature__r80_role FOREIGN KEY (role_id) REFERENCES public.role(role_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: fk_user_rol_r19_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_role
+    ADD CONSTRAINT fk_user_rol_r19_role FOREIGN KEY (role_id) REFERENCES public.role(role_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: fk_user_rol_r57_users; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_role
+    ADD CONSTRAINT fk_user_rol_r57_users FOREIGN KEY (user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
