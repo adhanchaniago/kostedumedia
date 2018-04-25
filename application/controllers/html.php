@@ -23,7 +23,7 @@ class Html extends CI_Controller {
 	
 	function logged_in() {
 		if (!$this->tank_auth->is_logged_in()) {
-			$this->map_clean();
+			// $this->map_clean();
 		}
 	}
 

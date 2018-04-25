@@ -83,8 +83,12 @@ function includeHTML() {
 					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn"><i class="fa fa-list "></i>&nbsp;&nbsp;Legend</a></li> -->
 					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-form-btn"><i class="fa fa-pencil "></i>&nbsp;&nbsp;Form</a></li> -->
 					<li class="btn-group btn-group-sm" style="margin-top:10px;" role="group">
+<?php if ($permission) { ?>
 						<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Backend</button>
-						<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>          
+						<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>   
+<?php } else { ?>       
+						<button type="button" class="btn btn-info" id="login"><i class="fa fa-gears"></i>  Login</button>
+<?php } ?>       
 				</ul>
 			<!-- </div> /.navbar-collapse  -->
 		</div>

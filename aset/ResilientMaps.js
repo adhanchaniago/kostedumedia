@@ -1537,6 +1537,10 @@ $("#tutupS").click(function() {
 	return false;
 });
 
+$("#login").click(function() {
+	window.location.href = "../home/login";
+});
+
 $("#logout").click(function() {
 	window.location.href = "../home/logout";
 });
