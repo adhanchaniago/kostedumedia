@@ -1,0 +1,15 @@
+ <IfModule mod_rewrite.c>
+	 RewriteEngine On
+#	RewriteBase /html/kost_ci/
+	 RewriteCond %{REQUEST_FILENAME} !-f
+	 RewriteCond %{REQUEST_FILENAME} !-d
+	 RewriteRule ^(.*)$ /kost_ci/index.php/$1 [L]
+	 #RewriteCond $1 !^(index\.php|(.*)\.swf|uploadify|application|system|assets|robots\.txt)
+ </IfModule>
+ <IfModule !mod_rewrite.c>
+ 	ErrorDocument 404 /kost_ci/index.php
+ </IfModule>
+ #AuthUserFile /ticktabs/.htpasswd
+ #AuthType Basic
+ #AuthName "My Files"
+ #Require valid-user
