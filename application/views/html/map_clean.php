@@ -320,7 +320,7 @@ function includeHTML() {
 	<script src="<?php echo base_url() ?>aset/ResilientMaps.js"></script>
 	<script>
 		
-<?php if (is_has_access('ssat', $permission)) { ?>
+<?php if ($permission) { ?>
 	function modalkamar(i,ii){
 		// console.log("bikin append");
 		// console.log(KOSANS);
@@ -354,7 +354,7 @@ function includeHTML() {
 					'<table class="table table-hover table-striped table-condensed" style="font-size:12px;" >'+
 						'<tbody class="list">'+
 							'<tr><td>Foto :</td>             <td>'+KOSANS[i].properties.kamar[ii].penghunifoto+'</td></tr>'+
-							'<tr><td>Nama Penghuni:</td>     <td>'+KOSANS[i].properties.kamar[ii].penghuninama+'</td></tr>'+ 
+							'<tr><td>Nama Penghuni :</td>     <td>'+KOSANS[i].properties.kamar[ii].penghuninama+'</td></tr>'+ 
 							'<tr><td>No HP :</td>            <td>'+KOSANS[i].properties.kamar[ii].penghunihp+'</td></tr>'+
 							'<tr><td>No HP darurat :</td>    <td>'+KOSANS[i].properties.kamar[ii].penghunihpdarurat+'</td></tr>'+
 							'<tr><td>Alamat :</td>           <td>'+KOSANS[i].properties.kamar[ii].penghunialamat+'</td></tr>'+
