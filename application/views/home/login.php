@@ -37,7 +37,7 @@ $captcha = array(
 ?>
 <html>
     <head>
-        <title>Puskodal</title>
+        <title>Kost Edumedia - Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/css/960.css" />
@@ -49,16 +49,17 @@ $captcha = array(
         <div class="container_12">
             <div class="grid_12">
                 <div id="logo">
-                    <img src="<?php echo base_url() ?>assets/img/logo-new-lite.png" />
+                    <!-- <img src="<?php echo base_url() ?>assets/img/logo-new-lite.png" /> -->
+                    <img src="<?php echo base_url() ?>aset/img/1.png" width="226" height="226" />
                 </div>
                 <div id="login">
                     <?php echo form_open($this->uri->uri_string()); ?>
                     <div id="title">
-                        Login
+                        Login Kost Edumedia
                     </div>
                     <ul style="width: 312px;">
                         <li>
-                            <label>Username or Email</label><br />
+                            <label>Username</label><br />
                             <input type="text" placeholder="Nama Pengguna" class="put-login" name="login" id="login" value="<?php echo set_value('login')?>" maxlength="80" />
                         </li>
                         <li>
@@ -110,7 +111,7 @@ $captcha = array(
                     <?php echo form_close(); ?>
                 </div>
                 <p id="footer">
-                    Copyrights &copy; 2015 <strong>PUSKODAL</strong>. All Rights Reserved.
+                    Copyrights &copy; 2018 <a href="https://www.youtube.com/c/resilientonamission"><strong>Gopal & Sesdika</strong></a>. All Rights Reserved.
                 </p>
             </div>
             <div class="clear"></div>

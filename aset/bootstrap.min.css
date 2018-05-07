@@ -3629,6 +3629,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-brand{
     float:left;
     height:50px;
+    /*height:20px;*/
     padding:15px 15px;
     font-size:18px;
     line-height:20px

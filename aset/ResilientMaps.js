@@ -250,9 +250,9 @@ function INITPLUGIN(){
 		//LEAFLET attribution
 		var attrib = new L.Control.Attribution;
 		map.addControl(attrib); 
-		attrib.setPrefix('Created by Gopal, 2018');
+		attrib.setPrefix('<a href="https://www.youtube.com/c/resilientonamission"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
 		map.on('mousemove', function(e) {
-			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. Created by Gopal, 2018');
+			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. <a href="https://www.youtube.com/c/resilientonamission"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
 		});
 
 		//LEAFLET scale nautica
@@ -1094,7 +1094,7 @@ function INITGAMBARDB(){
 						var fasum,foto,kontak,lokasi,desclok,kamarmandi;
 						var desc="";
 						for (var ii=0; ii<data.features[i].properties.kamar.length; ii++){
-								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-book'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+"&nbsp;&nbsp;</a></i></td></tr>"
+								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-bed'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+"&nbsp;&nbsp;</a></i></td></tr>"
 						}
 						fasum = data.features[i].properties.fasum;
 						foto = data.features[i].properties.foto;

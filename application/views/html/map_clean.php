@@ -74,22 +74,24 @@ function includeHTML() {
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<img class="pull-left" style="width:41px;height:41px;margin-top:5px;z-index:999;" src="<?php echo base_url() ?>aset/img/1.png">
-				<a class="navbar-brand" style="font-family:sshh;font-size:30;font-weight: normal;margin-top:0px;" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn">&nbsp;Kost Putri EDUMEDIA</a>
-			</div>
-			<!-- <div class="navbar-collapse collapse"> -->
-				<ul class="nav navbar-nav pull-right">         
-					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn"><i class="fa fa-list "></i>&nbsp;&nbsp;Legend</a></li> -->
-					<!-- <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-form-btn"><i class="fa fa-pencil "></i>&nbsp;&nbsp;Form</a></li> -->
-					<li class="btn-group btn-group-sm" style="margin-top:10px;" role="group">
+			<div class="navbar-header" style="vertical-align:middle;"">
+				<!-- <img class="pull-left" style="width:41px;height:41px;margin-top:5px;z-index:999;" src="<?php echo base_url() ?>aset/img/1.png"> -->
+				<img class="pull-left" style="vertical-align:middle; width:30px;height:30px;margin-top:5px;z-index:999;" src="<?php echo base_url() ?>aset/img/1.png">
+				<!-- <a class="navbar-brand" style="font-family:sshh;font-size:30;font-weight: normal;margin-top:0px;" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn">&nbsp;Kost Putri EDUMEDIA</a> -->
+				<a class="navbar-brand" style="vertical-align:middle; font-family:sshh;font-size:20;font-weight: normal;margin-top:0px;" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn">&nbsp;Kost Putri EDUMEDIA&nbsp;</a>
+				<ul class="nav navbar-nav pull-center">
+					<li class="btn-group btn-group-sm" style="vertical-align:middle; margin-top:10px;" role="group">
 <?php if ($permission) { ?>
 						<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Backend</button>
 						<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>   
 <?php } else { ?>       
 						<button type="button" class="btn btn-info" id="login"><i class="fa fa-gears"></i>  Login</button>
-<?php } ?>       
+<?php } ?>       	
+					</li>
 				</ul>
+			</div>
+			
+				
 			<!-- </div> /.navbar-collapse  -->
 		</div>
 	</div>
@@ -328,7 +330,7 @@ function includeHTML() {
 			'<ul class="nav nav-tabs" role="tablist">'+
 				'<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
 				'<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
-				'<li role="presentation"><a href="#ketpenghuni" aria-controls="ketpenghuni" role="tab" data-toggle="tab">Penghuni (nanti khusus admin)</a></li>'+
+				'<li role="presentation"><a href="#ketpenghuni" aria-controls="ketpenghuni" role="tab" data-toggle="tab">Penghuni (khusus admin)</a></li>'+
 			'</ul>'+
 			'<div class="tab-content">'+
 				'<div role="tabpanel" class="tab-pane active" id="ketdetail">'+
