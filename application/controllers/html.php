@@ -39,6 +39,7 @@ class Html extends CI_Controller {
 	/**role and permission**/
 	private function role_user(){
 		$user_id = $this->tank_auth->get_user_id();
+		$this->data['username'] = $this->session->userdata('username');
 		
 		if ($user_id) {
 			// $user = $this->user_role_dao->fetch_record($user_id);

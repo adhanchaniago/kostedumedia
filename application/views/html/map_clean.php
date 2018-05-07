@@ -90,7 +90,9 @@ function includeHTML() {
 					</li>
 				</ul>
 			</div>
-			
+			<ul class="pull-right">
+				<p style="vertical-align:middle; font-family:'Arial'; color:white;  font-size:15; font-weight:normal; margin-top:8px">Welcome <?php if ($username) echo $username ?></p>
+			</ul>
 				
 			<!-- </div> /.navbar-collapse  -->
 		</div>
