@@ -16,10 +16,10 @@
             "kamar":[
                {
                   "nama" : "Kamar 1",
+                  "terisi" : "terisi",
                   "luas" : "7m<sup>2</sup>",
                   "fasilitas" : "kosong (kcuali ada peninggalan pghuni sblmny)",
                   "hargath" : "Rp 7.000.000 / thn",
-                  "terisi" : "terisi",
                   "pmbayaran" : "lunas",
                   "sisapmbayaran" : 0,
                   "pnama" : "",

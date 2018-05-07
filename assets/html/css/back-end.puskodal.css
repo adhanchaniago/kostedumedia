@@ -9,6 +9,17 @@ NAME: back-end.puskodal.css
 TYPE: Cascading Style Sheet
 DESCRIPTION: Pusat Komando dan Pengendalian Tentara Nasional Indonesia Angkatan Laut
 ************************************************/
+.kolom {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.baris:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 .clear{clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0;}
 
@@ -208,12 +219,12 @@ ul#side-menu li#logo img{
 
 ul.form-admin{
 	padding: 0;
-	margin: 10px 20px;
+	margin: 5px 10px;
 }
 
 ul.form-admin li{
 	list-style: none;
-	margin: 10px 0;
+	margin: 5px 0;
 }
 
 ul.form-admin li label{
@@ -522,7 +533,20 @@ table.tab-admin tr td a:hover{
 	-moz-transition: all 300ms ease-in-out;
 	-webkit-transition: all 300ms ease-in-out;
 }
-
+.tab-edituser{
+	background: url('../img/icon/edituser.png') center no-repeat;
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 0 2px;
+	border: 1px solid #BBB;
+	padding: 2px;
+	transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-moz-transition: all 300ms ease-in-out;
+	-webkit-transition: all 300ms ease-in-out;
+}
 .tab-delete{
 	background: url('../img/icon/delete.png') center no-repeat;
 	width: 16px;
@@ -537,7 +561,6 @@ table.tab-admin tr td a:hover{
 	-moz-transition: all 300ms ease-in-out;
 	-webkit-transition: all 300ms ease-in-out;
 }
-
 .tab-view{
 	background: url('../img/icon/information.png') center no-repeat;
 	width: 16px;
@@ -554,6 +577,7 @@ table.tab-admin tr td a:hover{
 }
 
 .tab-edit:hover,
+.tab-edituser:hover,
 .tab-delete:hover{
 	border: 1px solid #999;
 }

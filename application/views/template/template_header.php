@@ -11,6 +11,8 @@
         <title>Puskodal Side Menu</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+            <link rel="stylesheet" href="<?php echo base_url() ?>aset/font-awesome.min.css" />
+    
             <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/html/css/reset.css" />
             <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/redmond/jquery-ui-1.10.2.custom.css" />
             <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/html/css/back-end.puskodal.css" />

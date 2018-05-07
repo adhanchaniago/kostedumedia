@@ -250,9 +250,9 @@ function INITPLUGIN(){
 		//LEAFLET attribution
 		var attrib = new L.Control.Attribution;
 		map.addControl(attrib); 
-		attrib.setPrefix('<a href="https://www.youtube.com/c/resilientonamission"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
+		attrib.setPrefix('<a href="https://www.youtube.com/c/resilientonamission/about" target="_blank"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
 		map.on('mousemove', function(e) {
-			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. <a href="https://www.youtube.com/c/resilientonamission"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
+			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. <a target="_blank" href="https://www.youtube.com/c/resilientonamission/about"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
 		});
 
 		//LEAFLET scale nautica

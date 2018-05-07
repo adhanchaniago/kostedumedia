@@ -155,7 +155,7 @@ document.onkeypress = stopRKey;
 	<div class="clear " id="notif-holder"></div>
 	<p class="notif success " style="display:none"><strong>Input Sukses</strong>. Data POI berhasil disimpan.</p>
 	
-	<p class="tit-form">Daftar Kosan <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
+	<p class="tit-form">Daftar Kostan <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
 	<div class="filtering" style="display: none;">
 		<form action="<?php echo current_url() ?>" method="post" id="form_search_filter">
 			<ul class="filter-form">
@@ -177,7 +177,7 @@ document.onkeypress = stopRKey;
 		<thead>
 			<tr class="tittab">
 				<td class="header" style="width: 20px;">No</th>                     
-				<td class="header">Nama Kosan</td>
+				<td class="header">Nama Kostan</td>
 				<td class="header">Alamat</td>
 <!-- 				<td class="header">Lokasi</td>
 				<td class="header">Detail</td> -->
@@ -208,24 +208,68 @@ document.onkeypress = stopRKey;
 	</table>
 	<br />  
 
-	<p class="tit-form"><?php if ($obj) echo "Edit Kosan"; else echo "Tambah Kosan Baru"; ?></p>
+	<p class="tit-form"><?php if ($obj) echo "Edit Kostan"; else echo "Tambah Kostan Baru"; ?></p>
 	<form action="<?php if ($obj) echo base_url() . 'admin/kost_ctrl/edit_kosan'; else echo base_url() . 'admin/kost_ctrl/add_kosan'; ?>" method="post" id="addShipPosition">
-		<ul class="form-admin">
-			<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
-			<?php if ($obj) { ?>
-				<input type="hidden" name="kosan_judul" value="<?php echo $obj['judul'] ?>" />
-			<?php } ?>
-			<li>
-				<label>Judul</label>
-				<input class="form-admin" name="judul_kosan" id="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['judul'] ?>" >
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Alamat</label>
-				<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
-				<div class="clear"></div>
-			</li>
-		</ul>
+		<div class="baris">
+			<div class="kolom" id="ffform">
+				<ul class="form-admin">
+					<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
+					<?php if ($obj) { ?>
+						<input type="hidden" name="kosan_judul" value="<?php echo $obj['judul'] ?>" />
+					<?php } ?>
+					<li>
+						<label>Judul</label>
+						<input class="form-admin" name="judul_kosan" id="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['judul'] ?>" >
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Alamat</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Deskripsi</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Fasilitas Umum</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Deskripsi Lokasi</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Link Lokasi</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Kamar Mandi</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Kontak</label>
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+				</ul>
+			</div>
+			<div class="kolom" id="fffooto">
+				<ul class="form-admin">
+					<li>
+					<label>Foto</label>
+					<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+					<div class="clear"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
 
 		<p class="tit-form">Daftar Kamar</p>
 		<table id="tableKmr" class="tab-admin">
@@ -233,7 +277,7 @@ document.onkeypress = stopRKey;
 				<td>No</td>
 				<td>Nama</td>
 				<td>Terisi</td>
-				<td style="width: 52px;">Aksi</td>
+				<td style="width: 78px;">Aksi</td>
 			</tr>
 			<?php if ($obj) {
 				$count_kamar = 1;
@@ -247,6 +291,7 @@ document.onkeypress = stopRKey;
 						<input type="hidden" name="filledKmr_<?php echo $count_kamar ?>" id="filledKmr_<?php echo $count_kamar ?>" value="<?php echo $kamar['terisi'] ?>" />
 						<td class="action"> 
 							<a href="javascript:void(0);" id="editKmr" onClick="editKmr('<?php echo $count_kamar ?>', '<?php echo $kamar['nama'] ?>', '<?php echo $kamar['terisi'] ?>')" ><div class="tab-edit"></div></a> 
+							<a href="javascript:void(0);" id="editPenghuni" onClick="editPenghuni('<?php echo $count_kamar ?>', '<?php echo $kamar['nama'] ?>', '<?php echo $kamar['terisi'] ?>')" ><div class="tab-edituser"></div></a> 
 							<a href="javascript:void(0);" id="deleteKmr" ><div class="tab-delete"></div></a>
 						</td>
 					</tr>
@@ -257,41 +302,204 @@ document.onkeypress = stopRKey;
 		</table>
 
 		<br />
-		<p class="tit-form">Data Kamar</p>
-		<input type="hidden" id="editNumberKmr" value="" />
-		<input type="hidden" id="totalRowKmr" name="totalRowKmr" value="<?php if ($obj) echo count($obj['kamar']) ?>" />
-		<ul class="form-admin">
-			<li>
-				<label>Nama</label>
-				<textarea id="nama_kmr" name="nama_kmr" class="form-admin"></textarea>
+		<div class="baris">
+		  <div class="kolom" id="kolom1">
+		  	<p class="tit-form">Data Kamar</p>
+			<input type="hidden" id="editNumberKmr" value="" />
+			<input type="hidden" id="totalRowKmr" name="totalRowKmr" value="<?php if ($obj) echo count($obj['kamar']) ?>" />
+			<ul class="form-admin">
+				<li>
+					<label>Nama</label>
+					<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Terisi</label>
+					<select id="terisi_kmr" name="terisi_kmr" class="form-admin">
+						<option value="" selected>-Pilih Kondisi Terisi-</option>
+						<option value="terisi">terisi</option>
+						<option value="kosong">kosong</option>
+					</select>
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Luas</label>
+					<input class="form-admin" id="luas_kmr" name="luas_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Fasilitas</label>
+					<input class="form-admin" id="fasilitas_kmr" name="fasilitas_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Harga / Thn</label>
+					<input class="form-admin" id="harga_kmr" name="harga_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Pembayaran</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Sisa Pembayaran</label>
+					<input class="form-admin" id="sisapmby_kmr" name="sisapmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label></label>
+					<input class="button-form green" id="addKmr" type="button" value="<?php
+						if ($obj) echo 'Simpan';
+						else echo 'Tambah Kamar';
+					?>" >
+					<input class="button-form red" id="cancelKmr" type="button" value="Batal">
+					<div class="clear"></div>
+				</li>
+			</ul>
+		  </div>
+		  <div class="kolom" id="kolom2">
+		  	<p class="tit-form">Data Penghuni</p>
+			<input type="hidden" id="editNumberKmr" value="" />
+			<input type="hidden" id="totalRowKmr" name="totalRowKmr" value="<?php if ($obj) echo count($obj['kamar']) ?>" />
+			<ul class="form-admin">
+				<li>
+					<label>Nama Penghuni</label>
+					<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>TTL</label>
+					<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium">
+					</select>
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Gender</label>
+					<input class="form-admin" id="luas_kmr" name="luas_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Agama</label>
+					<input class="form-admin" id="fasilitas_kmr" name="fasilitas_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No KTP</label>
+					<input class="form-admin" id="harga_kmr" name="harga_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Alamat</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No HP</label>
+					<input class="form-admin" id="sisapmby_kmr" name="sisapmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Aktivitas</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Tgl Masuk</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Tgl Keluar</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Harga Per Tahun</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Ket Ayah</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Ket Ibu</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Kontak Darurat</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No HP darurat</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Email</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>FB</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Instagram</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Twitter</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>BBM</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto KTP</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto KTM</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto Diri</label>
+					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label></label>
+					<input class="button-form green" id="addKmr" type="button" value="<?php
+						if ($obj) echo 'Simpan';
+						else echo 'Tambah Kamar';
+					?>" >
+					<!-- <input class="button-form red" id="cancelKmr" type="button" value="Batal"> -->
+					<input class="button-form red" id="cancelKmr" type="button" value="Ganti Penghuni">
+					<div class="clear"></div>
+				</li>
+			</ul>
+		  </div> <!-- kolom -->
+		  <li>
+				<p class="tit-form"></p>
+				<label>&nbsp;</label>
+				<input class="button-form" type="submit" value="Simpan">
+				<input class="button-form" type="reset" onclick="redirect()" value="Batal">
 				<div class="clear"></div>
 			</li>
-			<li>
-				<label>Terisi</label>
-				<select id="terisi_kmr" name="terisi_kmr" class="form-admin">
-					<option value="" selected>-Pilih Kondisi Terisi-</option>
-					<option value="terisi">terisi</option>
-					<option value="kosong">kosong</option>
-				</select>
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label></label>
-				<input class="button-form green" id="addKmr" type="button" value="<?php
-					if ($obj) echo 'Simpan';
-					else echo 'Tambah Kamar';
-				?>" >
-				<input class="button-form red" id="cancelKmr" type="button" value="Batal">
-				<div class="clear"></div>
-			</li>
-		<li>
-			<p class="tit-form"></p>
-			<label>&nbsp;</label>
-			<input class="button-form" type="submit" value="Simpan">
-			<input class="button-form" type="reset" onclick="redirect()" value="Batal">
-			<div class="clear"></div>
-		</li>
-		</ul>
+		</div> <!-- baris -->
+		
 	</form>
 </div>
 <div class="clear"></div>
