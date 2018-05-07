@@ -50,21 +50,22 @@ class Html extends CI_Controller {
 		$user_id = $this->tank_auth->get_user_id();
 		
 		if ($user_id) {
-			$user = $this->user_role_dao->fetch_record($user_id);
-			$this->role = $this->role_dao->by_id(array('role_id'=>$user->role_id));
+			// $user = $this->user_role_dao->fetch_record($user_id);
+			// $this->role = $this->role_dao->by_id(array('role_id'=>$user->role_id));
 
-			// added by SKM17 for checking backend access {
-			$permission = all_permission_string($user_id); 
-			if (is_has_access('backend', $permission)) { 
-				$user->backend_access = true;
-			} else { 
-				$user->backend_access = false;
-			}
-			$user->user_group = get_data_restriction($this->session->userdata(SESSION_USERGROUP));
-			// } end ADDED */
+			// // added by SKM17 for checking backend access {
+			// $permission = all_permission_string($user_id); 
+			// if (is_has_access('backend', $permission)) { 
+			// 	$user->backend_access = true;
+			// } else { 
+			// 	$user->backend_access = false;
+			// }
+			// $user->user_group = get_data_restriction($this->session->userdata(SESSION_USERGROUP));
+			// // } end ADDED */
 			
-			$this->data['user'] = $user;
-			$this->data['permission'] = $permission;
+			// $this->data['user'] = $user;
+			// $this->data['permission'] = $permission;
+			$this->data['permission'] = 'admin';
 		} else
 			$this->data['permission'] = '';
 	}

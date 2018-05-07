@@ -28,7 +28,8 @@ class Tank_auth
 
 		$this->ci->load->library('session');
 		$this->ci->load->database();
-		$this->ci->load->model('tank_auth/users');
+		// $this->ci->load->model('tank_auth/users');
+        $this->ci->load->model('Kosts','',TRUE);
 
 		// Try to autologin
 		$this->autologin();
@@ -55,48 +56,56 @@ class Tank_auth
 			} else {
 				$get_user_func = 'get_user_by_email';
 			}
-
-			if (!is_null($user = $this->ci->users->$get_user_func($login))) {	// login ok
-
+// echo $login . ' ' . $password; die();
+			// if (!is_null($user = $this->ci->users->$get_user_func($login))) {	// login ok
+			if (!is_null($user = $this->ci->Kosts->get_user_by_login($login))) {	// login ok
+// print_r($user); die();
 				// Does password match hash in database?
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
-				if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+				// if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+				if ($hasher->CheckPassword($password, $user['password'])) {		// password ok
+// echo 'MATCHED'; die();
+					// if ($user->banned == 1) {									// fail - banned
+					// 	$this->error = array('banned' => $user->ban_reason);
 
-					if ($user->banned == 1) {									// fail - banned
-						$this->error = array('banned' => $user->ban_reason);
-
-					} else {
+					// } else {
+						// $this->ci->session->set_userdata(array(
+						// 		'user_id'	=> $user->user_id,
+						// 		'username'	=> $user->username,
+						// 		'status'	=> ($user->users_isactive == 't') ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED // edited by SKM17 from $user->activated to $user->users_isactive and 1 to 't'
+						// ));
 						$this->ci->session->set_userdata(array(
-								'user_id'	=> $user->user_id,
-								'username'	=> $user->username,
-								'status'	=> ($user->users_isactive == 't') ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED // edited by SKM17 from $user->activated to $user->users_isactive and 1 to 't'
+								'user_id'	=> $user['_id'],
+								'username'	=> $user['namauser'],
+								'status'	=> STATUS_ACTIVATED
 						));
 
-						if ($user->users_isactive == 'f') {							// fail - not activated // edited by SKM17 from $user->activated to $user->users_isactive and 0 to 'f'
-							$this->error = array('not_activated' => '');
+						// if ($user->users_isactive == 'f') {							// fail - not activated // edited by SKM17 from $user->activated to $user->users_isactive and 0 to 'f'
+						// 	$this->error = array('not_activated' => '');
 
-						} else {												// success
-							if ($remember) {
-								$this->create_autologin($user->user_id);
-							}
+						// } else {												// success
+						// 	if ($remember) {
+						// 		$this->create_autologin($user->user_id);
+						// 	}
 
-							$this->clear_login_attempts($login);
+						// 	$this->clear_login_attempts($login);
 
-							$this->ci->users->update_login_info(
-									$user->user_id,
-									$this->ci->config->item('login_record_ip', 'tank_auth'),
-									$this->ci->config->item('login_record_time', 'tank_auth'));
-							return TRUE;
-						}
-					}
+						// 	$this->ci->users->update_login_info(
+						// 			$user->user_id,
+						// 			$this->ci->config->item('login_record_ip', 'tank_auth'),
+						// 			$this->ci->config->item('login_record_time', 'tank_auth'));
+						// 	return TRUE;
+						// }
+					// }
 				} else {														// fail - wrong password
-					$this->increase_login_attempt($login);
+					// $this->increase_login_attempt($login);
+// echo 'NOT MATCHED'; die();
 					$this->error = array('password' => 'auth_incorrect_password');
 				}
 			} else {															// fail - wrong login
-				$this->increase_login_attempt($login);
+				// $this->increase_login_attempt($login);
 				$this->error = array('login' => 'auth_incorrect_login');
 			}
 		}
@@ -110,7 +119,7 @@ class Tank_auth
 	 */
 	function logout()
 	{
-		$this->delete_autologin();
+		// $this->delete_autologin();
 
 		// See http://codeigniter.com/forums/viewreply/662369/ as the reason for the next line
 		$this->ci->session->set_userdata(array('user_id' => '', 'username' => '', 'status' => ''));
