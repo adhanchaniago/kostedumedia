@@ -181,7 +181,7 @@ document.onkeypress = stopRKey;
 				<td class="header">Alamat</td>
 <!-- 				<td class="header">Lokasi</td>
 				<td class="header">Detail</td> -->
-				<td class="header delete" style="width: 60px;">Aksi</td>
+				<td class="header delete" style="width: 52px;">Aksi</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -262,9 +262,34 @@ document.onkeypress = stopRKey;
 			<div class="kolom" id="fffooto">
 				<ul class="form-admin">
 					<li>
-					<label>Foto</label>
-					<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
-					<div class="clear"></div>
+						<label>Foto1</label>
+						<input name="alamat_kosan" id="fotokost1" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Foto2</label>
+						<input name="alamat_kosan" id="fotokost2" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Foto3</label>
+						<input name="alamat_kosan" id="fotokost3" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li>
+					<!-- <li>
+						<label>Foto4</label>
+						<input name="alamat_kosan" id="fotokost4" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li> -->
+					<!-- <li>
+						<label>Foto5</label>
+						<input name="alamat_kosan" id="fotokost5" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<div class="clear"></div>
+					</li> -->
+					<li>
+						<label>Lokasi</label>
+						<div id=map></div>	
+						<div class="clear"></div>
 					</li>
 				</ul>
 			</div>
@@ -345,6 +370,16 @@ document.onkeypress = stopRKey;
 				<li>
 					<label>Sisa Pembayaran</label>
 					<input class="form-admin" id="sisapmby_kmr" name="sisapmby_kmr" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto Kamar 1</label>
+					<input name="alamat_kosan" id="fotokamar1" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto Kamar 2</label>
+					<input name="alamat_kosan" id="fotokamar2" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
 					<div class="clear"></div>
 				</li>
 				<li>
@@ -481,12 +516,9 @@ document.onkeypress = stopRKey;
 				</li>
 				<li>
 					<label></label>
-					<input class="button-form green" id="addKmr" type="button" value="<?php
-						if ($obj) echo 'Simpan';
-						else echo 'Tambah Kamar';
-					?>" >
+					
 					<!-- <input class="button-form red" id="cancelKmr" type="button" value="Batal"> -->
-					<input class="button-form red" id="cancelKmr" type="button" value="Ganti Penghuni">
+					<input class="button-form red" id="gantiPenghuni" type="button" value="Ganti Penghuni">
 					<div class="clear"></div>
 				</li>
 			</ul>

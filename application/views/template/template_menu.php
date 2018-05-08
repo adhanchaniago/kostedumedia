@@ -46,7 +46,7 @@
 			<div id="title-up">
 				<?php if (isset($title)) echo $title ?>
 				<a class="red" href="<?php echo base_url() . 'home/logout' ?>"><i class='fa fa-sign-out'></i>&nbsp;Keluar</a> 
-				<a class="blue" href="<?php echo base_url() ?>html/map_clean"><i class='fa fa-map'></i>&nbsp;Peta</a>				
+				<a class="blue" href="<?php echo base_url() ?>html/map"><i class='fa fa-map'></i>&nbsp;Peta</a>				
 			</div>
 
 			<div class="clear"></div>

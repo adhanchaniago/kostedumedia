@@ -31,9 +31,13 @@ class Html extends CI_Controller {
 		$this->load->view('html/side-menu');
 	}
 
-	public function map_clean() {
+	public function map() {
 		$this->role_user();
 		$this->load->view('html/map_clean',$this->data);
+	}
+	public function tabelkost() {
+		$this->role_user();
+		$this->load->view('html/tabelkost',$this->data);
 	}
 	
 	/**role and permission**/

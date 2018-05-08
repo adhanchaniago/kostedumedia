@@ -1540,13 +1540,14 @@ $("#tutupS").click(function() {
 $("#login").click(function() {
 	window.location.href = "../home/login";
 });
-
 $("#logout").click(function() {
 	window.location.href = "../home/logout";
 });
-
 $("#backend").click(function() {
 	window.location.href = "../admin/pemilik_ctrl";
+});
+$("#tabel").click(function() {
+	window.location.href = "../html/tabelkost";
 });
 
 function animateSidebar() {

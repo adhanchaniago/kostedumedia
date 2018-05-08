@@ -40,3 +40,9 @@ TABEL KAMAR DAN EDIT KAMAR
 +pfotoktpjpg",
 +pfotoktmjpg",
 +pfotodiri
+
+
+FIXBUG BUG BUG BUG BUG BUG BUG BUG BUG BUG BUG
++capcha ngedouble terus
++pas login yg pertama gagal pke user lain, lalu login kedua berhasil pke user lain, pas welcome malah welcome user pertama
++

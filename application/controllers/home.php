@@ -161,9 +161,9 @@ class Home extends CI_Controller {
 
         if(trim($user->role_name) == 'admin'){
             //redirect('admin/dashboard_ctrl');
-            redirect('html/map_clean');
+            redirect('html/map');
         }else{
-            redirect('html/map_clean');
+            redirect('html/map');
         }
     }
 
@@ -185,7 +185,7 @@ class Home extends CI_Controller {
     private function is_logged_in() {
         $sess = $this->session->userdata('user_login');
         if (!isset($sess) || $sess == false) {
-            redirect('html/map_clean');
+            redirect('html/map');
         }
     }
 
