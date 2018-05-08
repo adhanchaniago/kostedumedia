@@ -61,9 +61,9 @@ ul#side-menu li.category{
 	padding: 10px;
 	text-align: center;
 	font-weight: bold;
-	color: #888;
-	text-shadow: 0 1px 1px #FFF;
-	background: #CCC;
+	color: #FFF;
+	text-shadow: 0 1px 1px #898989;
+	background: #4D91BB;
 	font-size: 14px;
 }
 
