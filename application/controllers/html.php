@@ -39,6 +39,10 @@ class Html extends CI_Controller {
 		$this->role_user();
 		$this->load->view('html/tabelkost',$this->data);
 	}
+	public function about() {
+		$this->role_user();
+		$this->load->view('html/about',$this->data);
+	}
 	
 	/**role and permission**/
 	private function role_user(){

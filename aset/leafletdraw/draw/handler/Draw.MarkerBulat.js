@@ -10,7 +10,7 @@ L.Draw.MarkerBulat = L.Draw.Feature.extend({
 
 	options: {
 		icon: new L.icon({
-	          iconUrl: 'aset/img/icondefault.png',
+	          iconUrl: '../aset/img/icondefault.png',
 	          iconSize: [12, 12],
 	          iconAnchor: [6, 6],
 	          popupAnchor: [6,6]
@@ -30,39 +30,39 @@ L.Draw.MarkerBulat = L.Draw.Feature.extend({
 	// GOPAL 2017 - chose color 
 	// ngubah warna garis, via toolbar action. bukan draw control lg. biar g makan tempat
 	chosecolorwhite: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconputih.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconputih.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorblack: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconhitam.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconhitam.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecoloryellow: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconkuning.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconkuning.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolordefault: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/icondefault.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/icondefault.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorblue: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconbiru.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconbiru.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorgreen: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconhijau.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconhijau.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorpurple: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconungu.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconungu.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorgray: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconabu.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconabu.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorred: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/iconmerah.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/iconmerah.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 

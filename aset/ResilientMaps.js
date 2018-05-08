@@ -216,17 +216,17 @@ function INITICON(){
 		// udangicon = L.icon({iconUrl: 'aset/img/udangudang.png', iconSize: [40,40], iconAnchor:[20,20]});
 		// cumiicon = L.icon({iconUrl: 'aset/img/cumicumi.png', iconSize: [40,40], iconAnchor:[20,20]});
 		// lobstericon = L.icon({iconUrl: 'aset/img/lobterlobster.png', iconSize: [40,40], iconAnchor:[20,20]});
-		gmpaIcon = L.icon({iconUrl: 'aset/img/epic.gif', iconSize: [50,50], iconAnchor:[25,25]});
-		aiscon = L.icon({iconUrl: 'aset/img/v.png', iconSize: [24,24], iconAnchor:[12,12]});
-		buletabu = L.icon({iconUrl: 'aset/img/iconabu.png', iconSize: [12,12], iconAnchor:[6,6]});
-		buletdefault = L.icon({iconUrl: 'aset/img/icondefault.png', iconSize: [12,12], iconAnchor:[6,6]});
-		bulethijau = L.icon({iconUrl: 'aset/img/iconhijau.png', iconSize: [12,12], iconAnchor:[6,6]});
-		bulethitam = L.icon({iconUrl: 'aset/img/iconhitam.png', iconSize: [12,12], iconAnchor:[6,6]});
-		buletkuning = L.icon({iconUrl: 'aset/img/iconkuning.png', iconSize: [12,12], iconAnchor:[6,6]});
-		buletmerah = L.icon({iconUrl: 'aset/img/iconmerah.png', iconSize: [12,12], iconAnchor:[6,6]});
-		buletputih = L.icon({iconUrl: 'aset/img/iconputih.png', iconSize: [12,12], iconAnchor:[6,6]});
-		bulettransp = L.icon({iconUrl: 'aset/img/icontransp.png', iconSize: [12,12], iconAnchor:[6,6]});
-		buletungu = L.icon({iconUrl: 'aset/img/iconungu.png', iconSize: [12,12], iconAnchor:[6,6]});
+		gmpaIcon = L.icon({iconUrl: '../aset/img/epic.gif', iconSize: [50,50], iconAnchor:[25,25]});
+		aiscon = L.icon({iconUrl: '../aset/img/v.png', iconSize: [24,24], iconAnchor:[12,12]});
+		buletabu = L.icon({iconUrl: '../aset/img/iconabu.png', iconSize: [12,12], iconAnchor:[6,6]});
+		buletdefault = L.icon({iconUrl: '../aset/img/icondefault.png', iconSize: [12,12], iconAnchor:[6,6]});
+		bulethijau = L.icon({iconUrl: '../aset/img/iconhijau.png', iconSize: [12,12], iconAnchor:[6,6]});
+		bulethitam = L.icon({iconUrl: '../aset/img/iconhitam.png', iconSize: [12,12], iconAnchor:[6,6]});
+		buletkuning = L.icon({iconUrl: '../aset/img/iconkuning.png', iconSize: [12,12], iconAnchor:[6,6]});
+		buletmerah = L.icon({iconUrl: '../aset/img/iconmerah.png', iconSize: [12,12], iconAnchor:[6,6]});
+		buletputih = L.icon({iconUrl: '../aset/img/iconputih.png', iconSize: [12,12], iconAnchor:[6,6]});
+		bulettransp = L.icon({iconUrl: '../aset/img/icontransp.png', iconSize: [12,12], iconAnchor:[6,6]});
+		buletungu = L.icon({iconUrl: '../aset/img/iconungu.png', iconSize: [12,12], iconAnchor:[6,6]});
 }
 
 
@@ -1040,7 +1040,7 @@ function modalgalery(i){
 
 function gambarkamar(i,ii){ 
 	// console.log(i,ii);
-	var urldasar = "aset/img/"+KOSANS[i].properties.foto+"/"+(ii+1)+"/";
+	var urldasar = "../aset/img/"+KOSANS[i].properties.foto+"/"+(ii+1)+"/";
 	// console.log(urldasar);
 	var pictureIndex = 0;
 	var pictures = [];
@@ -1222,7 +1222,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnPolyline)) {
 			// console.log(layer._bounds);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1231,7 +1231,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnPolygon)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1240,7 +1240,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnRectangle)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1249,7 +1249,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnCircle)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1548,6 +1548,9 @@ $("#backend").click(function() {
 });
 $("#tabel").click(function() {
 	window.location.href = "../html/tabelkost";
+});
+$("#about").click(function() {
+	window.location.href = "../html/about";
 });
 
 function animateSidebar() {

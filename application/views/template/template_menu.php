@@ -33,6 +33,13 @@
 <?php } ?>
 <?php if ($permission) { ?>
 			<li>
+				<a href="<?php echo base_url() . 'admin/kontrakan_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/kontrakan_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-home'></i>&nbsp;KONTRAKAN
+				</a>
+			</li>
+<?php } ?>
+<?php if ($permission) { ?>
+			<li>
 				<a href="<?php echo base_url() . 'admin/history_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/history_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-history'></i>&nbsp;HISTORY PENGHUNI
 				</a>

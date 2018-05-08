@@ -100,7 +100,10 @@
 				</ul>
 			</div>
 			<ul class="pull-right">
-				<p style="vertical-align:middle; font-family:'Arial'; color:white;  font-size:15; font-weight:normal; margin-top:8px">Welcome <?php if ($username) echo $username ?></p>
+				<i style="vertical-align:middle; font-family:'Arial'; color:white;  font-size:15; font-weight:normal; margin-top:8px">Welcome <?php if ($username) echo $username ?></i>
+				<li class="btn-group btn-group-sm" style="vertical-align:middle; margin-top:10px;" role="group">
+					<button type="button" class="btn btn-warning" id="about"><i class="fa fa-info-circle"></i></button>
+				</li>
 			</ul>
 				
 			<!-- </div> /.navbar-collapse  -->
@@ -599,6 +602,9 @@
 	});
 	$("#peta").click(function() {
 		window.location.href = "../html/map";
+	});
+	$("#about").click(function() {
+	window.location.href = "../html/about";
 	});
 
 	/* Formatting function for row details - modify as you need */

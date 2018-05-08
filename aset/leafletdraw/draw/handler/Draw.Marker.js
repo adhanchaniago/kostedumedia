@@ -10,11 +10,11 @@ L.Draw.Marker = L.Draw.Feature.extend({
 
 	options: {
 		icon: new L.icon({
-	          iconUrl: 'aset/img/markerdefault.png',
+	          iconUrl: '../aset/img/markerdefault.png',
 	          iconSize: [25, 41],
 	          iconAnchor: [12, 41],
 	          popupAnchor: [1, -34],
-	          shadowUrl : 'aset/img/marker-shadow.png',
+	          shadowUrl : '../aset/img/marker-shadow.png',
 	          shadowSize: [41,41]
 	    }),
 	    repeatMode: true,
@@ -32,39 +32,39 @@ L.Draw.Marker = L.Draw.Feature.extend({
 	// GOPAL 2017 - chose color 
 	// ngubah warna garis, via toolbar action. bukan draw control lg. biar g makan tempat
 	chosecolorwhite: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerputih.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerputih.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorblack: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerhitam.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerhitam.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecoloryellow: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerkuning.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerkuning.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolordefault: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerdefault.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerdefault.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorblue: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerbiru.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerbiru.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorgreen: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerhijau.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerhijau.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorpurple: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerungu.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerungu.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorgray: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markerabu.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markerabu.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 	chosecolorred: function () {
-		this.options.__proto__.icon.options.iconUrl = "aset/img/markermerah.png";
+		this.options.__proto__.icon.options.iconUrl = "../aset/img/markermerah.png";
 		this._marker.removeFrom(map).addTo(map);
 	},
 
