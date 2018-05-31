@@ -10,15 +10,18 @@ class Html extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		$this->data = array();
 		$this->load->helper('acl');
 		$this->load->helper('url');
 		$this->load->helper('string');
 		$this->load->library('session');
 		$this->load->library('tank_auth');
-		$this->load->database();
-		// $this->load->library('dao/user_role_dao');
-		// $this->load->library('dao/role_dao');
+		// $this->load->database();
+		$this->load->model('Kosts','',TRUE);
+
 		$this->logged_in();
+		$this->data['user_id'] = $this->session->userdata('user_id');
+		$this->data['user_id'] = '5ae039b33e0b2a360b304585'; // p ddg
 	}
 	
 	function logged_in() {
@@ -37,6 +40,7 @@ class Html extends CI_Controller {
 	}
 	public function tabelkost() {
 		$this->role_user();
+		$this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
 		$this->load->view('html/tabelkost',$this->data);
 	}
 	public function about() {
