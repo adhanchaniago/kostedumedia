@@ -81,22 +81,22 @@ function includeHTML() {
 				<a class="navbar-brand" style="vertical-align:middle; font-family:sshh;font-size:20;font-weight: normal;margin-top:0px;" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-legend-btn">&nbsp;Kost Putri EDUMEDIA&nbsp;</a>
 				<ul class="nav navbar-nav pull-center">
 					<li class="btn-group btn-group-sm" style="vertical-align:middle; margin-top:10px;" role="group">
-<?php if ($permission) { ?>
-						<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Halaman Admin</button>
-						<button type="button" class="btn btn-success" id="tabel"><i class="fa fa-table"></i>  Lihat Tabel</button>
-						<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>
-						
-<?php } else { ?>       
-						<button type="button" class="btn btn-info" id="login"><i class="fa fa-gears"></i>  Login</button>
-						<button type="button" class="btn btn-success" id="tabel"><i class="fa fa-table"></i>  Lihat Tabel</button>
-<?php } ?>       	
+						<button type="button" class="btn btn-success" id="peta"><i class="fa fa-map"></i>  Peta</button>
+						<button type="button" class="btn btn-primary" id="tabel"><i class="fa fa-table"></i>  Lihat Tabel</button>
+						<button type="button" class="btn btn-warning" id="about"><i class="fa fa-info-circle"></i> About</button>
 					</li>
 				</ul>
 			</div>
 			<ul class="pull-right">
-				<i style="vertical-align:middle; font-family:'Arial'; color:white;  font-size:15; font-weight:normal; margin-top:8px">Welcome <?php if ($username) echo $username ?></i>
+				<i style="vertical-align:middle; font-family:'Arial'; color:white;  font-size:15; font-weight:normal; margin-top:8px">Welcome <?php if ($username) echo $username ?>&nbsp;</i>
 				<li class="btn-group btn-group-sm" style="vertical-align:middle; margin-top:10px;" role="group">
-					<button type="button" class="btn btn-warning" id="about"><i class="fa fa-info-circle"></i></button>
+					
+<?php if ($permission) { ?>
+					<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Halaman Admin</button>
+					<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>
+<?php } else { ?>       
+					<button type="button" class="btn btn-info" id="login"><i class="fa fa-gears"></i>  Login</button>
+<?php } ?> 
 				</li>
 			</ul>
 				
