@@ -20,8 +20,6 @@ class Html extends CI_Controller {
 		$this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
-		$this->data['user_id'] = $this->session->userdata('user_id');
-		$this->data['user_id'] = '5ae039b33e0b2a360b304585'; // p ddg
 	}
 	
 	function logged_in() {
@@ -40,7 +38,7 @@ class Html extends CI_Controller {
 	}
 	public function tabelkost() {
 		$this->role_user();
-		$this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
+		$this->data['kosts'] = $this->Kosts->getAllDaftarKosan();
 		$this->load->view('html/tabelkost',$this->data);
 	}
 	public function about() {

@@ -90,6 +90,20 @@ class Kosts extends CI_Model {
 		return false;
 	}
 
+	function getAllDaftarKosan() {
+		$users = $this->data->find();
+		$usersArr = iterator_to_array($users);
+		$arrKosan = array();
+
+		foreach ($usersArr as $user) {
+			foreach ($user['features'] as $listkosan) {
+				array_push($arrKosan, $listkosan);
+			}
+		}
+
+		return $arrKosan;
+	}
+
 
 /////////////// GA KEPAKE
 	/** Insert new record */
