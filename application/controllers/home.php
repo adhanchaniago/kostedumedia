@@ -12,7 +12,7 @@ class Home extends CI_Controller {
 		$this->load->library('security');
 		$this->load->library('session');
 		$this->load->library('tank_auth');
-		$this->load->model('Kosts','',TRUE);
+		$this->load->library('dao/pengguna_dao');
 		$this->lang->load('tank_auth');
 	}
 
@@ -78,7 +78,7 @@ class Home extends CI_Controller {
 
 	public function roleUserRedirect() {
 		$user_id = $this->tank_auth->get_user_id();
-		$user = $this->Kosts->getUserById($user_id);
+		$user = $this->pengguna_dao->getUserById($user_id);
 		
 		if($user == null)
 			$this->logout();

@@ -28,7 +28,7 @@ class Tank_auth
 
 		$this->ci->load->library('session');
 		$this->ci->load->database();
-        $this->ci->load->model('Kosts','',TRUE);
+		$this->ci->load->library('dao/pengguna_dao');
 
 		// Try to autologin
 		$this->autologin();
@@ -56,19 +56,21 @@ class Tank_auth
 				$get_user_func = 'get_user_by_email';
 			}
 
-			if (!is_null($user = $this->ci->Kosts->get_user_by_login($login))) {	// login ok
-
+			if (!is_null($user = $this->ci->pengguna_dao->get_user_by_login(array("nama_lengkap" => $login)))) {	// login ok
 				// Does password match hash in database?
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
 
-				if ($hasher->CheckPassword($password, $user['password'])) 
+				// if ($hasher->CheckPassword($password, $user['password'])) 
+				if ($hasher->CheckPassword($password, $user->password))
 				{		// password ok
 					$this->ci->session->set_userdata(array(
-							'user_id'	=> $user['_id'],
-							'username'	=> $user['namauser'],
-							'status'	=> STATUS_ACTIVATED
+						// 'user_id'	=> $user['id'],
+						// 'username'	=> $user['username'],
+						'user_id'	=> $user->id_pengguna,
+						'username'	=> $user->username,
+						'status'	=> STATUS_ACTIVATED
 					));
 					return TRUE;
 				} else {														// fail - wrong password
