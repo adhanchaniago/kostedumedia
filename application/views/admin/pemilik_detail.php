@@ -10,11 +10,9 @@
 				rules:{
 					user_id: "required",
 					password: {
-						required: true,
 						minlength: 5
 					},
 					confirm_password: {
-						required: true,
 						minlength: 5,
 						equalTo: "#password"
 					},
@@ -26,11 +24,9 @@
 				messages:{
 					user_id: "required",
 					password: {
-						required: "required",
 						minlength: "Your password must be at least 5 characters long"
 					},
 					confirm_password: {
-						required: "required",
 						minlength: "Your password must be at least 5 characters long",
 						equalTo: "Please enter the same password as above"
 					},
