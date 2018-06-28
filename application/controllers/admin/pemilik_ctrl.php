@@ -14,12 +14,12 @@ class pemilik_ctrl extends CI_Controller{
 		$this->load->helper('url');
 		// $this->load->helper('acl');
 		$this->load->library('session');
-        $this->load->library('dao/pengguna_dao');
+		$this->load->library('dao/pengguna_dao');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="note error">', '</span>');
 		$this->load->library('pagination');
 		$this->load->library('tank_auth');
-		$this->load->model('Kosts','',TRUE);
+		// $this->load->model('Kosts','',TRUE);
 
 		$this->data = array();
 		$this->logged_in();
@@ -59,37 +59,25 @@ class pemilik_ctrl extends CI_Controller{
 	}
 
 	private function fetch_input(){
-		// $data = array(
-		// 	'namauser' => $this->input->post('username'),
-		// 	'password' => $this->input->post('userhp'),
-		// 	'hpuser' => $this->input->post('userhp'),
-		// 	'alamatuser' => $this->input->post('useralamat')
-		// );
 		$data = null;
-		if ($this->input->post('userhp') == '')
-			$data = array(
-				'username' => $this->input->post('username'),
-				'nama_lengkap' => $this->input->post('userfullname'),
-				'hp' => $this->input->post('userhp'),
-				'alamat' => $this->input->post('useralamat'),
-			);
-		else
-			$data = array(
-				'username' => $this->input->post('username'),
-				'nama_lengkap' => $this->input->post('userfullname'),
-				'hp' => $this->input->post('userhp'),
-				'alamat' => $this->input->post('useralamat'),
-				'password' => $this->input->post('userhp')
-			);
-		// yg belum tinggal passnya
+		$data = array(
+			'username' => $this->input->post('username'),
+			'nama_lengkap' => $this->input->post('userfullname'),
+			'hp' => $this->input->post('userhp'),
+			'alamat' => $this->input->post('useralamat'),
+		);
+
 		return $data;
 	}
 
 	public function save() {
 		$obj = $this->fetch_input();
 		$id_user = $this->data['user_id'];
-		// $this->Kosts->editPemilik($id_user, $obj);
+		$infoSession = '';
+
 		$this->pengguna_dao->editPengguna($this->data['user_id'], $obj);
+		if ($this->input->post('password') != '')
+			$this->tank_auth->change_password($this->data['user_id'], $this->input->post('password'));
 
 		$this->session->set_flashdata("info", "Data Pemilik berhasil diubah. ");
 		redirect(self::$CURRENT_CONTEXT);

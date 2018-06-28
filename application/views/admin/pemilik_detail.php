@@ -1,11 +1,48 @@
 <script>
+	$(document).ready(function(){
 <?php if ($this->session->flashdata('info')) { ?>
-		$(document).ready(function(){
-			$('.success').html('<strong> <?php echo $this->session->flashdata('info'); ?>');
-			$('.success').attr('style','');
-			$('.success').delay(10000).fadeOut('slow');
-		});
+		$('.success').html('<strong> <?php echo $this->session->flashdata('info'); ?>');
+		$('.success').attr('style','');
+		$('.success').delay(10000).fadeOut('slow');
 <?php } ?>
+
+			$("#editPengguna").validate({
+				rules:{
+					user_id: "required",
+					password: {
+						required: true,
+						minlength: 5
+					},
+					confirm_password: {
+						required: true,
+						minlength: 5,
+						equalTo: "#password"
+					},
+					username: "required",
+					userfullname: "required",
+					userhp: "required",
+					useralamat: "required"
+				},
+				messages:{
+					user_id: "required",
+					password: {
+						required: "required",
+						minlength: "Your password must be at least 5 characters long"
+					},
+					confirm_password: {
+						required: "required",
+						minlength: "Your password must be at least 5 characters long",
+						equalTo: "Please enter the same password as above"
+					},
+					username: "required",
+					userfullname: "required",
+					userhp: "required",
+					useralamat: "required"
+				}
+			});
+
+	});
+
 	function redirect(tail){
 		window.location = "<?php echo base_url() ?>admin/pemilik_ctrl" + tail;
 	}
@@ -14,7 +51,7 @@
 <div class="clear " id="notif-holder"></div>
 	<p class="notif success " style="display:none"><strong>Edit Sukses</strong>. Data Pemilik berhasil diubah.</p>
 	<p id="form-pos" class="tit-form">Informasi Pemilik</p>
-	<form action="<?php echo base_url() ?>admin/pemilik_ctrl/save" method="post" class="" id="addUsers">
+	<form action="<?php echo base_url() ?>admin/pemilik_ctrl/save" method="post" class="" id="editPengguna">
 		<ul class="form-admin">
 			<?php if (!empty($obj)) { ?>
 				<input type="hidden" value="<?php echo $obj->id_pengguna ?>" name="user_id"/>
