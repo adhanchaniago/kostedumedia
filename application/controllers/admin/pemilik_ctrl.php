@@ -14,7 +14,7 @@ class pemilik_ctrl extends CI_Controller{
 		$this->load->helper('url');
 		// $this->load->helper('acl');
 		$this->load->library('session');
-        // $this->load->library('dao/user_role_dao');
+        $this->load->library('dao/pengguna_dao');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="note error">', '</span>');
 		$this->load->library('pagination');
@@ -53,17 +53,34 @@ class pemilik_ctrl extends CI_Controller{
 
 	public function index($offset=0 ,$limit=16){
 		$this->preload();
-		$this->data['obj'] = $this->Kosts->getUserById($this->data['user_id']);
-		$this->load_view('admin/kost/pemilik_detail', $this->data);
+		// $this->data['obj'] = $this->Kosts->getUserById($this->data['user_id']);
+		$this->data['obj'] = $this->pengguna_dao->getUserById($this->data['user_id']);
+		$this->load_view('admin/pemilik_detail', $this->data);
 	}
 
 	private function fetch_input(){
-		$data = array(
-			'namauser' => $this->input->post('username'),
-			'password' => $this->input->post('userhp'),
-			'hpuser' => $this->input->post('userhp'),
-			'alamatuser' => $this->input->post('useralamat')
-		);
+		// $data = array(
+		// 	'namauser' => $this->input->post('username'),
+		// 	'password' => $this->input->post('userhp'),
+		// 	'hpuser' => $this->input->post('userhp'),
+		// 	'alamatuser' => $this->input->post('useralamat')
+		// );
+		$data = null;
+		if ($this->input->post('userhp') == '')
+			$data = array(
+				'username' => $this->input->post('username'),
+				'nama_lengkap' => $this->input->post('userfullname'),
+				'hp' => $this->input->post('userhp'),
+				'alamat' => $this->input->post('useralamat'),
+			);
+		else
+			$data = array(
+				'username' => $this->input->post('username'),
+				'nama_lengkap' => $this->input->post('userfullname'),
+				'hp' => $this->input->post('userhp'),
+				'alamat' => $this->input->post('useralamat'),
+				'password' => $this->input->post('userhp')
+			);
 		// yg belum tinggal passnya
 		return $data;
 	}
@@ -71,7 +88,8 @@ class pemilik_ctrl extends CI_Controller{
 	public function save() {
 		$obj = $this->fetch_input();
 		$id_user = $this->data['user_id'];
-		$this->Kosts->editPemilik($id_user, $obj);
+		// $this->Kosts->editPemilik($id_user, $obj);
+		$this->pengguna_dao->editPengguna($this->data['user_id'], $obj);
 
 		$this->session->set_flashdata("info", "Data Pemilik berhasil diubah. ");
 		redirect(self::$CURRENT_CONTEXT);

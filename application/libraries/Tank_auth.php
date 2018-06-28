@@ -130,6 +130,41 @@ class Tank_auth
 	}
 
 	/**
+	 * Change user password (only when user is logged in)
+	 *
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	function change_password($user_id,$new_pass)
+	{
+//		$user_id = $this->ci->session->userdata('user_id');
+
+		if (!is_null($user = $this->ci->pengguna_dao->getUserById($user_id))) {
+
+			// Check if old password correct
+			$hasher = new PasswordHash(
+					$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
+					$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
+//			if ($hasher->CheckPassword($old_pass, $user->password)) {			// success
+
+				// Hash new password using phpass
+				$hashed_password = $hasher->HashPassword($new_pass);
+
+				// Replace old password with new one
+				$this->ci->pengguna_dao->change_password($user_id, $hashed_password);
+				return TRUE;
+
+//			} else {															// fail
+//				$this->error = array('old_password' => 'auth_incorrect_password');
+//			}
+		}
+		return FALSE;
+	}
+
+	//////////////// GA KEPAKE
+
+	/**
 	 * Create new user on the site and return some data about it:
 	 * user_id, username, password, email, new_email_key (if any).
 	 *
@@ -341,39 +376,6 @@ class Tank_auth
 			}
 		}
 		return NULL;
-	}
-
-	/**
-	 * Change user password (only when user is logged in)
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	function change_password($user_id,$new_pass)
-	{
-//		$user_id = $this->ci->session->userdata('user_id');
-
-		if (!is_null($user = $this->ci->users->get_user_by_id($user_id, TRUE))) {
-
-			// Check if old password correct
-			$hasher = new PasswordHash(
-					$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
-					$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
-//			if ($hasher->CheckPassword($old_pass, $user->password)) {			// success
-
-				// Hash new password using phpass
-				$hashed_password = $hasher->HashPassword($new_pass);
-
-				// Replace old password with new one
-				$this->ci->users->change_password($user_id, $hashed_password);
-				return TRUE;
-
-//			} else {															// fail
-//				$this->error = array('old_password' => 'auth_incorrect_password');
-//			}
-		}
-		return FALSE;
 	}
 
 	/**

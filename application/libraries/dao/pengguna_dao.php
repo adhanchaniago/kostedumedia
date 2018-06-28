@@ -36,7 +36,16 @@ class pengguna_dao extends Generic_dao  {
 		if ($user) return $user;
 		
 		return false;
-	}	
+	}
+
+	function editPengguna($id, $obj) {
+		return $this->update($obj, array('id_pengguna' => $id));
+	}
+
+	function change_password($id, $new_pass) {
+		return $this->update(array('password' => $new_pass), array('id_pengguna' => $id));
+	}
+	
 }
 
 ?>
