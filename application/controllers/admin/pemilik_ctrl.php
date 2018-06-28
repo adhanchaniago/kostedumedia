@@ -75,11 +75,19 @@ class pemilik_ctrl extends CI_Controller{
 		$id_user = $this->data['user_id'];
 		$infoSession = '';
 
-		$this->pengguna_dao->editPengguna($this->data['user_id'], $obj);
-		if ($this->input->post('password') != '')
-			$this->tank_auth->change_password($this->data['user_id'], $this->input->post('password'));
+		if ($this->pengguna_dao->editPengguna($this->data['user_id'], $obj))
+			$infoSession = 'Data Pemilik berhasil diubah. ';
+		else
+			$infoSession = 'Data Pemilik gagal diubah. ';
 
-		$this->session->set_flashdata("info", "Data Pemilik berhasil diubah. ");
+		if ($this->input->post('password') != '') {
+			if ($this->tank_auth->change_password($this->data['user_id'], $this->input->post('password')))
+				$infoSession .= 'Password berhasil diubah. ';
+			else
+				$infoSession .= 'Password gagal diubah. ';
+		}
+
+		$this->session->set_flashdata("info", $infoSession);
 		redirect(self::$CURRENT_CONTEXT);
 	}
 	
