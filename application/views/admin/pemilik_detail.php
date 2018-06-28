@@ -17,12 +17,20 @@
 	<form action="<?php echo base_url() ?>admin/pemilik_ctrl/save" method="post" class="" id="addUsers">
 		<ul class="form-admin">
 			<?php if (!empty($obj)) { ?>
-				<input type="hidden" value="<?php echo $obj['_id'] ?>" name="user_id"/>
+				<input type="hidden" value="<?php echo $obj->id_pengguna ?>" name="user_id"/>
 			<?php } ?>
 			<li>
-				<label>Nama pemilik</label>
+				<label>Username</label>
 				<input class="form-admin" name="username" type="text" class="text-medium"
-					value="<?php if (!empty($obj)) echo $obj['namauser'] ?>" >
+					value="<?php if (!empty($obj)) echo $obj->username ?>" >
+					<?php echo form_error('username'); ?>
+
+				<div class="clear"></div>
+			</li>
+			<li>
+				<label>Nama Lengkap</label>
+				<input class="form-admin" name="userfullname" type="text" class="text-medium"
+					value="<?php if (!empty($obj)) echo $obj->nama_lengkap ?>" >
 					<?php echo form_error('username'); ?>
 
 				<div class="clear"></div>
@@ -30,7 +38,7 @@
 			<li>
 				<label>Nomor HP</label>
 				<input class="form-admin" name="userhp" type="text" class="text-medium"
-					value="<?php if (!empty($obj)) echo $obj['hpuser'] ?>" >
+					value="<?php if (!empty($obj)) echo $obj->hp ?>" >
 					<?php echo form_error('userhp'); ?>
 
 				<div class="clear"></div>
@@ -38,7 +46,7 @@
 			<li>
 				<label>Alamat</label>
 				<input class="form-admin" name="useralamat" type="text" class="text-medium"
-					value="<?php if (!empty($obj)) echo $obj['alamatuser'] ?>" >
+					value="<?php if (!empty($obj)) echo $obj->alamat ?>" >
 					<?php echo form_error('useralamat'); ?>
 
 				<div class="clear"></div>
