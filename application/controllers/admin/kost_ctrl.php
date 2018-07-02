@@ -27,6 +27,7 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('tank_auth');
 		$this->load->library('upload');
 		$this->load->library('image_lib');
+		$this->load->library('dao/kosan_dao');
 		$this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
@@ -40,7 +41,7 @@ class kost_ctrl extends CI_Controller{
 
 	public function index($offset=0 ,$limit=16){
 		$this->preload();
-		$this->load_view('admin/kost/list_kost', $this->data);
+		$this->load_view('admin/list_kost', $this->data);
 	}
 
 	public function preload(){
@@ -48,7 +49,9 @@ class kost_ctrl extends CI_Controller{
 		$this->data['title'] = self::$TITLE;
 
 		$this->data['obj'] = null;
-		$this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
+		// $this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
+		$this->data['kosts'] = $this->kosan_dao->getDaftarKosan($this->data['user_id']);
+		// $this->data['kosts'] = $this->kosan_dao->getDaftarKosan(1);
 	}
 
 	public function load_view($page, $data = null){
@@ -61,22 +64,38 @@ class kost_ctrl extends CI_Controller{
 	public function edit($kosan_judul = null){
 		$this->preload();
 		if ($kosan_judul == null) {
-			$this->load_view('admin/kost/list_kost');
+			$this->load_view('admin/list_kost');
 		} else {
-			$this->data['obj'] = $this->Kosts->getInfoKosan($this->data['user_id'], urldecode($kosan_judul));
-			$this->load_view('admin/kost/list_kost', $this->data);
+			// $this->data['obj'] = $this->Kosts->getInfoKosan($this->data['user_id'], urldecode($kosan_judul));
+			$this->data['obj'] = $this->kosan_dao->getInfoKosan($kosan_judul);
+			// print_r($this->data['obj']); die();
+			$this->load_view('admin/list_kost', $this->data);
 		}
 	}
 
 	private function fetch_input(){
+		// $data = array(
+		// 	'type' => "Feature",
+		// 	'properties' => array(
+		// 		'judul' => $this->input->post('judul_kosan'),
+		// 		'desc' => $this->input->post('alamat_kosan'),
+		// 		'kamar' => $this->get_list_kamar()
+		// 	)
+		// );
+		// return $data;
+
+		$data = null;
 		$data = array(
-			'type' => "Feature",
-			'properties' => array(
-				'judul' => $this->input->post('judul_kosan'),
-				'desc' => $this->input->post('alamat_kosan'),
-				'kamar' => $this->get_list_kamar()
-			)
+			'nama_kosan' => $this->input->post('judul_kosan'),
+			'alamat' => $this->input->post('alamat_kosan'),
+			'deskripsi' => $this->input->post('desk_kosan'),
+			'fasum' => $this->input->post('fasum'),
+			'deskripsilokasi' => $this->input->post('desk_lokasi'),
+			'lokasi' => $this->input->post('lokasi'),
+			'kamarmandi' => $this->input->post('kamarmandi'),
+			'kontak' => $this->input->post('kontak')
 		);
+
 		return $data;
 	}
 
@@ -96,10 +115,14 @@ class kost_ctrl extends CI_Controller{
 		$infoSession = ''; // added by SKM17
 
 		$obj = $this->fetch_input();
-		$id_user = $this->input->post('user_id');
-		$kosan_judul = $this->input->post('kosan_judul');
-		$this->Kosts->saveNewKosan($id_user, $obj);
-		$infoSession .= "Data Kosan berhasil ditambah. ";
+		$obj['id_pengguna'] = $this->input->post('user_id');
+		// $id_user = $this->input->post('user_id');
+		// $kosan_judul = $this->input->post('kosan_judul');
+		// $this->Kosts->saveNewKosan($id_user, $obj);
+		if ($this->kosan_dao->saveNewKosan($obj))
+			$infoSession .= "Kosan baru berhasil disimpan. ";
+		else
+			$infoSession .= "<font color='red'>Kosan baru gagal disimpan. </font>";
 
 		$this->session->set_flashdata("info", $infoSession);
 		redirect(self::$CURRENT_CONTEXT);
@@ -109,10 +132,14 @@ class kost_ctrl extends CI_Controller{
 		$infoSession = ''; // added by SKM17
 
 		$obj = $this->fetch_input();
-		$id_user = $this->input->post('user_id');
-		$kosan_judul = $this->input->post('kosan_judul');
-		$this->Kosts->editKosan($id_user, $kosan_judul, $obj);
-		$infoSession .= "Data Kosan berhasil diubah. ";
+		// $id_user = $this->input->post('user_id');
+		$id_kosan = $this->input->post('id_kosan');
+		// $kosan_judul = $this->input->post('kosan_judul');
+		// $this->Kosts->editKosan($id_user, $kosan_judul, $obj);
+		if ($this->kosan_dao->editKosan($id_kosan, $obj))
+			$infoSession .= "Data Kosan berhasil diubah. ";
+		else
+			$infoSession .= "Data Kosan gagal diubah. ";
 
 		$this->session->set_flashdata("info", $infoSession);
 		redirect(self::$CURRENT_CONTEXT);

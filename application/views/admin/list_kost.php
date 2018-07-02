@@ -39,8 +39,10 @@
 			return false;
 		});
 
-		var rowTotalKmr = <?php if ($obj) echo sizeof($obj['kamar']);
-								else echo 0;
+		var rowTotalKmr = <?php if ($obj) 
+									// echo sizeof($obj['kamar']);
+									echo '0;';
+								else echo '0;';
 						?>
 
 		$("#addKmr").click(function() {
@@ -189,20 +191,21 @@ document.onkeypress = stopRKey;
 				$count=1;
 				if(!empty($kosts)){
 					foreach($kosts as $kosan) {
-						$deskripsi = $kosan['properties']; ?>
+						// $deskripsi = $kosan['properties']; 
+						?>
 						<tr class="<?php echo alternator("row-two", "row-one"); ?>">
 							<td><?php echo ($count++); ?></td>
-							<td><?php echo $deskripsi['judul'] ?></td>
-							<td><?php echo $deskripsi['desc'] ?></td>
+							<td><?php echo $kosan->nama_kosan ?></td>
+							<td><?php echo $kosan->alamat ?></td>
 <!-- 							<td><?php echo $deskripsi['lokasi'] ?></td>
 							<td><?php echo $deskripsi['desclok'] ?></td> -->
 							<td class="action">
-								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $deskripsi['judul'] ?>"><div class="tab-edit"></div></a>
-								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $deskripsi['judul'] ?>" class="delete-tab"><div class="tab-delete"></div></a>
+								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan ?>"><div class="tab-edit"></div></a>
+								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="delete-tab"><div class="tab-delete"></div></a>
 							</td>
 						</tr>
-			<?php       }
-				}?>
+			<?php 	}
+				} ?>
 
 		</tbody>
 	</table>
@@ -215,46 +218,46 @@ document.onkeypress = stopRKey;
 				<ul class="form-admin">
 					<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
 					<?php if ($obj) { ?>
-						<input type="hidden" name="kosan_judul" value="<?php echo $obj['judul'] ?>" />
+						<input type="hidden" name="id_kosan" value="<?php echo $obj->id_kosan ?>" />
 					<?php } ?>
 					<li>
 						<label>Judul</label>
-						<input class="form-admin" name="judul_kosan" id="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['judul'] ?>" >
+						<input class="form-admin" name="judul_kosan" id="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->nama_kosan ?>" >
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Alamat</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->alamat ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Deskripsi</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="desk_kosan" id="desk_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Fasilitas Umum</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="fasum" id="fasum" type="text" class="text-medium" value="<?php if ($obj) echo $obj->fasum ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Deskripsi Lokasi</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="desk_lokasi" id="desk_lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsilokasi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Link Lokasi</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="lokasi" id="lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->lokasi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Kamar Mandi</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="kamarmandi" id="kamarmandi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kamarmandi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Kontak</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input class="form-admin" name="kontak" id="kontak" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kontak ?>" >	
 						<div class="clear"></div>
 					</li>
 				</ul>
@@ -263,29 +266,19 @@ document.onkeypress = stopRKey;
 				<ul class="form-admin">
 					<li>
 						<label>Foto1</label>
-						<input name="alamat_kosan" id="fotokost1" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input name="fotokost1" id="fotokost1" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Foto2</label>
-						<input name="alamat_kosan" id="fotokost2" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input name="fotokost2" id="fotokost2" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Foto3</label>
-						<input name="alamat_kosan" id="fotokost3" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
+						<input name="fotokost3" id="fotokost3" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
 						<div class="clear"></div>
 					</li>
-					<!-- <li>
-						<label>Foto4</label>
-						<input name="alamat_kosan" id="fotokost4" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
-						<div class="clear"></div>
-					</li> -->
-					<!-- <li>
-						<label>Foto5</label>
-						<input name="alamat_kosan" id="fotokost5" type="file" class="text-medium" value="<?php if ($obj) echo $obj['desc'] ?>" >	
-						<div class="clear"></div>
-					</li> -->
 					<li>
 						<label>Lokasi</label>
 						<div id=map></div>	
@@ -294,8 +287,17 @@ document.onkeypress = stopRKey;
 				</ul>
 			</div>
 		</div>
-		
 
+		<p class="tit-form"></p>
+		<label>&nbsp;</label>
+		<input class="button-form" type="submit" value="<?php if ($obj) echo 'Ubah'; else echo 'Tambah'; ?>">
+		<input class="button-form" type="reset" onclick="redirect()" value="Batal">
+		<div class="clear"></div>
+		
+	</form>
+		
+		<br>
+		<br>
 		<p class="tit-form">Daftar Kamar</p>
 		<table id="tableKmr" class="tab-admin">
 			<tr class="tittab">
@@ -304,7 +306,7 @@ document.onkeypress = stopRKey;
 				<td>Terisi</td>
 				<td style="width: 78px;">Aksi</td>
 			</tr>
-			<?php if ($obj) {
+			<?php $obj=null; if ($obj) {
 				$count_kamar = 1;
 				foreach ($obj['kamar'] as $kamar) {
 					?>
@@ -392,8 +394,8 @@ document.onkeypress = stopRKey;
 					<div class="clear"></div>
 				</li>
 			</ul>
-		  </div>
-		  <div class="kolom" id="kolom2">
+		</div>
+		<div class="kolom" id="kolom2">
 		  	<p class="tit-form">Data Penghuni</p>
 			<input type="hidden" id="editNumberKmr" value="" />
 			<input type="hidden" id="totalRowKmr" name="totalRowKmr" value="<?php if ($obj) echo count($obj['kamar']) ?>" />
@@ -522,16 +524,6 @@ document.onkeypress = stopRKey;
 					<div class="clear"></div>
 				</li>
 			</ul>
-		  </div> <!-- kolom -->
-		  <li>
-				<p class="tit-form"></p>
-				<label>&nbsp;</label>
-				<input class="button-form" type="submit" value="Simpan">
-				<input class="button-form" type="reset" onclick="redirect()" value="Batal">
-				<div class="clear"></div>
-			</li>
-		</div> <!-- baris -->
-		
-	</form>
+		</div> <!-- kolom -->
 </div>
 <div class="clear"></div>
