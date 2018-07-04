@@ -29,6 +29,7 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('image_lib');
 		$this->load->library('dao/kosan_dao');
 		$this->load->library('dao/kamar_dao');
+		$this->load->library('dao/penghuni_dao');
 		$this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
@@ -74,9 +75,11 @@ class kost_ctrl extends CI_Controller{
 			$this->data['obj'] = $this->kosan_dao->getInfoKosan($id_kosan);
 			$this->data['kamars'] = $this->kamar_dao->getDaftarKamar($id_kosan);
 			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_kosan);
-			if ($id_kamar)
+			if ($id_kamar) {
 				$this->data['objkamar'] = $this->kamar_dao->getInfoKamar($id_kamar);
-			
+				$this->data['penghuni'] = $this->penghuni_dao->getPenghuniKamar($id_kamar);
+			}
+
 			$this->load_view('admin/list_kost', $this->data);
 		}
 	}
@@ -197,6 +200,51 @@ class kost_ctrl extends CI_Controller{
 			$infoSession .= "Data Kamar berhasil diubah. ";
 		else
 			$infoSession .= "<font color='red'>Data Kamar gagal diubah. </font>";
+
+		$this->session->set_flashdata("info", $infoSession);
+		redirect($this->session->userdata('user_url'));
+	}
+
+	private function fetch_input_penghuni(){
+		$data = null;
+		$data = array(
+			'nama_penghuni' => $this->input->post('nama_penghuni'),
+			'no_ktp' => $this->input->post('noktp'),
+			'alamat' => $this->input->post('alamat'),
+			'hp' => $this->input->post('hp'),
+			'tglmasuk' => $this->input->post('tglmasuk'),
+			// 'tglkeluar' => $this->input->post('tglkeluar'),
+			'hpdarurat' => $this->input->post('hpdarurat')
+		);
+
+		return $data;
+	}
+
+	public function add_penghuni() {
+		$infoSession = ''; // added by SKM17
+
+		$objpenghuni = $this->fetch_input_penghuni();
+		$objpenghuni['id_kamar'] = $this->input->post('id_kamar');
+
+		if ($this->penghuni_dao->saveNewPenghuni($objpenghuni))
+			$infoSession .= "Penghuni baru berhasil disimpan. ";
+		else
+			$infoSession .= "<font color='red'>Penghuni baru gagal disimpan. </font>";
+
+		$this->session->set_flashdata("info", $infoSession);
+		redirect($this->session->userdata('user_url'));
+	}
+
+	public function edit_penghuni() {
+		$infoSession = ''; // added by SKM17
+
+		$objpenghuni = $this->fetch_input_penghuni();
+		$id_penghuni = $this->input->post('id_penghuni');
+		
+		if ($this->penghuni_dao->editPenghuni($id_penghuni, $objpenghuni))
+			$infoSession .= "Data Penghuni berhasil diubah. ";
+		else
+			$infoSession .= "<font color='red'>Data Penghuni gagal diubah. </font>";
 
 		$this->session->set_flashdata("info", $infoSession);
 		redirect($this->session->userdata('user_url'));

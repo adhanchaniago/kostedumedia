@@ -113,10 +113,14 @@
 		$('#form_search_filter').attr('action',url+param).submit();
 	}
 
-	
 	function redirect(){
 		window.location = "<?php echo base_url() ?>admin/kost_ctrl";
 	}
+
+	function deletePenghuni(id_penghuni){
+		window.location = "<?php echo base_url() ?>admin/kost_ctrl/delPenghuni/" + id_penghuni;
+	}
+
 </script>
 
 <style>
@@ -215,7 +219,7 @@ document.onkeypress = stopRKey;
 				<ul class="form-admin">
 					<input type="hidden" name="user_id" value="<?php echo $user_id; ?>" />
 					<?php if ($obj) { ?>
-						<input type="hidden" name="id_kosan" value="<?php echo $obj->id_kosan ?>" />
+						<input type="hidden" name="id_kosan" value="<?php echo $obj->id_kosan ?>" >
 					<?php } ?>
 					<li>
 						<label>Judul</label>
@@ -391,148 +395,145 @@ if ($obj) {
 				</li>
 				<li>
 					<label></label>
-					<!-- <input class="button-form green" id="addKmr" type="button" value="<?php
-						if ($obj) echo 'Simpan';
-						else echo 'Tambah Kamar';
-					?>" >
-					<input class="button-form red" id="cancelKmr" type="button" value="Batal"> -->
-
-		<input class="button-form green" type="submit" value="<?php if ($objkamar) echo 'Ubah'; else echo 'Tambah'; ?>">
-		<input class="button-form red" type="reset" onclick="redirect()" value="Batal">
+					<input class="button-form green" type="submit" value="<?php if ($objkamar) echo 'Ubah'; else echo 'Tambah'; ?>">
+					<input class="button-form red" type="reset" onclick="redirect()" value="Batal">
 					<div class="clear"></div>
 				</li>
 			</ul>
 		</form>
 	</div>
+<?php if ($objkamar) { ?>
 	<div class="kolom" id="kolom2">
 	  	<p class="tit-form">Data Penghuni</p>
-		<input type="hidden" id="editNumberKmr" value="" />
-		<ul class="form-admin">
-			<li>
-				<label>Nama Penghuni</label>
-				<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>TTL</label>
-				<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium">
-				</select>
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Gender</label>
-				<input class="form-admin" id="luas_kmr" name="luas_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Agama</label>
-				<input class="form-admin" id="fasilitas_kmr" name="fasilitas_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>No KTP</label>
-				<input class="form-admin" id="harga_kmr" name="harga_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Alamat</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>No HP</label>
-				<input class="form-admin" id="sisapmby_kmr" name="sisapmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Aktivitas</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Tgl Masuk</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Tgl Keluar</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Harga Per Tahun</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Ket Ayah</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Ket Ibu</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Kontak Darurat</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>No HP darurat</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Email</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>FB</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Instagram</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Twitter</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>BBM</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Foto KTP</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Foto KTM</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label>Foto Diri</label>
-				<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
-				<div class="clear"></div>
-			</li>
-			<li>
-				<label></label>
-				
-				<!-- <input class="button-form red" id="cancelKmr" type="button" value="Batal"> -->
-				<input class="button-form red" id="gantiPenghuni" type="button" value="Ganti Penghuni">
-				<div class="clear"></div>
-			</li>
-		</ul>
+		<form action="<?php if ($penghuni) echo base_url() . 'admin/kost_ctrl/edit_penghuni'; else echo base_url() . 'admin/kost_ctrl/add_penghuni'; ?>" method="post" >
+			<input type="hidden" name="id_kamar" value="<?php echo $objkamar->id_kamar ?>" />
+	<?php if ($penghuni) { ?>
+			<input type="hidden" name="id_penghuni" value="<?php echo $penghuni->id_penghuni ?>" />
+	<?php } ?>
+			<ul class="form-admin">
+				<li>
+					<label>Nama Penghuni</label>
+					<input class="form-admin" id="nama_penghuni" name="nama_penghuni" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->nama_penghuni ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>TTL</label>
+					<input class="form-admin" id="ttl" name="ttl" type="text" class="text-medium">
+					</select>
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Gender</label>
+					<input class="form-admin" id="gender" name="gender" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Agama</label>
+					<input class="form-admin" id="agama" name="agama" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No KTP</label>
+					<input class="form-admin" id="noktp" name="noktp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->no_ktp ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Alamat</label>
+					<input class="form-admin" id="alamat" name="alamat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->alamat ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No HP</label>
+					<input class="form-admin" id="hp" name="hp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hp ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Aktivitas</label>
+					<input class="form-admin" id="aktivitas" name="aktivitas" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Tgl Masuk</label>
+					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Tgl Keluar</label>
+					<input class="form-admin" id="tglkeluar" name="tglkeluar" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglkeluar ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Ket Ayah</label>
+					<input class="form-admin" id="ket_ayah" name="ket_ayah" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Ket Ibu</label>
+					<input class="form-admin" id="ket_ibu" name="ket_ibu" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Kontak Darurat</label>
+					<input class="form-admin" id="kontakdarurat" name="kontakdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>No HP darurat</label>
+					<input class="form-admin" id="hpdarurat" name="hpdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Email</label>
+					<input class="form-admin" id="email" name="email" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>FB</label>
+					<input class="form-admin" id="fb" name="fb" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Instagram</label>
+					<input class="form-admin" id="ig" name="ig" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Twitter</label>
+					<input class="form-admin" id="twitter" name="twitter" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>BBM</label>
+					<input class="form-admin" id="bbm" name="bbm" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto KTP</label>
+					<input class="form-admin" id="fotoktp" name="fotoktp" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto KTM</label>
+					<input class="form-admin" id="fotoktm" name="fotoktm" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Foto Diri</label>
+					<input class="form-admin" id="fotodiri" name="fotodiri" type="text" class="text-medium">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label></label>
+					<input class="button-form green" type="submit" value="<?php if ($penghuni) echo 'Ubah Data Penghuni'; else echo 'Set Penghuni'; ?>">
+					<input class="button-form red" type="reset" onclick="<?php if ($penghuni) echo 'delPenghuni('.$penghuni->id_penghuni.')'; else echo 'redirect()'; ?>" value="<?php if ($penghuni) echo 'Ganti Penghuni'; else echo 'Batal'; ?>">
+					<div class="clear"></div>
+				</li>
+			</ul>
+		</form>
 	</div> <!-- kolom -->
-<?php } ?>
+
+<?php 
+	}
+} ?>
 </div> <!-- div main -->
 <div class="clear"></div>
