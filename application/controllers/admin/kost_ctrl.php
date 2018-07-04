@@ -28,6 +28,7 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('upload');
 		$this->load->library('image_lib');
 		$this->load->library('dao/kosan_dao');
+		$this->load->library('dao/kamar_dao');
 		$this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
@@ -49,6 +50,8 @@ class kost_ctrl extends CI_Controller{
 		$this->data['title'] = self::$TITLE;
 
 		$this->data['obj'] = null;
+		$this->data['kamars'] = null;
+		$this->data['objkamar'] = null;
 		// $this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
 		$this->data['kosts'] = $this->kosan_dao->getDaftarKosan($this->data['user_id']);
 		// $this->data['kosts'] = $this->kosan_dao->getDaftarKosan(1);
@@ -61,14 +64,19 @@ class kost_ctrl extends CI_Controller{
 		$this->load->view('template/template_footer');
 	}
 
-	public function edit($kosan_judul = null){
+	public function edit($id_kosan, $id_kamar = null){
 		$this->preload();
-		if ($kosan_judul == null) {
+
+		if ($id_kosan == null) {
 			$this->load_view('admin/list_kost');
 		} else {
 			// $this->data['obj'] = $this->Kosts->getInfoKosan($this->data['user_id'], urldecode($kosan_judul));
-			$this->data['obj'] = $this->kosan_dao->getInfoKosan($kosan_judul);
-			// print_r($this->data['obj']); die();
+			$this->data['obj'] = $this->kosan_dao->getInfoKosan($id_kosan);
+			$this->data['kamars'] = $this->kamar_dao->getDaftarKamar($id_kosan);
+			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_kosan);
+			if ($id_kamar)
+				$this->data['objkamar'] = $this->kamar_dao->getInfoKamar($id_kamar);
+			
 			$this->load_view('admin/list_kost', $this->data);
 		}
 	}
@@ -116,16 +124,14 @@ class kost_ctrl extends CI_Controller{
 
 		$obj = $this->fetch_input();
 		$obj['id_pengguna'] = $this->input->post('user_id');
-		// $id_user = $this->input->post('user_id');
-		// $kosan_judul = $this->input->post('kosan_judul');
-		// $this->Kosts->saveNewKosan($id_user, $obj);
+		
 		if ($this->kosan_dao->saveNewKosan($obj))
 			$infoSession .= "Kosan baru berhasil disimpan. ";
 		else
 			$infoSession .= "<font color='red'>Kosan baru gagal disimpan. </font>";
 
 		$this->session->set_flashdata("info", $infoSession);
-		redirect(self::$CURRENT_CONTEXT);
+		redirect($this->session->userdata('user_url'));
 	}
 
 	public function edit_kosan() {
@@ -139,7 +145,7 @@ class kost_ctrl extends CI_Controller{
 		if ($this->kosan_dao->editKosan($id_kosan, $obj))
 			$infoSession .= "Data Kosan berhasil diubah. ";
 		else
-			$infoSession .= "Data Kosan gagal diubah. ";
+			$infoSession .= "<font color='red'>Data Kosan gagal diubah. </font>";
 
 		$this->session->set_flashdata("info", $infoSession);
 		redirect(self::$CURRENT_CONTEXT);
@@ -151,6 +157,49 @@ class kost_ctrl extends CI_Controller{
 		$this->session->set_flashdata("info", "Hapus Data Kosan berhasil!");
 
 		redirect(self::$CURRENT_CONTEXT);
+	}
+
+	private function fetch_input_kamar(){
+		$data = null;
+		$data = array(
+			'nama_kamar' => $this->input->post('nama_kmr'),
+			'luas' => $this->input->post('luas_kmr'),
+			'fasilitas' => $this->input->post('fasilitas_kmr'),
+			'hargath' => $this->input->post('harga_kmr'),
+			'terisi' => $this->input->post('terisi_kmr')
+		);
+
+		return $data;
+	}
+
+	public function add_kamar() {
+		$infoSession = ''; // added by SKM17
+
+		$objkamar = $this->fetch_input_kamar();
+		$objkamar['id_kosan'] = $this->input->post('id_kosan');
+
+		if ($this->kamar_dao->saveNewKamar($objkamar))
+			$infoSession .= "Kamar baru berhasil disimpan. ";
+		else
+			$infoSession .= "<font color='red'>Kamar baru gagal disimpan. </font>";
+
+		$this->session->set_flashdata("info", $infoSession);
+		redirect($this->session->userdata('user_url'));
+	}
+
+	public function edit_kamar() {
+		$infoSession = ''; // added by SKM17
+
+		$objkamar = $this->fetch_input_kamar();
+		$id_kamar = $this->input->post('id_kamar');
+		
+		if ($this->kamar_dao->editKamar($id_kamar, $objkamar))
+			$infoSession .= "Data Kamar berhasil diubah. ";
+		else
+			$infoSession .= "<font color='red'>Data Kamar gagal diubah. </font>";
+
+		$this->session->set_flashdata("info", $infoSession);
+		redirect($this->session->userdata('user_url'));
 	}
 	
 	function role_user() {
