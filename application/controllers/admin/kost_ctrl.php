@@ -212,7 +212,7 @@ class kost_ctrl extends CI_Controller{
 			'no_ktp' => $this->input->post('noktp'),
 			'alamat' => $this->input->post('alamat'),
 			'hp' => $this->input->post('hp'),
-			'tglmasuk' => $this->input->post('tglmasuk'),
+			// 'tglmasuk' => $this->input->post('tglmasuk'),
 			// 'tglkeluar' => $this->input->post('tglkeluar'),
 			'hpdarurat' => $this->input->post('hpdarurat')
 		);
