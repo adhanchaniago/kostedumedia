@@ -250,9 +250,9 @@ function INITPLUGIN(){
 		//LEAFLET attribution
 		var attrib = new L.Control.Attribution;
 		map.addControl(attrib); 
-		attrib.setPrefix('<a href="https://www.youtube.com/c/resilientonamission/about" target="_blank"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
+		attrib.setPrefix('<a href="https://www.youtube.com/c/resilientonamission/about" target="_blank"><strong>Gopal & Sesdika, 2018</strong></a>');
 		map.on('mousemove', function(e) {
-			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. <a target="_blank" href="https://www.youtube.com/c/resilientonamission/about"><strong>Dibuat semena-mena oleh Gopal & Sesdika, 2018</strong></a>');
+			attrib.setPrefix('Koordinat : '+e.latlng.lat+", "+e.latlng.lng+'. Zoom:'+map.getZoom()+'. <a target="_blank" href="https://www.youtube.com/c/resilientonamission/about"><strong>Gopal & Sesdika, 2018</strong></a>');
 		});
 
 		//LEAFLET scale nautica
@@ -1196,11 +1196,37 @@ function myBindPopUp(objek) {
 		}
 }
 //window prompt, asking bindpopup!
-function flyto(nelat,nelng,swlat,swlng) {
+function flyto(nelat,nelng,swlat,swlng,id) {
+	console.log("flyto");
 	map.flyToBounds(L.latLngBounds(L.latLng(nelat,nelng),L.latLng(swlat,swlng)));
+	  drawnGeojson.eachLayer(function (layer) {
+	  	if(layer._leaflet_id == id){
+	  		layer.openPopup();	
+	  	}
+	  });
 }
-function panto(lat,lng) {
-	map.flyTo(L.latLng(lat,lng),19);
+function panto(lat,lng,id) {
+	// console.log("panto");
+	// console.log("id =", id);
+	map.flyTo(L.latLng(lat,lng),18);
+	  drawnGeojson.eachLayer(function (layer) {
+	  	// console.log(layer._leaflet_id);
+	  	if(layer._leaflet_id == id){
+	  		layer.openPopup();	
+	  	}
+	  });
+	  drawnMarker.eachLayer(function (layer) {
+	  	// console.log(layer._leaflet_id);
+	  	if(layer._leaflet_id == id){
+	  		layer.openPopup();	
+	  	}
+	  });
+	  drawnMarkerBulat.eachLayer(function (layer) {
+	  	// console.log(layer._leaflet_id);
+	  	if(layer._leaflet_id == id){
+	  		layer.openPopup();	
+	  	}
+	  });
 }
 
 function syncSidebar() {
@@ -1212,7 +1238,7 @@ function syncSidebar() {
 	drawnGeojson.eachLayer(function (layer) {
 		// console.log(layer);
 		if (map.getBounds().contains(layer._layers[(layer._leaflet_id-1)].getLatLng())) {
-			$("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+			$("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 		}
 	});
 	
@@ -1222,7 +1248,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnPolyline)) {
 			// console.log(layer._bounds);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polyline.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>"+'</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1231,7 +1257,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnPolygon)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/polygon.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1240,7 +1266,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnRectangle)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="flyto('+layer._bounds._northEast.lat+','+layer._bounds._northEast.lng+','+layer._bounds._southWest.lat+','+layer._bounds._southWest.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/kotak.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1249,7 +1275,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnCircle)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getBounds())) {
-				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/lingkaran.png" width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + "<font color="+layer.options.color+">"+layer.judul+"</font>" + '</td><td class="feature-name">' + "<font color="+layer.options.color+">"+layer.desc+"</font>"+'</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1258,7 +1284,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnMarker)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getLatLng())) {
-				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1267,7 +1293,7 @@ function syncSidebar() {
 		// if (map.hasLayer(drawnMarkerBulat)) {
 			// console.log(layer);
 			if (map.getBounds().contains(layer.getLatLng())) {
-				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+				$("#feature-list tbody").append('<tr onclick="panto('+layer._latlng.lat+','+layer._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src='+layer.options.icon.options.iconUrl+' width="20" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.judul + '</td><td class="feature-name">' + layer.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 			}
 		// }
 	});
@@ -1575,6 +1601,93 @@ function IsJsonString(str) {try {JSON.parse(str)}catch (e) {return false}return 
 // animateSidebar();
 animateRightbar();
 
+
+// piechart
+var barChartData = {
+			labels: ['G.asih', 'G.arum', 'G.bhakti', 'G.kiara', 'G.sari'],
+			datasets: [{
+				label: 'terisi',
+				backgroundColor: '#36a2eb',
+				data: [
+					12, 6, 6, 4, 13
+				]
+			}, {
+				label: 'kosong',
+				backgroundColor: '#ff6384',
+				data: [
+					3, 2, 2, 2, 1
+				]
+			}]
+
+		};
+
+			var ctx = document.getElementById('myChart').getContext('2d');
+			window.myBar = new Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: true,
+						text: 'Kost Edumedia Availability'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
+
+
+
+
+
+
+// var ctx = document.getElementById("myChart").getContext('2d');
+// var myChart = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//         datasets: [{
+//             label: '# of Votes',
+//             data: [12, 19, 3, 5, 2, 3],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//                 'rgba(255,99,132,1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(255, 206, 86, 1)',
+//                 'rgba(75, 192, 192, 1)',
+//                 'rgba(153, 102, 255, 1)',
+//                 'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero:true
+//                 }
+//             }]
+//         }
+//     }
+// });
 
 
 
