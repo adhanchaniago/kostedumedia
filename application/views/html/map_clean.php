@@ -82,9 +82,10 @@ function includeHTML() {
 				<ul class="nav navbar-nav pull-center">
 					<li class="btn-group btn-group-sm" style="vertical-align:middle; margin-top:10px;" role="group">
 						<button type="button" class="btn btn-success" id="peta"><i class="fa fa-map"></i>  Peta</button>
-						<button type="button" class="btn btn-primary" id="tabel"><i class="fa fa-table"></i>  Lihat Tabel</button>
+						<button type="button" class="btn btn-primary" id="tabel"><i class="fa fa-table"></i>  Tabel</button>
 						<button type="button" class="btn btn-warning" id="about"><i class="fa fa-info-circle"></i> About</button>
 					</li>
+					<li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sidebar-form-btn"><i class="fa fa-pencil "></i>&nbsp;&nbsp;ketersediaan kamar</a></li>
 				</ul>
 			</div>
 			<ul class="pull-right">
@@ -181,6 +182,77 @@ function includeHTML() {
 			</div>
 		</div>
 
+		<div id="rightbar">
+	      <div class="rightbar-wrapper">
+	        <!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
+	        <div class="panel panel-default" style="max-height: 100%;" id="features">
+      		  <div class="right-panel-body">
+			  	<div class="row">
+					<div class="col-xs-12 col-md-12">
+						<!-- <input type="text" class="form-control search" id="myinput" onkeyup="ngefilter()" placeholder="cari nama / alamat" /> -->
+						<div id="piechart"></div>
+						<canvas id="myChart" width="500" height="200"></canvas>
+
+					</div>
+					<div class="rightbar-table">
+		              <table class="table table-hover table-striped table-condensed" id="tabellap" style="font-size:12px;">
+		                <thead>
+							<tr>
+								<th>Kosan</th>
+								<th>Kamar</th>
+								<th>Luas</th>
+								<th>Harga</th>
+								<th>Terisi</th>
+							</tr>
+						</thead>
+		                <tbody class="list">
+<?php 
+	if(!empty($kosts)){
+		foreach($kosts as $kosan) {
+			$deskripsi = $kosan['properties'];
+			foreach ($deskripsi['kamar'] as $kamar) {
+?>
+								<tr class="<?php echo alternator("even", "odd"); ?>">
+									<td><?php echo $deskripsi['judul'] ?></td>
+									<td><?php echo $kamar['nama'] ?></td>
+									<td><?php echo $kamar['luas'] ?></td>
+									<td><?php echo $kamar['hargath'] ?></td>
+									<td><?php echo $kamar['terisi'] ?></td>
+								</tr>
+<?php 		}
+		}
+	}
+?>
+		                </tbody>
+		              </table>
+		            </div>
+				</div>
+			  </div>
+
+	          <!-- <div class="right-panel-body" id="tabellaporan" > -->
+	            <!-- <div class="rightbar-table">
+	              <table class="table table-hover table-striped table-condensed" id="tabellap" style="font-size:12px;">
+	                <thead>
+	                  <tr>
+	                    <th>Nama</th>
+	                    <th>Alamat</th>
+	                    <th>Gender</th>
+	                    <th>TTL</th>
+	                    <th>Keterangan Penyakit</th>
+	                  <tr>
+	                </thead>
+	                <tbody class="list">
+	                  
+	                </tbody>
+	              </table>
+	            </div> -->
+
+	          <!-- </div> --> <!-- right panel body -->
+	        
+	        </div>
+	      </div>
+	    </div>
+
 		
 		<div id="map"></div>
 
@@ -201,7 +273,6 @@ function includeHTML() {
 								<div id="modalcobabody" class="modal-body">
 									<!-- EMPTY -->
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -222,12 +293,10 @@ function includeHTML() {
 									<div style="position:absolute; left:50%;" id="modalgaleryinfo"> </div>
 									<a id="goright" style="position:absolute; right:10px;" class="fa fa-chevron-right"></a><br>
 									<img id="modalgaleryviewer" src="" width="100%" />
-
 								</div>
 							</div>
 						</div>
 					</div>
-
 	</div>
 
 	<!-- <div id="map"></div>    -->
@@ -317,6 +386,9 @@ function includeHTML() {
 	<!-- <script src="https://unpkg.com/esri-leaflet-vector@1.0.5"></script> -->
 	<!-- <script src="https://unpkg.com/esri-leaflet-cluster@2.0.0"></script> -->
 
+	<!-- piechart -->
+	<script src="<?php echo base_url() ?>aset/chartjs/Chart.bundle.js"></script>
+	<script src="<?php echo base_url() ?>aset/chartjs/Chart.bundle.min.js"></script>
 
 	<!-- bootstrap -->
 	<script src="<?php echo base_url() ?>aset/bootstrap.min.js"></script>
