@@ -315,19 +315,17 @@ function includeHTML() {
 						</thead>
 		                <tbody class="list">
 <?php 
-	if(!empty($kosts)){
-		foreach($kosts as $kosan) {
-			$deskripsi = $kosan['properties'];
-			foreach ($deskripsi['kamar'] as $kamar) {
+	if(!empty($kosans)){
+		foreach($kosans as $datakamar) {
 ?>
 								<tr class="<?php echo alternator("even", "odd"); ?>">
-									<td><?php echo $deskripsi['judul'] ?></td>
-									<td><?php echo $kamar['nama'] ?></td>
-									<td><?php echo $kamar['luas'] ?></td>
-									<td><?php echo $kamar['hargath'] ?></td>
-									<td><?php echo $kamar['terisi'] ?></td>
+									<td><?php echo $datakamar->nama_kosan ?></td>
+									<td><?php echo $datakamar->nama_kamar ?></td>
+									<td><?php echo $datakamar->luas ?></td>
+									<td><?php echo $datakamar->hargath ?></td>
+									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
-<?php 		}
+<?php
 		}
 	}
 ?>
