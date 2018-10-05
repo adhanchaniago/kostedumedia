@@ -2,6 +2,114 @@
 
 <!-- include another html page -->
 <script>
+var dataKosan = null;
+<?php  // susun data dari database menjadi data dg format puskesmas.json
+echo 'dataKosan = {"type":"FeatureCollection","features":['; // bukaan pertama
+
+// mulai iterasi data, dikelompokkan per rumah
+$curIdKosan = -1;
+foreach($kosans as $data) {
+	if ($curIdKosan < 0) { // masih yg pertama
+		$curIdKosan = $data->id_kosan;
+		echo '{"type":"Feature",';
+		echo '"geometry":{"type":"Point","coordinates":[' . $data->lon . ',' . $data->lat . ']},';
+		echo '"properties": {';
+		echo '"judul":"' . $data->nama_kosan . '",';
+		echo '"jenis":"marker",';
+		echo '"desc":"' . $data->alamat . '",';
+		echo '"fasum":"' . $data->fasum . '",';
+		echo '"foto":"' . $data->foto_kosan . '",';
+		echo '"kontak":"' . $data->kontak . '",';
+		echo '"lokasi":"' . $data->lokasi . '",';
+		echo '"kamarmandi":"' . $data->kamarmandi . '",';
+		echo '"desclok":"' . $data->deskripsilokasi . '",';
+		echo '"kamar":[';
+
+		if ($data->id_kamar != NULL) { 
+			echo '{"nama" : "' . $data->nama_kamar . '",';
+			echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
+			echo '"fasilitas":"' . $data->fasilitas . '",';
+			echo '"hargath":"' . $data->hargath . '",';
+			echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+			echo '"penghuninama":"' . $data->nama_penghuni . '",';
+			echo '"penghunihp":"' . $data->hp . '",';
+			echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
+			echo '"penghunifoto":"' . $data->foto . '",';
+			echo '"penghunialamat":"' . $data->alamat . '",';
+			echo '"penghuninoktp":"' . $data->no_ktp . '",';
+			echo '"tglmasuk":"' . $data->tglmasuk . '",';
+			echo '"tglkeluar":"' . $data->tglkeluar . '",';
+			echo '"penghunifotoktp":"' . $data->fotoktp . '",';
+			echo '"penghunifotoktm":"' . $data->fotoktm . '",';
+			echo '"penghunilatar":"' . $data->lb . '"}';
+		}
+	} else {
+		if ($data->id_kosan == $curIdKosan) { // rumah data selanjutnya = rumah data sebelumnya
+			// lanjut data penghuni rumah
+			echo ','; // tambahin koma penutup utk penghuni sebelumnya
+				echo '{"nama" : "' . $data->nama_kamar . '",';
+				echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
+				echo '"fasilitas":"' . $data->fasilitas . '",';
+				echo '"hargath":"' . $data->hargath . '",';
+				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+				echo '"penghuninama":"' . $data->nama_penghuni . '",';
+				echo '"penghunihp":"' . $data->hp . '",';
+				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
+				echo '"penghunifoto":"' . $data->foto . '",';
+				echo '"penghunialamat":"' . $data->alamat . '",';
+				echo '"penghuninoktp":"' . $data->no_ktp . '",';
+				echo '"tglmasuk":"' . $data->tglmasuk . '",';
+				echo '"tglkeluar":"' . $data->tglkeluar . '",';
+				echo '"penghunifotoktp":"' . $data->fotoktp . '",';
+				echo '"penghunifotoktm":"' . $data->fotoktm . '",';
+				echo '"penghunilatar":"' . $data->lb . '"}';
+		}
+		else { // ganti rumah, bikin data rumah baru
+			echo ']}'; // tutup dulu data penghuni sebelumnya & properties
+			echo '},';	 // tutup Feature
+
+			// isian rumah selanjutnya
+			echo '{"type":"Feature",';
+			echo '"geometry":{"type":"Point","coordinates":[' . $data->lon . ',' . $data->lat . ']},';
+			echo '"properties": {';
+			echo '"judul":"' . $data->nama_kosan . '",';
+			echo '"jenis":"marker",';
+			echo '"desc":"' . $data->alamat . '",';
+			echo '"fasum":"' . $data->fasum . '",';
+			echo '"foto":"' . $data->foto_kosan . '",';
+			echo '"kontak":"' . $data->kontak . '",';
+			echo '"lokasi":"' . $data->lokasi . '",';
+			echo '"kamarmandi":"' . $data->kamarmandi . '",';
+			echo '"desclok":"' . $data->deskripsilokasi . '",';
+			echo '"kamar":[';
+
+			if ($data->id_kamar != NULL) { 
+				echo '{"nama" : "' . $data->nama_kamar . '",';
+				echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
+				echo '"fasilitas":"' . $data->fasilitas . '",';
+				echo '"hargath":"' . $data->hargath . '",';
+				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+				echo '"penghuninama":"' . $data->nama_penghuni . '",';
+				echo '"penghunihp":"' . $data->hp . '",';
+				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
+				echo '"penghunifoto":"' . $data->foto . '",';
+				echo '"penghunialamat":"' . $data->alamat . '",';
+				echo '"penghuninoktp":"' . $data->no_ktp . '",';
+				echo '"tglmasuk":"' . $data->tglmasuk . '",';
+				echo '"tglkeluar":"' . $data->tglkeluar . '",';
+				echo '"penghunifotoktp":"' . $data->fotoktp . '",';
+				echo '"penghunifotoktm":"' . $data->fotoktm . '",';
+				echo '"penghunilatar":"' . $data->lb . '"}';
+			}
+		}
+		$curIdKosan = $data->id_kosan;
+	}
+}
+
+echo ']}}'; // kurawal penutup array penghuni & kurawal rumah
+echo ']};'; // kurawal penutup akhir
+?>
+
 var LOGINSTAT = false;
 function includeHTML() {
 	var z, i, elmnt, file, xhttp;

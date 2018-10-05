@@ -14,13 +14,15 @@ class kosan_dao extends Generic_dao  {
 			'nama_kosan'=>'nama_kosan',
 			'alamat'=>'alamat',
 			'fasum'=>'fasum',
-			'foto'=>'foto',
+			'foto_kosan'=>'foto_kosan',
 			'kontak'=>'kontak',
 			'lokasi'=>'lokasi',
 			'kamarmandi'=>'kamarmandi',
 			'deskripsilokasi'=>'deskripsilokasi',
 			'deskripsi'=>'deskripsi',
-			'id_pengguna'=>'id_pengguna'
+			'id_pengguna'=>'id_pengguna',
+			'lat'=>'lat',
+			'lon'=>'lon'
 		);
 	}
 
@@ -44,6 +46,18 @@ class kosan_dao extends Generic_dao  {
 
 	function editKosan($id, $obj) {
 		return $this->update($obj, array('id_kosan' => $id));
+	}
+
+	function getAllKosan() {
+		$this->ci->db->select('*');
+		$this->ci->db->from('kamar RIGHT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)
+				LEFT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
+		');
+		
+		$this->ci->db->order_by('kosan.id_kosan', 'asc');
+		$this->ci->db->order_by('kamar.id_kamar', 'asc');
+		$q = $this->ci->db->get();
+		return $q->result();
 	}
 }
 

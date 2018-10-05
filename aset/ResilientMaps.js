@@ -987,8 +987,8 @@ var drawnMarker = L.featureGroup().addTo(map);
 var drawnMarkerBulat = L.featureGroup().addTo(map);
 var drawnItems = L.featureGroup().addTo(map);
 
+var KOSANS = new Array();
 INITGAMBARDB();
-var KOSANS = [];
 
 function modalgalery(i){ 
 	// console.log(i);
@@ -1087,8 +1087,9 @@ function gambarkamar(i,ii){
 }
 
 function INITGAMBARDB(){
-	$.get("../json/edumedia.json", function(data, status){
-				// console.log(data.features);
+	// $.get("../json/edumedia.json", function(data, status){
+				var data = dataKosan;
+				console.log(data.features);
 				for(var i=0; i<data.features.length; i++){
 						KOSANS.push(data.features[i]);
 						var fasum,foto,kontak,lokasi,desclok,kamarmandi;
@@ -1132,7 +1133,7 @@ function INITGAMBARDB(){
 				// console.log(drawnGeojson);
 				// console.log(KOSANS);
 				syncSidebar();
-		}); //ajax
+		// }); //ajax
 } //INITGAMBARDB
 
 

@@ -18,6 +18,7 @@ class Html extends CI_Controller {
 		$this->load->library('tank_auth');
 		// $this->load->database();
 		$this->load->model('Kosts','',TRUE);
+		$this->load->library('dao/kosan_dao');
 
 		$this->logged_in();
 	}
@@ -34,6 +35,7 @@ class Html extends CI_Controller {
 
 	public function map() {
 		$this->role_user();
+		$this->data['kosans'] = $this->kosan_dao->getAllKosan();
 		$this->load->view('html/map_clean',$this->data);
 	}
 	public function tabelkost() {
