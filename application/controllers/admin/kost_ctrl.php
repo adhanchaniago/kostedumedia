@@ -17,10 +17,6 @@ class kost_ctrl extends CI_Controller{
 		// $this->load->helper('acl');
 		$this->load->helper('geodesics');
 		$this->load->library('session');
-		// $this->load->library('dao/poi_dao');  // GA KEPAKE
-		// $this->load->library('dao/operation_dao');  // GA KEPAKE
-		// $this->load->library('dao/aoipoi_type_dao');  // GA KEPAKE
-		// $this->load->library('dao/user_role_dao');  // GA KEPAKE
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="note error">', '</span>');
 		$this->load->library('pagination'); // GA KEPAKE
@@ -34,9 +30,7 @@ class kost_ctrl extends CI_Controller{
 
 		$this->logged_in();
 		$this->role_user();
-		// $this->data['permission'] = all_permission_string($this->session->userdata('user_id'));
-		// $this->data['idAccessMsg'] = $this->session->userdata(SESSION_USERMSGID);
-		// $this->data['user_id'] = '5ae977774b77e8711e0c4e92';
+
 		// $this->data['user_id'] = '5ae039b33e0b2a360b304585'; // p ddg
 		$this->data['user_id'] = $this->session->userdata('user_id');
 	}
@@ -53,7 +47,6 @@ class kost_ctrl extends CI_Controller{
 		$this->data['obj'] = null;
 		$this->data['kamars'] = null;
 		$this->data['objkamar'] = null;
-		// $this->data['kosts'] = $this->Kosts->getDaftarKosan($this->data['user_id']);
 		$this->data['kosts'] = $this->kosan_dao->getDaftarKosan($this->data['user_id']);
 		// $this->data['kosts'] = $this->kosan_dao->getDaftarKosan(1);
 	}
@@ -71,7 +64,6 @@ class kost_ctrl extends CI_Controller{
 		if ($id_kosan == null) {
 			$this->load_view('admin/list_kost');
 		} else {
-			// $this->data['obj'] = $this->Kosts->getInfoKosan($this->data['user_id'], urldecode($kosan_judul));
 			$this->data['obj'] = $this->kosan_dao->getInfoKosan($id_kosan);
 			$this->data['kamars'] = $this->kamar_dao->getDaftarKamar($id_kosan);
 			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_kosan);
@@ -85,16 +77,6 @@ class kost_ctrl extends CI_Controller{
 	}
 
 	private function fetch_input(){
-		// $data = array(
-		// 	'type' => "Feature",
-		// 	'properties' => array(
-		// 		'judul' => $this->input->post('judul_kosan'),
-		// 		'desc' => $this->input->post('alamat_kosan'),
-		// 		'kamar' => $this->get_list_kamar()
-		// 	)
-		// );
-		// return $data;
-
 		$data = null;
 		$data = array(
 			'nama_kosan' => $this->input->post('judul_kosan'),
@@ -104,22 +86,12 @@ class kost_ctrl extends CI_Controller{
 			'deskripsilokasi' => $this->input->post('desk_lokasi'),
 			'lokasi' => $this->input->post('lokasi'),
 			'kamarmandi' => $this->input->post('kamarmandi'),
-			'kontak' => $this->input->post('kontak')
+			'kontak' => $this->input->post('kontak'),
+			'lat' => $this->input->post('lat'),
+			'lon' => $this->input->post('lon')
 		);
 
 		return $data;
-	}
-
-	private function get_list_kamar() {
-		$totalRow = $this->input->post('totalRowKmr');
-
-		$listkamar = array();
-		for ($i = 1; $i <= $totalRow; $i++) {
-			$namakamar = $this->input->post('kmr_' . $i);
-			$terisi = $this->input->post('filledKmr_' . $i);
-			array_push($listkamar, array('nama' => $namakamar, 'terisi' => $terisi));
-		}
-		return $listkamar;
 	}
 
 	public function add_kosan() {
@@ -144,7 +116,6 @@ class kost_ctrl extends CI_Controller{
 		// $id_user = $this->input->post('user_id');
 		$id_kosan = $this->input->post('id_kosan');
 		// $kosan_judul = $this->input->post('kosan_judul');
-		// $this->Kosts->editKosan($id_user, $kosan_judul, $obj);
 		if ($this->kosan_dao->editKosan($id_kosan, $obj))
 			$infoSession .= "Data Kosan berhasil diubah. ";
 		else
@@ -168,8 +139,7 @@ class kost_ctrl extends CI_Controller{
 			'nama_kamar' => $this->input->post('nama_kmr'),
 			'luas' => $this->input->post('luas_kmr'),
 			'fasilitas' => $this->input->post('fasilitas_kmr'),
-			'hargath' => $this->input->post('harga_kmr'),
-			'terisi' => $this->input->post('terisi_kmr')
+			'hargath' => $this->input->post('harga_kmr')
 		);
 
 		return $data;
@@ -226,8 +196,12 @@ class kost_ctrl extends CI_Controller{
 		$objpenghuni = $this->fetch_input_penghuni();
 		$objpenghuni['id_kamar'] = $this->input->post('id_kamar');
 
-		if ($this->penghuni_dao->saveNewPenghuni($objpenghuni))
+		$gen_id_penghuni = $this->penghuni_dao->saveNewPenghuni($objpenghuni);
+
+		if ($gen_id_penghuni) {
+			$this->kamar_dao->setPenghuni($this->input->post('id_kamar'), $gen_id_penghuni);
 			$infoSession .= "Penghuni baru berhasil disimpan. ";
+		}
 		else
 			$infoSession .= "<font color='red'>Penghuni baru gagal disimpan. </font>";
 

@@ -15,8 +15,8 @@ class kamar_dao extends Generic_dao  {
 			'luas'=>'luas',
 			'fasilitas'=>'fasilitas',
 			'hargath'=>'hargath',
-			'terisi'=>'terisi',
-			'id_kosan'=>'id_kosan'
+			'id_kosan'=>'id_kosan',
+			'id_penghuni'=>'id_penghuni'
 		);
 	}
 
@@ -40,6 +40,10 @@ class kamar_dao extends Generic_dao  {
 
 	function editKamar($id, $obj) {
 		return $this->update($obj, array('id_kamar' => $id));
+	}
+
+	function setPenghuni($id_kamar, $id_penghuni) {
+		return $this->update(array('id_penghuni' => $id_penghuni), array('id_kamar' => $id_kamar));
 	}
 }
 

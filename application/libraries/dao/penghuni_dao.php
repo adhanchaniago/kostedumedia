@@ -39,7 +39,8 @@ class penghuni_dao extends Generic_dao  {
 	}
 
 	function saveNewPenghuni($obj) {
-		return $this->insert($obj);
+		$this->insert($obj);
+		return $this->insert_id();
 	}
 
 	function editPenghuni($id, $obj) {

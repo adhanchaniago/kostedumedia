@@ -113,8 +113,11 @@
 		$('#form_search_filter').attr('action',url+param).submit();
 	}
 
-	function redirect(){
-		window.location = "<?php echo base_url() ?>admin/kost_ctrl";
+	function redirect(tambahan = null){
+		if (tambahan == null)
+			window.location = "<?php echo base_url() ?>admin/kost_ctrl";
+		else
+			window.location = "<?php echo base_url() ?>admin/kost_ctrl/edit/" + tambahan + "#formkosan";
 	}
 
 	function deletePenghuni(id_penghuni){
@@ -170,7 +173,7 @@ document.onkeypress = stopRKey;
 
 			<div class="clear"></div>
 			<div style="border-bottom: 1px dotted #DDD; margin: 15px 0 17px 0;"></div>
-			<input type="button" value="Bersihkan Pencarian" onclick="redirect('')" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
+			<input type="button" value="Bersihkan Pencarian" onclick="redirect()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
 			<input type="button" value="Cari" name="search_filter" onclick="create_url()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
 			<div class="clear"></div>
 			<div style="border-bottom: 1px solid #DDD; margin: 15px 0 0 0;"></div>
@@ -201,7 +204,7 @@ document.onkeypress = stopRKey;
 <!-- 							<td><?php echo $deskripsi['lokasi'] ?></td>
 							<td><?php echo $deskripsi['desclok'] ?></td> -->
 							<td class="action">
-								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan ?>"><div class="tab-edit"></div></a>
+								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan  . '#formkosan' ?>"><div class="tab-edit"></div></a>
 								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="delete-tab"><div class="tab-delete"></div></a>
 							</td>
 						</tr>
@@ -212,7 +215,7 @@ document.onkeypress = stopRKey;
 	</table>
 	<br />  
 
-	<p class="tit-form"><?php if ($obj) echo "Edit Kostan"; else echo "Tambah Kostan Baru"; ?></p>
+	<p id="formkosan" class="tit-form"><?php if ($obj) echo "Edit Kostan"; else echo "Tambah Kosan Baru"; ?></p>
 	<form action="<?php if ($obj) echo base_url() . 'admin/kost_ctrl/edit_kosan'; else echo base_url() . 'admin/kost_ctrl/add_kosan'; ?>" method="post" >
 		<div class="baris">
 			<div class="kolom" id="ffform">
@@ -261,28 +264,28 @@ document.onkeypress = stopRKey;
 						<input class="form-admin" name="kontak" id="kontak" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kontak ?>" >	
 						<div class="clear"></div>
 					</li>
+					<li>
+						<label>Foto</label>
+						<input name="foto_kosan" id="foto_kosan" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto_kosan ?>" >	
+						<div class="clear"></div>
+					</li>
 				</ul>
 			</div>
 			<div class="kolom" id="fffooto">
 				<ul class="form-admin">
 					<li>
-						<label>Foto1</label>
-						<input name="fotokost1" id="fotokost1" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
+						<label>Lintang</label>
+						<input class="form-admin" name="lat" id="inputlat" type="text" class="text-medium" value="<?php if ($obj) echo $obj->lat ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
-						<label>Foto2</label>
-						<input name="fotokost2" id="fotokost2" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
-						<div class="clear"></div>
-					</li>
-					<li>
-						<label>Foto3</label>
-						<input name="fotokost3" id="fotokost3" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto ?>" >	
+						<label>Bujur</label>
+						<input class="form-admin" name="lon" id="inputlon" type="text" class="text-medium" value="<?php if ($obj) echo $obj->lon ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Lokasi</label>
-						<div id=map></div>	
+						<div id="map" style="width: 400px; height: 300px"></div>
 						<div class="clear"></div>
 					</li>
 				</ul>
@@ -291,8 +294,8 @@ document.onkeypress = stopRKey;
 
 		<p class="tit-form"></p>
 		<label>&nbsp;</label>
-		<input class="button-form" type="submit" value="<?php if ($obj) echo 'Ubah'; else echo 'Tambah'; ?>">
-		<input class="button-form" type="reset" onclick="redirect()" value="Batal">
+		<input class="button-form green" type="submit" value="<?php if ($obj) echo 'Ubah'; else echo 'Tambah'; ?>">
+		<input class="button-form red" type="reset" onclick="redirect()" value="Batal">
 		<div class="clear"></div>
 		
 	</form>
@@ -319,9 +322,9 @@ document.onkeypress = stopRKey;
 			<td><?php echo $kamar->luas ?></td>
 			<td><?php echo $kamar->fasilitas ?></td>
 			<td><?php echo $kamar->hargath ?></td>
-			<td><?php if ($kamar->terisi == 't') echo 'Ya'; else echo 'Tidak'; ?></td>
+			<td><?php if ($kamar->id_penghuni > 0) echo 'Ya'; else echo 'Tidak'; ?></td>
 			<td class="action">
-				<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $obj->id_kosan . '/' . $kamar->id_kamar ?>"><div class="tab-edit"></div></a>
+				<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $obj->id_kosan . '/' . $kamar->id_kamar . '#formkamar' ?>"><div class="tab-edit"></div></a>
 				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kmr/<?php echo $kamar->id_kamar ?>" class="delete-tab"><div class="tab-delete"></div></a>
 			</td>
 		</tr>
@@ -336,8 +339,8 @@ if ($obj) {
 ?>
 	<br />
 	<div class="baris">
-	  <div class="kolom" id="kolom1">
-	  	<p class="tit-form"><?php if ($objkamar) echo 'Ubah Kamar'; else echo 'Input Kamar Baru' ?></p>
+		<div class="kolom" id="kolom1">
+	  	<p id="formkamar" class="tit-form"><?php if ($objkamar) echo 'Ubah Kamar'; else echo 'Input Kamar Baru' ?></p>
 		<form action="<?php if ($objkamar) echo base_url() . 'admin/kost_ctrl/edit_kamar'; else echo base_url() . 'admin/kost_ctrl/add_kamar'; ?>" method="post" >
 			<input type="hidden" name="id_kosan" value="<?php echo $obj->id_kosan ?>" />
 <?php if ($objkamar) { ?>
@@ -347,15 +350,6 @@ if ($obj) {
 				<li>
 					<label>Nama</label>
 					<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->nama_kamar ?>" >
-					<div class="clear"></div>
-				</li>
-				<li>
-					<label>Terisi</label>
-					<select id="terisi_kmr" name="terisi_kmr" class="form-admin">
-						<option value="" selected>-Pilih Kondisi Terisi-</option>
-						<option value="t" <?php if ($objkamar && ($objkamar->terisi=='t')) echo 'selected' ?> >terisi</option>
-						<option value="f" <?php if ($objkamar && ($objkamar->terisi=='f')) echo 'selected' ?> >kosong</option>
-					</select>
 					<div class="clear"></div>
 				</li>
 				<li>
@@ -396,7 +390,7 @@ if ($obj) {
 				<li>
 					<label></label>
 					<input class="button-form green" type="submit" value="<?php if ($objkamar) echo 'Ubah'; else echo 'Tambah'; ?>">
-					<input class="button-form red" type="reset" onclick="redirect()" value="Batal">
+					<input class="button-form red" type="reset" onclick="<?php echo 'redirect('.$obj->id_kosan.')' ?>" value="Batal">
 					<div class="clear"></div>
 				</li>
 			</ul>
@@ -525,7 +519,9 @@ if ($obj) {
 				<li>
 					<label></label>
 					<input class="button-form green" type="submit" value="<?php if ($penghuni) echo 'Ubah Data Penghuni'; else echo 'Set Penghuni'; ?>">
-					<input class="button-form red" type="reset" onclick="<?php if ($penghuni) echo 'delPenghuni('.$penghuni->id_penghuni.')'; else echo 'redirect()'; ?>" value="<?php if ($penghuni) echo 'Ganti Penghuni'; else echo 'Batal'; ?>">
+			<?php if ($penghuni) {
+					echo '<input class="button-form red" type="reset" onclick="delPenghuni('.$penghuni->id_penghuni.')" value="Kosongkan Penghuni" >';
+				} ?>
 					<div class="clear"></div>
 				</li>
 			</ul>
@@ -537,3 +533,74 @@ if ($obj) {
 } ?>
 </div> <!-- div main -->
 <div class="clear"></div>
+
+<script type="text/javascript">
+	var configMap = {
+		latCenter : -6.862386170,
+		lonCenter : 107.588816285,
+		zoom :17,
+		mapUrl : '<?php echo $this->config->item('map_url') ?>',
+		mapStyleId : 22677
+	};
+	var minimal   = L.tileLayer(configMap.mapUrl, {styleId: configMap.mapStyleId});
+	var southWest = new L.LatLng(85, -180);
+	var northEast = new L.LatLng(-85, 180);
+	var bounds = new L.LatLngBounds(southWest, northEast);
+	var bounds_area_input = $("#bounds_area_input");
+
+	//fixation for pan inside bounds
+
+	L.Map.include({panInsideBounds: function(bounds) {
+		bounds = L.latLngBounds(bounds);
+
+		var viewBounds = this.getBounds(),
+			viewSw = this.project(viewBounds.getSouthWest()),
+			viewNe = this.project(viewBounds.getNorthEast()),
+			sw = this.project(bounds.getSouthWest()),
+			ne = this.project(bounds.getNorthEast()),
+			dx = 0,
+			dy = 0;
+
+		if (viewNe.y < ne.y) { // north
+			dy = ne.y - viewNe.y + Math.max(0, this.latLngToContainerPoint([85.05112878, 0]).y); // + extra vertical scroll
+		}
+		if (viewNe.x > ne.x) { // east
+			dx = ne.x - viewNe.x;
+		}
+		if (viewSw.y > sw.y) { // south
+			dy = sw.y - viewSw.y + Math.min(0, this.latLngToContainerPoint([-85.05112878, 0]).y - this.getSize().y); // + extra vertical scroll
+		}
+		if (viewSw.x < sw.x) { // west
+			dx = sw.x - viewSw.x;
+		}
+
+		return this.panBy(new L.Point(dx, dy, true));
+	}});
+
+	//fixation for pan inside bounds
+	var map = new L.map('map', {
+		center: [configMap.latCenter, configMap.lonCenter],
+		zoom: configMap.zoom,
+		layers: [minimal],
+		maxZoom : 19,
+		minZoom : 3
+	});
+
+	var drawnItems = new L.FeatureGroup();
+	map.addLayer(drawnItems);
+
+	//View for Longitude and Latitude topright in the map
+	var attrib = new L.Control.Attribution();
+	map.addControl(attrib);
+	attrib.setPrefix('Koordinat : ');
+	map.on('mousemove', function(e) {
+		var latlng = e.latlng;
+		attrib.setPrefix('Koordinat : '+viewableCoordinate(latlng.lat,'lat') + ", " + viewableCoordinate(latlng.lng,'lng'));
+	});
+
+	map.on('click', function(e) {
+		document.getElementById("inputlat").value = e.latlng.lat;
+		document.getElementById("inputlon").value = e.latlng.lng; 
+	});
+
+</script>
