@@ -22,11 +22,7 @@ class penghuni_dao extends Generic_dao  {
 			'tglkeluar'=>'tglkeluar',
 			'fotoktp'=>'fotoktp',
 			'fotoktm'=>'fotoktm',
-			'lb'=>'lb',
-			'masih_tinggal'=>'masih_tinggal',
-			'id_kamar'=>'id_kamar',
-			'history_kosan'=>'history_kosan',
-			'history_kamar'=>'history_kamar'
+			'lb'=>'lb'
 		);
 	}
 
@@ -34,8 +30,8 @@ class penghuni_dao extends Generic_dao  {
 		parent::__construct();
 	}
 
-	function getPenghuniKamar($id_kamar) {
-		return $this->by_id(array('id_kamar' => $id_kamar));
+	function getPenghuni($id_penghuni) {
+		return $this->by_id(array('id_penghuni' => $id_penghuni));
 	}
 
 	function saveNewPenghuni($obj) {
@@ -45,6 +41,21 @@ class penghuni_dao extends Generic_dao  {
 
 	function editPenghuni($id, $obj) {
 		return $this->update($obj, array('id_penghuni' => $id));
+	}
+
+	function deletePenghuni($id) {
+		return $this->delete(array('id_penghuni' => $id));
+	}
+
+	function getCompletePenghuni($id_penghuni) {
+		$this->ci->db->select('penghuni.*, id_kamar, nama_kamar AS hist_kamar, nama_kosan AS hist_kosan');
+		$this->ci->db->from('kamar RIGHT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)
+				LEFT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
+		');
+		
+		$q = $this->ci->db->where('penghuni.id_penghuni = ' . $id_penghuni);
+		$q = $this->ci->db->get();
+		return $q->row();
 	}
 }
 

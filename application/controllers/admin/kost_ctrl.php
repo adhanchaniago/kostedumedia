@@ -26,7 +26,8 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('dao/kosan_dao');
 		$this->load->library('dao/kamar_dao');
 		$this->load->library('dao/penghuni_dao');
-		$this->load->model('Kosts','',TRUE);
+		$this->load->library('dao/hist_penghuni_dao');
+		// $this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
 		$this->role_user();
@@ -69,7 +70,7 @@ class kost_ctrl extends CI_Controller{
 			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_kosan);
 			if ($id_kamar) {
 				$this->data['objkamar'] = $this->kamar_dao->getInfoKamar($id_kamar);
-				$this->data['penghuni'] = $this->penghuni_dao->getPenghuniKamar($id_kamar);
+				$this->data['penghuni'] = $this->penghuni_dao->getPenghuni($this->data['objkamar']->id_penghuni);
 			}
 
 			$this->load_view('admin/list_kost', $this->data);
@@ -194,7 +195,6 @@ class kost_ctrl extends CI_Controller{
 		$infoSession = ''; // added by SKM17
 
 		$objpenghuni = $this->fetch_input_penghuni();
-		$objpenghuni['id_kamar'] = $this->input->post('id_kamar');
 
 		$gen_id_penghuni = $this->penghuni_dao->saveNewPenghuni($objpenghuni);
 
@@ -219,6 +219,25 @@ class kost_ctrl extends CI_Controller{
 			$infoSession .= "Data Penghuni berhasil diubah. ";
 		else
 			$infoSession .= "<font color='red'>Data Penghuni gagal diubah. </font>";
+
+		$this->session->set_flashdata("info", $infoSession);
+		redirect($this->session->userdata('user_url'));
+	}
+
+	public function del_penghuni($id_penghuni) {
+		$infoSession = ''; // added by SKM17
+
+		$objpenghuni = $this->penghuni_dao->getCompletePenghuni($id_penghuni);
+		$id_penghuni = $objpenghuni->id_penghuni;
+		$id_kamar = $objpenghuni->id_kamar;
+
+		if ($this->hist_penghuni_dao->saveNewHistPenghuni($objpenghuni)) { // delete dr tabel penghuni
+			$this->kamar_dao->setPenghuni($id_kamar, 0);
+			$this->penghuni_dao->deletePenghuni($id_penghuni);
+			$infoSession .= "Penghuni berhasil dipindahkan ke history penghuni.";
+		}
+		else
+			$infoSession .= "<font color='red'>Penghuni gagal dipindahkan ke history penghuni.</font>";
 
 		$this->session->set_flashdata("info", $infoSession);
 		redirect($this->session->userdata('user_url'));

@@ -15,7 +15,7 @@
 			$('.success').delay(10000).fadeOut('slow');
 		<?php } ?>
 
-		$('.delete-tab').click(function(){
+		$('.del-kosan').click(function(){
 			var page = $(this).attr("href");
 			var $dialog = $('<div title="Hapus Kosan"></div>')
 			.html('Semua informasi kosan akan ikut dihapus! Hapus kosan? <div class="clear"></div>').dialog({
@@ -38,6 +38,54 @@
 			$dialog.dialog('open');
 			return false;
 		});
+
+		$('.del-kamar').click(function(){
+			var page = $(this).attr("href");
+			var $dialog = $('<div title="Hapus Kamar"></div>')
+			.html('Semua informasi kamar dan penghuninya akan ikut dihapus! Hapus Kamar? <div class="clear"></div>').dialog({
+				autoOpen: false,
+				width: 280,
+				show: "fade",
+				hide: "fade",
+				modal: true,
+				resizable: false,
+				buttons: {
+					"Ok": function() {
+						$(this).dialog("close");
+						window.location = page;
+					},
+					"Cancel": function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+			$dialog.dialog('open');
+			return false;
+		});
+
+		// $('.del-penghuni').click(function(){
+		// 	var page = $(this).attr("href");
+		// 	var $dialog = $('<div title="Kosongkan Penghuni"></div>')
+		// 	.html('Semua informasi penghuni akan dipindahkan ke history penghuni dan tidak bisa di-undo! Kosongkan penghuni? <div class="clear"></div>').dialog({
+		// 		autoOpen: false,
+		// 		width: 280,
+		// 		show: "fade",
+		// 		hide: "fade",
+		// 		modal: true,
+		// 		resizable: false,
+		// 		buttons: {
+		// 			"Ok": function() {
+		// 				$(this).dialog("close");
+		// 				window.location = page;
+		// 			},
+		// 			"Cancel": function() {
+		// 				$(this).dialog("close");
+		// 			}
+		// 		}
+		// 	});
+		// 	$dialog.dialog('open');
+		// 	return false;
+		// });
 
 		var rowTotalKmr = <?php if ($obj) 
 									// echo sizeof($obj['kamar']);
@@ -120,8 +168,32 @@
 			window.location = "<?php echo base_url() ?>admin/kost_ctrl/edit/" + tambahan + "#formkosan";
 	}
 
-	function deletePenghuni(id_penghuni){
-		window.location = "<?php echo base_url() ?>admin/kost_ctrl/delPenghuni/" + id_penghuni;
+	function delPenghuni(id_penghuni){
+		// var page = $(this).attr("href");
+		var $dialog = $('<div title="Kosongkan Penghuni"></div>')
+		.html('Semua informasi penghuni akan dipindahkan ke history penghuni dan tidak bisa di-undo! Kosongkan penghuni? <div class="clear"></div>').dialog({
+			autoOpen: false,
+			width: 280,
+			show: "fade",
+			hide: "fade",
+			modal: true,
+			resizable: false,
+			buttons: {
+				"Ok": function() {
+					$(this).dialog("close");
+					// alert("<?php echo base_url() ?>admin/kost_ctrl/del_penghuni/" + id_penghuni);
+					// console.log("<?php echo base_url() ?>admin/kost_ctrl/del_penghuni/" + id_penghuni);
+					window.location = "<?php echo base_url() ?>admin/kost_ctrl/del_penghuni/" + id_penghuni;
+				},
+				"Cancel": function() {
+					$(this).dialog("close");
+				}
+			}
+		});
+		$dialog.dialog('open');
+		return false;
+		
+		// window.location = "<?php echo base_url() ?>admin/kost_ctrl/del_penghuni/" + id_penghuni;
 	}
 
 </script>
@@ -205,7 +277,7 @@ document.onkeypress = stopRKey;
 							<td><?php echo $deskripsi['desclok'] ?></td> -->
 							<td class="action">
 								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan  . '#formkosan' ?>"><div class="tab-edit"></div></a>
-								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="delete-tab"><div class="tab-delete"></div></a>
+								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="del-kosan"><div class="tab-delete"></div></a>
 							</td>
 						</tr>
 			<?php 	}
@@ -325,7 +397,7 @@ document.onkeypress = stopRKey;
 			<td><?php if ($kamar->id_penghuni > 0) echo 'Ya'; else echo 'Tidak'; ?></td>
 			<td class="action">
 				<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $obj->id_kosan . '/' . $kamar->id_kamar . '#formkamar' ?>"><div class="tab-edit"></div></a>
-				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kmr/<?php echo $kamar->id_kamar ?>" class="delete-tab"><div class="tab-delete"></div></a>
+				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kmr/<?php echo $kamar->id_kamar ?>" class="del-kamar"><div class="tab-delete"></div></a>
 			</td>
 		</tr>
 <?php
@@ -403,6 +475,8 @@ if ($obj) {
 			<input type="hidden" name="id_kamar" value="<?php echo $objkamar->id_kamar ?>" />
 	<?php if ($penghuni) { ?>
 			<input type="hidden" name="id_penghuni" value="<?php echo $penghuni->id_penghuni ?>" />
+			<input type="hidden" name="hist_kamar" value="<?php echo $objkamar->nama_kamar ?>" />
+			<input type="hidden" name="hist_kosan" value="<?php echo $obj->nama_kosan ?>" />
 	<?php } ?>
 			<ul class="form-admin">
 				<li>
@@ -520,7 +594,7 @@ if ($obj) {
 					<label></label>
 					<input class="button-form green" type="submit" value="<?php if ($penghuni) echo 'Ubah Data Penghuni'; else echo 'Set Penghuni'; ?>">
 			<?php if ($penghuni) {
-					echo '<input class="button-form red" type="reset" onclick="delPenghuni('.$penghuni->id_penghuni.')" value="Kosongkan Penghuni" >';
+					echo '<input class="button-form red del-penghuni" type="reset" onclick="delPenghuni('.$penghuni->id_penghuni.')" value="Kosongkan Penghuni" >';
 				} ?>
 					<div class="clear"></div>
 				</li>
