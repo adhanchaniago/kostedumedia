@@ -19,7 +19,7 @@ class Html extends CI_Controller {
 		// $this->load->database();
 		$this->load->model('Kosts','',TRUE);
 		$this->load->library('dao/kosan_dao');
-
+		$this->load->library('dao/kamar_dao');
 		$this->logged_in();
 	}
 	
@@ -40,7 +40,9 @@ class Html extends CI_Controller {
 	}
 	public function tabelkost() {
 		$this->role_user();
-		$this->data['kosts'] = $this->Kosts->getAllDaftarKosan();
+		// $this->data['kosts'] = $this->Kosts->getAllDaftarKosan();
+		$this->data['tabelkost'] = $this->kosan_dao->getKosans();
+		$this->data['kosans'] = $this->kosan_dao->getAllKosan();
 		$this->load->view('html/tabelkost',$this->data);
 	}
 	public function about() {

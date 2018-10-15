@@ -182,9 +182,9 @@ input[type="radio"], input[type="checkbox"] {
   #sidebar {
     display: none;
   }
-  #rightbar {
+  /*#rightbar {
     display: none;
-  }
+  */}
   .url-break {
     word-break: break-all;
     word-break: break-word;
@@ -212,7 +212,7 @@ input[type="radio"], input[type="checkbox"] {
   top: 50px;
   display: block;
   /*width: 250px;*/
-  width: 500px;
+  width: 515px;
   height: 100%;
   max-width: 100%;
   float: right;
