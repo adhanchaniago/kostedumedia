@@ -173,16 +173,6 @@ function INITMAP(){
 		// };
 
 		var configMap = {
-						//indonesia
-						// latCenter : 6-(6-(-11))/2,
-						// lonCenter : 95+(141-95)/2,
-						// zoom :5,
-
-						//jakarta
-						// latCenter : -6.24158,
-						// lonCenter : 106.815948,
-						// zoom :11,
-
 						//gerlong
 						latCenter : -6.862386170,
 						lonCenter : 107.588816285,
@@ -1237,7 +1227,7 @@ function syncSidebar() {
 
 	/* GEOJSON */
 	drawnGeojson.eachLayer(function (layer) {
-		// console.log(layer);
+		console.log(layer.properties);
 		if (map.getBounds().contains(layer._layers[(layer._leaflet_id-1)].getLatLng())) {
 			$("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 		}
