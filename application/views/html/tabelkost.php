@@ -133,15 +133,17 @@
 							</thead>
 							<tbody>
 <?php 
-	if(!empty($kosts)){
-		foreach($kosts as $kosan) {
-			$deskripsi = $kosan['properties']; ?>
+	if(!empty($tabelkost)){
+		foreach($tabelkost as $kosan) {
+			// var_dump($kosan);
+			// die();
+?>
 								<tr role="row" class="<?php echo alternator("even", "odd"); ?>">
-									<td class="sorting_1"><?php echo $deskripsi['judul'] ?></td>
-									<td><?php echo $deskripsi['desc'] ?></td>
-									<td><?php echo $deskripsi['fasum'] ?></td>
-									<td><?php echo $deskripsi['kamarmandi'] ?></td>
-									<td><?php echo $deskripsi['desclok'] ?></td>
+									<td class="sorting_1"><?php echo $kosan->nama_kosan ?></td>
+									<td><?php echo $kosan->alamat ?></td>
+									<td><?php echo $kosan->fasum ?></td>
+									<td><?php echo $kosan->kamarmandi ?></td>
+									<td><?php echo $kosan->deskripsilokasi ?></td>
 								</tr>
 <?php 	}
 	}
@@ -169,19 +171,17 @@
 							</thead>
 							<tbody>
 <?php 
-	if(!empty($kosts)){
-		foreach($kosts as $kosan) {
-			$deskripsi = $kosan['properties'];
-			foreach ($deskripsi['kamar'] as $kamar) {
+	if(!empty($kosans)){
+		foreach($kosans as $datakamar) {
 ?>
 								<tr class="<?php echo alternator("even", "odd"); ?>">
-									<td><?php echo $deskripsi['judul'] ?></td>
-									<td><?php echo $kamar['nama'] ?></td>
-									<td><?php echo $kamar['luas'] ?></td>
-									<td><?php echo $kamar['hargath'] ?></td>
-									<td><?php echo $kamar['terisi'] ?></td>
+									<td><?php echo $datakamar->nama_kosan ?></td>
+									<td><?php echo $datakamar->nama_kamar ?></td>
+									<td><?php echo $datakamar->luas ?></td>
+									<td><?php echo $datakamar->hargath ?></td>
+									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
-<?php 		}
+<?php
 		}
 	}
 ?>

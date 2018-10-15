@@ -1114,7 +1114,7 @@ function INITGAMBARDB(){
 														"<tr><td>fasilitas umum</td><td>:&nbsp;"+fasum+"</td></tr>"+
 														"<tr><td>jml kmr mandi</td><td>:&nbsp;"+kamarmandi+"</td></tr>"+
 														"<tr><td>&nbsp;</td><td>&nbsp;</td></tr>"+
-														'<tr><td>link lokasi (direction)</td><td>:&nbsp;<a href="'+lokasi+'">Google Maps</a></td></tr>'+
+														'<tr><td>link lokasi (direction)</td><td>:&nbsp;<a target="_blank" href="'+lokasi+'">Google Maps</a></td></tr>'+
 														"<tr><td>kontak</td><td>:&nbsp;"+kontak+"</td></tr>"+
 													"</table>";
 						// BINpop.push(binpop);
@@ -1603,49 +1603,71 @@ function IsJsonString(str) {try {JSON.parse(str)}catch (e) {return false}return 
 animateRightbar();
 
 
-// piechart
-var barChartData = {
-			labels: ['G.asih', 'G.arum', 'G.bhakti', 'G.kiara', 'G.sari'],
-			datasets: [{
-				label: 'terisi',
-				backgroundColor: '#36a2eb',
-				data: [
-					12, 6, 6, 4, 13
-				]
-			}, {
-				label: 'kosong',
-				backgroundColor: '#ff6384',
-				data: [
-					3, 2, 2, 2, 1
-				]
-			}]
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
+INITGRAFIKKOSAN();
+function INITGRAFIKKOSAN() {
+	var namaKosanGrafik = [];
+	var terisiKosanGrafik = []; 
+	var kosongKosanGrafik = [];
 
-		};
+	for (var i=0; i<dataKosan.features.length; i++){
+		var buffisi = 0; var buffksg = 0;
+		for(var z=0; z<dataKosan.features[i].properties.kamar.length; z++){
+			if (dataKosan.features[i].properties.kamar[z].terisi === "terisi"){buffisi++;};	
+			if (dataKosan.features[i].properties.kamar[z].terisi === "kosong"){buffksg++;};		
+		}
+		namaKosanGrafik.push(dataKosan.features[i].properties.judul);
+		terisiKosanGrafik.push(buffisi);
+		kosongKosanGrafik.push(buffksg);
+	}
 
-			var ctx = document.getElementById('myChart').getContext('2d');
-			window.myBar = new Chart(ctx, {
-				type: 'bar',
-				data: barChartData,
-				options: {
-					title: {
-						display: true,
-						text: 'Kost Edumedia Availability'
-					},
-					tooltips: {
-						mode: 'index',
-						intersect: false
-					},
-					responsive: true,
-					scales: {
-						xAxes: [{
-							stacked: true,
-						}],
-						yAxes: [{
-							stacked: true
-						}]
-					}
-				}
-			});
+	var barChartData = {
+		//labels: ['G.asih', 'G.arum', 'G.bhakti', 'G.kiara', 'G.sari'],
+		labels: namaKosanGrafik,
+		datasets: [{
+			label: 'terisi',
+			backgroundColor: '#36a2eb',
+			//data: [12, 6, 6, 4, 13]
+			data: terisiKosanGrafik
+		}, {
+			label: 'kosong',
+			backgroundColor: '#ff6384',
+			//data: [3, 2, 2, 2, 1]
+			data: kosongKosanGrafik
+		}]
+
+	};
+
+	var ctx = document.getElementById('myChart').getContext('2d');
+	window.myBar = new Chart(ctx, {
+		type: 'bar',
+		data: barChartData,
+		options: {
+			title: {
+				display: true,
+				text: 'Kost Edumedia Availability'
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false
+			},
+			responsive: true,
+			scales: {
+				xAxes: [{
+					stacked: true,
+				}],
+				yAxes: [{
+					stacked: true
+				}]
+			}
+		}
+	});
+};
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
+// INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK INIT GRAFIK
 
 
 

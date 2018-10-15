@@ -177,6 +177,8 @@ function includeHTML() {
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-search.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-measure-path.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/wind-js-leaflet.css" />
+	<link href="<?php echo base_url() ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -202,7 +204,7 @@ function includeHTML() {
 					
 <?php if ($permission) { ?>
 					<button type="button" class="btn btn-info" id="backend"><i class="fa fa-gears"></i>  Halaman Admin</button>
-					<button type="button" class="btn btn-danger" id="logout" onclick="location.href='http://google.com';"><i class="fa fa-sign-out"></i>  Logout</button>
+					<button type="button" class="btn btn-danger" id="logout" onclick="location.href='';"><i class="fa fa-sign-out"></i>  Logout</button>
 <?php } else { ?>       
 					<button type="button" class="btn btn-info" id="login"><i class="fa fa-gears"></i>  Login</button>
 <?php } ?> 
@@ -290,20 +292,20 @@ function includeHTML() {
 			</div>
 		</div>
 
-		<div id="rightbar">
+		<div id="rightbar" style="max-height: 100%; max-width: 100%; overflow-y: scroll; ">
 	      <div class="rightbar-wrapper">
 	        <!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
-	        <div class="panel panel-default" style="max-height: 100%;" id="features">
+	        <div class="panel panel-default"  id="features">
       		  <div class="right-panel-body">
 			  	<div class="row">
 					<div class="col-xs-12 col-md-12">
 						<!-- <input type="text" class="form-control search" id="myinput" onkeyup="ngefilter()" placeholder="cari nama / alamat" /> -->
 						<div id="piechart"></div>
-						<canvas id="myChart" width="500" height="200"></canvas>
+						<canvas id="myChart" width="515" height="200"></canvas>
 
 					</div>
-					<div class="rightbar-table">
-		              <table class="table table-hover table-striped table-condensed" id="tabellap" style="font-size:12px;">
+					<div class="rightbar-table" style="overflow-x: hidden;">
+		              <table class="table table-hover table-striped table-condensed" id="dataTables-example" style="font-size:12px;">
 		                <thead>
 							<tr>
 								<th>Kosan</th>
@@ -502,10 +504,32 @@ function includeHTML() {
 	<!-- JSONjs -->
 	<script src="<?php echo base_url() ?>aset/JSONjs/json2.js"></script>
 
+	<!-- DataTables JavaScript -->
+	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+
 	<!-- MAP ASLI -->
 	<script src="<?php echo base_url() ?>aset/ResilientMaps.js"></script>
 	<script>
-		
+	// $(document).ready(function() {
+	// 	$('#dataTables-example').DataTable({
+	// 		responsive: true,
+	// 		"lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	// 	});
+	// });
+
+	$(document).ready(function() {
+	    $('#dataTables-example').DataTable( {
+	        "paging":   false,
+	        "searching":   false,
+	        "ordering": true,
+	        "info":     false
+	    } );
+	} );
+
+	
 <?php if ($permission) { ?>
 	function modalkamar(i,ii){
 		// console.log("bikin append");

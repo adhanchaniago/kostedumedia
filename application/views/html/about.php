@@ -111,52 +111,31 @@
                     <div style="
                     text-align: center;
                     margin-left: auto;
-                    margin-right: auto;" class="col-lg-8"><p>Hubungi kami jika ingin ikut serta mengiklankan kost/kontrakan anda di web ini.<br>Sertakan juga nama, alamat email, no NPWP, beserta no HP. Nanti kami akan membuatkan akun khusus untuk anda.<br>Anda akan kami beritahu lewat email & HP, kemudian anda bisa menginput data sendiri menggunakan akun yang kami beri.</p>
-                    <p><b>Ngiklan disini gratis, kecuali kalo mau nyumbang, boleh aja :)
-                    <br>BNI 0022318188 an Naufal El Farisi M<br>Mandiri 132-00-1634-8717 an Naufal El Farisi M</b></p></div>
+                    margin-right: auto;" class="col-lg-8">
+                    
+                    <p>Web ini dibangun oleh: <a href="https://www.instagram.com/gopalgopel">@gopalgopel</a> & <a href="https://www.instagram.com/sesdika">@sesdika</a><br>Hubungi kami jika ingin membuat web sistem informasi berbasis GIS</p>
+                    <p>Phone / WA : +62 856-59-360-489<br>Email : gopaldroger@gmail.com</p>
+                    
                     <div class="col-lg-2"></div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
             <div class="row">
-              <div class="col-lg-3"></div>
-              <div class="col-lg-6">
-                <form class="form-horizontal" action="/action_page.php">
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="nama">Nama :</label>
-                    <div class="col-sm-10"> 
-                      <input type="text" class="form-control" id="nama" placeholder="Nama Lengkap">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="email">Email :</label>
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="email" placeholder="Alamat Email">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="hp">No HP :</label>
-                    <div class="col-sm-10"> 
-                      <input type="text" class="form-control" id="hp" placeholder="No HP">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2" for="npwp">No NPWP :</label>
-                    <div class="col-sm-10"> 
-                      <input type="text" class="form-control" id="npwp" placeholder="No NPWP">
-                    </div>
-                  </div>  
-                  <div class="form-group"> 
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-default">Submit</button>
-                      <button type="reset" class="btn btn-default">Reset</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-3"></div>
+                <div class="col-lg-12" style="text-align: center;">
+                    <br><br>
+                    <img class="pull-center" style="height:50px;" src="<?php echo base_url() ?>aset/img/about/ci.png">&nbsp;&nbsp;&nbsp;
+                    <img class="pull-center" style="height:50px;" src="<?php echo base_url() ?>aset/img/about/leaflet.png">&nbsp;&nbsp;&nbsp;
+                    <img class="pull-center" style="height:50px;" src="<?php echo base_url() ?>aset/img/about/pg.png">&nbsp;&nbsp;&nbsp;
+                    <img class="pull-center" style="height:50px;" src="<?php echo base_url() ?>aset/img/about/osm.png">
+                    <br><br>
+                    <img class="pull-center" style="height:100px;" src="<?php echo base_url() ?>aset/img/logoWEBpas.png">
+                    <br><br><br>
+                </div>
+                <!-- /.col-lg-12 -->
             </div>
+            
 
             <div class="row" style="
                     text-align: center;

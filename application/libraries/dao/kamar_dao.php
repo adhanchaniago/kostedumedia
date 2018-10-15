@@ -30,6 +30,12 @@ class kamar_dao extends Generic_dao  {
 		return $this->fetch($limit, $offset, 'nama_kamar', array('id_kosan' => $id_kosan));
 	}
 
+	function getKamars() {
+		$limit = 1000;
+		$offset = 0;
+		return $this->fetch($limit, $offset, 'nama_kamar');
+	}
+
 	function getInfoKamar($id_kamar) {
 		return $this->by_id(array('id_kamar' => $id_kamar));
 	}
