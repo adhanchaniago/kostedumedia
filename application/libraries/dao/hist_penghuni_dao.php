@@ -22,8 +22,6 @@ class hist_penghuni_dao extends Generic_dao  {
 			'fotoktp'=>'fotoktp',
 			'fotoktm'=>'fotoktm',
 			'lb'=>'lb',
-			'masih_tinggal'=>'masih_tinggal',
-			'id_kamar'=>'id_kamar',
 			'hist_kosan'=>'hist_kosan',
 			'hist_kamar'=>'hist_kamar'
 		);
@@ -43,12 +41,10 @@ class hist_penghuni_dao extends Generic_dao  {
 		return $this->insert($arrPenghuni);
 	}
 
-	function getPenghuniKamar($id_kamar) {
-		return $this->by_id(array('id_kamar' => $id_kamar));
-	}
-
-	function editPenghuni($id, $obj) {
-		return $this->update($obj, array('id_penghuni' => $id));
+	function getDaftarHistPenghuni() {
+		$limit = 1000;
+		$offset = 0;
+		return $this->fetch($limit, $offset, 'hist_kosan');
 	}
 }
 

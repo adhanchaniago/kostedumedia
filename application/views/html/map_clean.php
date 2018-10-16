@@ -16,7 +16,7 @@ foreach($kosans as $data) {
 		echo '"properties": {';
 		echo '"judul":"' . $data->nama_kosan . '",';
 		echo '"jenis":"marker",';
-		echo '"desc":"' . $data->alamat . '",';
+		echo '"desc":"' . $data->deskripsi . '",';
 		echo '"fasum":"' . $data->fasum . '",';
 		echo '"foto":"' . $data->foto_kosan . '",';
 		echo '"kontak":"' . $data->kontak . '",';
@@ -74,7 +74,7 @@ foreach($kosans as $data) {
 			echo '"properties": {';
 			echo '"judul":"' . $data->nama_kosan . '",';
 			echo '"jenis":"marker",';
-			echo '"desc":"' . $data->alamat . '",';
+			echo '"desc":"' . $data->deskripsi . '",';
 			echo '"fasum":"' . $data->fasum . '",';
 			echo '"foto":"' . $data->foto_kosan . '",';
 			echo '"kontak":"' . $data->kontak . '",';
