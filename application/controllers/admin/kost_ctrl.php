@@ -14,7 +14,6 @@ class kost_ctrl extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->helper('file');
 		$this->load->helper('stringify');
-		// $this->load->helper('acl');
 		$this->load->helper('geodesics');
 		$this->load->library('session');
 		$this->load->library('form_validation');
@@ -27,6 +26,7 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('dao/kamar_dao');
 		$this->load->library('dao/penghuni_dao');
 		$this->load->library('dao/hist_penghuni_dao');
+		$this->load->library('dao/daftar_agama_dao');
 		// $this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
@@ -69,6 +69,7 @@ class kost_ctrl extends CI_Controller{
 			$this->data['kamars'] = $this->kamar_dao->getDaftarKamar($id_kosan);
 			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_kosan);
 			if ($id_kamar) {
+				$this->data['agama'] = $this->daftar_agama_dao->getDaftar();
 				$this->data['objkamar'] = $this->kamar_dao->getInfoKamar($id_kamar);
 				$this->data['penghuni'] = $this->penghuni_dao->getPenghuni($this->data['objkamar']->id_penghuni);
 			}
@@ -167,12 +168,27 @@ class kost_ctrl extends CI_Controller{
 		$data = null;
 		$data = array(
 			'nama_penghuni' => $this->input->post('nama_penghuni'),
+			'ttl' => $this->input->post('ttl'),
+			'gender' => $this->input->post('gender'),
+			'agama' => $this->input->post('agama'),
 			'no_ktp' => $this->input->post('noktp'),
 			'alamat' => $this->input->post('alamat'),
 			'hp' => $this->input->post('hp'),
-			// 'tglmasuk' => $this->input->post('tglmasuk'),
-			// 'tglkeluar' => $this->input->post('tglkeluar'),
-			'hpdarurat' => $this->input->post('hpdarurat')
+			'hp2' => $this->input->post('hp2'),
+			'jurusan' => $this->input->post('jurusan'),
+			'fakultas' => $this->input->post('fakultas'),
+			'nim' => $this->input->post('nim'),
+			'tglmasuk' => $this->input->post('tglmasuk'),
+			'ket_ayah' => $this->input->post('ket_ayah'),
+			'ket_ibu' => $this->input->post('ket_ibu'),
+			'hpdarurat' => $this->input->post('hpdarurat'),
+			'pembayaran' => $this->input->post('pembayaran'),
+			'sisa_pelunasan' => $this->input->post('sisa_pelunasan'),
+			'email' => $this->input->post('email'),
+			'fb' => $this->input->post('fb'),
+			'twitter' => $this->input->post('twitter'),
+			'bbm' => $this->input->post('bbm'),
+			'ig' => $this->input->post('ig')
 		);
 
 		return $data;
@@ -209,6 +225,7 @@ class kost_ctrl extends CI_Controller{
 		$objpenghuni = $this->penghuni_dao->getCompletePenghuni($id_penghuni);
 		$id_penghuni = $objpenghuni->id_penghuni;
 		$id_kamar = $objpenghuni->id_kamar;
+		$objpenghuni['tglkeluar'] = date('Y-m-d'); 
 
 		if ($this->hist_penghuni_dao->saveNewHistPenghuni($objpenghuni)) { // delete dr tabel penghuni
 			$this->kamar_dao->setPenghuni($id_kamar, 0);

@@ -16,13 +16,29 @@ class penghuni_dao extends Generic_dao  {
 			'hp'=>'hp',
 			'hpdarurat'=>'hpdarurat',
 			'foto'=>'foto',
-			'alamat'=>'alamat',
+			'alamat'=>'alamat_penghuni',
 			'no_ktp'=>'no_ktp',
 			'tglmasuk'=>'tglmasuk',
 			'tglkeluar'=>'tglkeluar',
 			'fotoktp'=>'fotoktp',
 			'fotoktm'=>'fotoktm',
-			'lb'=>'lb'
+			'lb'=>'lb',
+			'ttl'=>'ttl',
+			'gender'=>'gender',
+			'agama'=>'agama',
+			'hp2'=>'hp2',
+			'jurusan'=>'jurusan',
+			'fakultas'=>'fakultas',
+			'nim'=>'nim',
+			'ket_ayah'=>'ket_ayah',
+			'ket_ibu'=>'ket_ibu',
+			'pembayaran'=>'pembayaran',
+			'sisa_pelunasan'=>'sisa_pelunasan',
+			'email'=>'email',
+			'fb'=>'fb',
+			'twitter'=>'twitter',
+			'bbm'=>'bbm',
+			'ig'=>'ig'
 		);
 	}
 

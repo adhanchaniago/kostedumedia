@@ -20,6 +20,8 @@
 		$('.error').delay(10000).fadeOut('slow');
 <?php } ?>
 
+		$("#tglmasuk").datepicker({dateFormat: 'yy-mm-dd'});
+
 		$('.del-kosan').click(function(){
 			var page = $(this).attr("href");
 			var $dialog = $('<div title="Hapus Kosan"></div>')
@@ -212,42 +214,42 @@ document.onkeypress = stopRKey;
 					<?php } ?>
 					<li>
 						<label>Judul</label>
-						<input class="form-admin" name="judul_kosan" id="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->nama_kosan ?>" >
+						<input class="form-admin" name="judul_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->nama_kosan ?>" >
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Alamat</label>
-						<input class="form-admin" name="alamat_kosan" id="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->alamat ?>" >	
+						<input class="form-admin" name="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->alamat ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Deskripsi</label>
-						<input class="form-admin" name="desk_kosan" id="desk_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsi ?>" >	
+						<input class="form-admin" name="desk_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Fasilitas Umum</label>
-						<input class="form-admin" name="fasum" id="fasum" type="text" class="text-medium" value="<?php if ($obj) echo $obj->fasum ?>" >	
+						<input class="form-admin" name="fasum" type="text" class="text-medium" value="<?php if ($obj) echo $obj->fasum ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Deskripsi Lokasi</label>
-						<input class="form-admin" name="desk_lokasi" id="desk_lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsilokasi ?>" >	
+						<input class="form-admin" name="desk_lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->deskripsilokasi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Link Lokasi</label>
-						<input class="form-admin" name="lokasi" id="lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->lokasi ?>" >	
+						<input class="form-admin" name="lokasi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->lokasi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Kamar Mandi</label>
-						<input class="form-admin" name="kamarmandi" id="kamarmandi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kamarmandi ?>" >	
+						<input class="form-admin" name="kamarmandi" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kamarmandi ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
 						<label>Kontak</label>
-						<input class="form-admin" name="kontak" id="kontak" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kontak ?>" >	
+						<input class="form-admin" name="kontak" type="text" class="text-medium" value="<?php if ($obj) echo $obj->kontak ?>" >	
 						<div class="clear"></div>
 					</li>
 					<li>
@@ -289,7 +291,7 @@ document.onkeypress = stopRKey;
 <?php if ($kamars) { ?>
 	<br/>
 	<p class="tit-form">Daftar Kamar</p>
-	<table id="tableKmr" class="tab-admin">
+	<table class="tab-admin">
 		<tr class="tittab">
 			<td>No</td>
 			<td>Nama</td>
@@ -335,32 +337,32 @@ if ($obj) {
 			<ul class="form-admin">
 				<li>
 					<label>Nama</label>
-					<input class="form-admin" id="nama_kmr" name="nama_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->nama_kamar ?>" >
+					<input class="form-admin" name="nama_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->nama_kamar ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Luas</label>
-					<input class="form-admin" id="luas_kmr" name="luas_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->luas ?>" >
+					<input class="form-admin" name="luas_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->luas ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Fasilitas</label>
-					<input class="form-admin" id="fasilitas_kmr" name="fasilitas_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->fasilitas ?>" >
+					<input class="form-admin" name="fasilitas_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->fasilitas ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Harga / Thn</label>
-					<input class="form-admin" id="harga_kmr" name="harga_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->hargath ?>" >
+					<input class="form-admin" name="harga_kmr" type="text" class="text-medium" value="<?php if ($objkamar) echo $objkamar->hargath ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Pembayaran</label>
-					<input class="form-admin" id="pmby_kmr" name="pmby_kmr" type="text" class="text-medium">
+					<input class="form-admin" name="pmby_kmr" type="text" class="text-medium">
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Sisa Pembayaran</label>
-					<input class="form-admin" id="sisapmby_kmr" name="sisapmby_kmr" type="text" class="text-medium">
+					<input class="form-admin" name="sisapmby_kmr" type="text" class="text-medium">
 					<div class="clear"></div>
 				</li>
 				<li>
@@ -389,119 +391,152 @@ if ($obj) {
 			<input type="hidden" name="id_kamar" value="<?php echo $objkamar->id_kamar ?>" />
 	<?php if ($penghuni) { ?>
 			<input type="hidden" name="id_penghuni" value="<?php echo $penghuni->id_penghuni ?>" />
-			<input type="hidden" name="hist_kamar" value="<?php echo $objkamar->nama_kamar ?>" />
-			<input type="hidden" name="hist_kosan" value="<?php echo $obj->nama_kosan ?>" />
 	<?php } ?>
 			<ul class="form-admin">
 				<li>
 					<label>Nama Penghuni</label>
-					<input class="form-admin" id="nama_penghuni" name="nama_penghuni" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->nama_penghuni ?>" >
+					<input class="form-admin" name="nama_penghuni" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->nama_penghuni ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>TTL</label>
-					<input class="form-admin" id="ttl" name="ttl" type="text" class="text-medium">
+					<input class="form-admin" name="ttl" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->ttl ?>" >
 					</select>
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Gender</label>
-					<input class="form-admin" id="gender" name="gender" type="text" class="text-medium">
+					<div class="form-admin-radio">
+						<input type="radio" name="gender" value="P" checked > P
+						<input type="radio" name="gender" value="L" <?php if ($penghuni && $penghuni->gender == 'L') echo 'checked'; ?> > L
+					</div>
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Agama</label>
-					<input class="form-admin" id="agama" name="agama" type="text" class="text-medium">
+					<select name="agama" class="form-admin">
+						<option value="0" selected>-Pilih Agama-</option>
+						<?php foreach ($agama as $row) { ?>
+							<?php if ($penghuni && $penghuni->agama == $row->id) { ?>
+								<option value="<?php echo $row->id ?>" selected><?php echo $row->desc ?></option>
+							<?php } else { ?>
+								<option value="<?php echo $row->id ?>"><?php echo $row->desc ?></option>
+							<?php } ?>
+						<?php } ?>
+					</select>
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>No KTP</label>
-					<input class="form-admin" id="noktp" name="noktp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->no_ktp ?>" >
+					<input class="form-admin" name="noktp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->no_ktp ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Alamat</label>
-					<input class="form-admin" id="alamat" name="alamat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->alamat ?>" >
+					<input class="form-admin" name="alamat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->alamat_penghuni ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>No HP</label>
-					<input class="form-admin" id="hp" name="hp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hp ?>" >
+					<input class="form-admin" name="hp" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hp ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
-					<label>Aktivitas</label>
-					<input class="form-admin" id="aktivitas" name="aktivitas" type="text" class="text-medium">
+					<label>No HP2</label>
+					<input class="form-admin" name="hp2" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hp2 ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Jurusan</label>
+					<input class="form-admin" name="jurusan" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->jurusan ?>">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Fakultas</label>
+					<input class="form-admin" name="fakultas" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->fakultas ?>">
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>NIM</label>
+					<input class="form-admin" name="nim" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->nim ?>">
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Tgl Masuk</label>
-					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk ?>" >
-					<div class="clear"></div>
-				</li>
-				<li>
-					<label>Tgl Keluar</label>
-					<input class="form-admin" id="tglkeluar" name="tglkeluar" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglkeluar ?>" >
+					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk; else echo date('Y-m-d') ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Ket Ayah</label>
-					<input class="form-admin" id="ket_ayah" name="ket_ayah" type="text" class="text-medium">
+					<input class="form-admin" name="ket_ayah" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->ket_ayah ?>">
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Ket Ibu</label>
-					<input class="form-admin" id="ket_ibu" name="ket_ibu" type="text" class="text-medium">
+					<input class="form-admin" name="ket_ibu" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->ket_ibu ?>">
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Kontak Darurat</label>
-					<input class="form-admin" id="kontakdarurat" name="kontakdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
+					<input class="form-admin" name="kontakdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>No HP darurat</label>
-					<input class="form-admin" id="hpdarurat" name="hpdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
+					<input class="form-admin" name="hpdarurat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->hpdarurat ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Pembayaran</label>
+					<div class="form-admin-radio">
+						<input type="radio" name="pembayaran" value="L" <?php if ($penghuni && $penghuni->pembayaran == 'L') echo 'checked'; ?> > Lunas
+						<input type="radio" name="pembayaran" value="C" <?php if ($penghuni && $penghuni->pembayaran == 'C') echo 'checked'; ?> > Cicil
+					</div>
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Sisa Pelunasan</label>
+					<input class="form-admin" name="sisa_pelunasan" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->sisa_pelunasan ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Email</label>
-					<input class="form-admin" id="email" name="email" type="text" class="text-medium">
+					<input class="form-admin" name="email" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->email ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>FB</label>
-					<input class="form-admin" id="fb" name="fb" type="text" class="text-medium">
-					<div class="clear"></div>
-				</li>
-				<li>
-					<label>Instagram</label>
-					<input class="form-admin" id="ig" name="ig" type="text" class="text-medium">
+					<input class="form-admin" name="fb" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->fb ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Twitter</label>
-					<input class="form-admin" id="twitter" name="twitter" type="text" class="text-medium">
+					<input class="form-admin" name="twitter" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->twitter ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>BBM</label>
-					<input class="form-admin" id="bbm" name="bbm" type="text" class="text-medium">
+					<input class="form-admin" name="bbm" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->bbm ?>" >
+					<div class="clear"></div>
+				</li>
+				<li>
+					<label>Instagram</label>
+					<input class="form-admin" name="ig" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->ig ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Foto KTP</label>
-					<input class="form-admin" id="fotoktp" name="fotoktp" type="text" class="text-medium">
+					<input name="alamat_kosan" id="fotoktp" type="file" class="text-medium" value="" >	
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Foto KTM</label>
-					<input class="form-admin" id="fotoktm" name="fotoktm" type="text" class="text-medium">
+					<input name="alamat_kosan" id="fotoktm" type="file" class="text-medium" value="" >	
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Foto Diri</label>
-					<input class="form-admin" id="fotodiri" name="fotodiri" type="text" class="text-medium">
+					<input name="alamat_kosan" id="fotodiri" type="file" class="text-medium" value="" >	
 					<div class="clear"></div>
 				</li>
 				<li>
