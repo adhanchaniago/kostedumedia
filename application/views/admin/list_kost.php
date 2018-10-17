@@ -453,9 +453,16 @@ if ($obj) {
 				</li>
 				<li>
 					<label>Tgl Masuk</label>
-					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk; else echo date('Y-m-d') ?>" >
+					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk; else echo date('Y-m-d',strtotime('+1 years -1 day')) ?>" >
 					<div class="clear"></div>
 				</li>
+	<?php if ($penghuni) { ?>
+				<li>
+					<label>Tgl Keluar</label>
+					<input class="form-admin" id="tglkeluar" name="tglkeluar" type="text" class="text-medium" value="<?php echo $penghuni->tglkeluar ?>" >
+					<div class="clear"></div>
+				</li>
+	<?php } ?>
 				<li>
 					<label>Ket Ayah</label>
 					<input class="form-admin" name="ket_ayah" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->ket_ayah ?>">

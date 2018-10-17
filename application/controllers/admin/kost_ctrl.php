@@ -179,6 +179,7 @@ class kost_ctrl extends CI_Controller{
 			'fakultas' => $this->input->post('fakultas'),
 			'nim' => $this->input->post('nim'),
 			'tglmasuk' => $this->input->post('tglmasuk'),
+			'tglkeluar' => $this->getTglKeluar($this->input->post('tglmasuk')),
 			'ket_ayah' => $this->input->post('ket_ayah'),
 			'ket_ibu' => $this->input->post('ket_ibu'),
 			'hpdarurat' => $this->input->post('hpdarurat'),
@@ -192,6 +193,11 @@ class kost_ctrl extends CI_Controller{
 		);
 
 		return $data;
+	}
+
+	private function getTglKeluar($tglmasuk) {
+		$splitTgl = explode("-", $tglmasuk);
+		return date('Y-m-d', strtotime("+1 years -1 day", mktime(0, 0, 0, $splitTgl[1], $splitTgl[2], $splitTgl[0])));
 	}
 
 	public function add_penghuni() {
