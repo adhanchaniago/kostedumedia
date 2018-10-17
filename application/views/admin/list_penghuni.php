@@ -149,7 +149,7 @@ document.onkeypress = stopRKey;
 	<p class="notif success " style="display:none"></p>
 	<p class="notif error " style="display:none"></p>
 	
-	<p class="tit-form">Daftar History Penghuni <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
+	<p class="tit-form">Daftar Penghuni <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
 	<div class="filtering" style="display: none;">
 		<form action="<?php echo current_url() ?>" method="post" id="form_search_filter">
 			<ul class="filter-form">

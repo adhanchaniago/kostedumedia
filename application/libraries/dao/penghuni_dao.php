@@ -81,7 +81,7 @@ class penghuni_dao extends Generic_dao  {
 		);
 		
 		$q = $this->ci->db->get();
-		return $q->row();
+		return $q->result();
 	}
 }
 
