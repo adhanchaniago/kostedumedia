@@ -1,11 +1,11 @@
 <?php
-class history_ctrl extends CI_Controller{
+class penghuni_ctrl extends CI_Controller{
 
 	public $data;
 	public $filter;
 	public $limit = 16;
-	public static $CURRENT_CONTEXT = '/admin/history_ctrl';
-	public static $TITLE = "HISTORY PENGHUNI";
+	public static $CURRENT_CONTEXT = '/admin/penghuni_ctrl';
+	public static $TITLE = "PENGHUNI";
 
 	public function __construct(){
 		parent::__construct();
@@ -23,7 +23,7 @@ class history_ctrl extends CI_Controller{
 		$this->load->library('tank_auth');
 		$this->load->library('upload');
 		$this->load->library('image_lib');
-		$this->load->library('dao/hist_penghuni_dao');
+		$this->load->library('dao/penghuni_dao');
 
 		$this->logged_in();
 		$this->role_user();
@@ -33,14 +33,14 @@ class history_ctrl extends CI_Controller{
 
 	public function index($offset=0 ,$limit=16){
 		$this->preload();
-		$this->load_view('admin/list_hist_penghuni', $this->data);
+		$this->load_view('admin/list_penghuni', $this->data);
 	}
 
 	public function preload(){
 		$this->data['current_context'] = self::$CURRENT_CONTEXT;
 		$this->data['title'] = self::$TITLE;
 
-		$this->data['hists'] = $this->hist_penghuni_dao->getDaftarHistPenghuni();
+		$this->data['penghunis'] = $this->penghuni_dao->getDaftarPenghuni();
 	}
 
 	public function load_view($page, $data = null){
