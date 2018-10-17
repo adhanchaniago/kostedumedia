@@ -4,6 +4,7 @@
 <script>
 var dataKosan = null;
 <?php  // susun data dari database menjadi data dg format puskesmas.json
+// print_r($kosans); die();
 echo 'dataKosan = {"type":"FeatureCollection","features":['; // bukaan pertama
 
 // mulai iterasi data, dikelompokkan per rumah
@@ -16,7 +17,7 @@ foreach($kosans as $data) {
 		echo '"properties": {';
 		echo '"judul":"' . $data->nama_kosan . '",';
 		echo '"jenis":"marker",';
-		echo '"desc":"' . $data->deskripsilokasi . '",';
+		echo '"desc":"' . $data->alamat . '",';
 		echo '"fasum":"' . $data->fasum . '",';
 		echo '"foto":"' . $data->foto_kosan . '",';
 		echo '"kontak":"' . $data->kontak . '",';
@@ -35,7 +36,7 @@ foreach($kosans as $data) {
 			echo '"penghunihp":"' . $data->hp . '",';
 			echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
 			echo '"penghunifoto":"' . $data->foto . '",';
-			echo '"penghunialamat":"' . $data->alamat . '",';
+			echo '"penghunialamat":"' . $data->alamat_penghuni . '",';
 			echo '"penghuninoktp":"' . $data->no_ktp . '",';
 			echo '"tglmasuk":"' . $data->tglmasuk . '",';
 			echo '"tglkeluar":"' . $data->tglkeluar . '",';
@@ -56,7 +57,7 @@ foreach($kosans as $data) {
 				echo '"penghunihp":"' . $data->hp . '",';
 				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
 				echo '"penghunifoto":"' . $data->foto . '",';
-				echo '"penghunialamat":"' . $data->alamat . '",';
+				echo '"penghunialamat":"' . $data->alamat_penghuni . '",';
 				echo '"penghuninoktp":"' . $data->no_ktp . '",';
 				echo '"tglmasuk":"' . $data->tglmasuk . '",';
 				echo '"tglkeluar":"' . $data->tglkeluar . '",';
@@ -93,7 +94,7 @@ foreach($kosans as $data) {
 				echo '"penghunihp":"' . $data->hp . '",';
 				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
 				echo '"penghunifoto":"' . $data->foto . '",';
-				echo '"penghunialamat":"' . $data->alamat . '",';
+				echo '"penghunialamat":"' . $data->alamat_penghuni . '",';
 				echo '"penghuninoktp":"' . $data->no_ktp . '",';
 				echo '"tglmasuk":"' . $data->tglmasuk . '",';
 				echo '"tglkeluar":"' . $data->tglkeluar . '",';
@@ -292,7 +293,7 @@ function includeHTML() {
 			</div>
 		</div>
 
-		<div id="rightbar" style="max-height: 100%; max-width: 100%; overflow-y: scroll; ">
+		<div id="rightbar" style="max-height: 100%; max-width: 100%;">
 	      <div class="rightbar-wrapper">
 	        <!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
 	        <div class="panel panel-default"  id="features">
@@ -304,15 +305,15 @@ function includeHTML() {
 						<canvas id="myChart" width="515" height="200"></canvas>
 
 					</div>
-					<div class="rightbar-table" style="overflow-x: hidden;">
+					<div class="rightbar-table">
 		              <table class="table table-hover table-striped table-condensed" id="dataTables-example" style="font-size:12px;">
 		                <thead>
 							<tr>
-								<th>Kosan</th>
-								<th>Kamar</th>
-								<th>Luas</th>
-								<th>Harga</th>
-								<th>Terisi</th>
+								<th>Kosan <i class="fa fa-sort"></i></th>
+								<th>Kamar <i class="fa fa-sort"></i></th>
+								<th>Luas <i class="fa fa-sort"></i></th>
+								<th>Harga <i class="fa fa-sort"></i></th>
+								<th>Terisi <i class="fa fa-sort"></i></th>
 							</tr>
 						</thead>
 		                <tbody class="list">
@@ -321,11 +322,11 @@ function includeHTML() {
 		foreach($kosans as $datakamar) {
 ?>
 								<tr class="<?php echo alternator("even", "odd"); ?>">
-									<td><?php echo $datakamar->nama_kosan ?></td>
-									<td><?php echo $datakamar->nama_kamar ?></td>
-									<td><?php echo $datakamar->luas ?></td>
-									<td><?php echo $datakamar->hargath ?></td>
-									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
+									<td><center><?php echo $datakamar->nama_kosan ?></td>
+									<td><center><?php echo $datakamar->nama_kamar ?></td>
+									<td><center><?php echo $datakamar->luas ?></td>
+									<td><center><?php echo $datakamar->hargath ?></td>
+									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
 <?php
 		}

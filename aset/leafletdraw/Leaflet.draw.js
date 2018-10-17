@@ -166,9 +166,11 @@ L.drawLocal = {
 			polyline: {
 				error: '<strong>Error:</strong> bentuk tidak bisa menyilang!',
 				tooltip: {
+					// ini diganti ama jarak dan sudut skrg brp
 					start: 'Klik untuk memulai menggambar garis',
 					cont: 'Klik lagi untuk melanjutkan',
 					end: 'Klik point terakhir untuk menutup'
+					// ini diganti ama jarak dan sudut skrg brp
 				}
 			},
 			rectangle: {

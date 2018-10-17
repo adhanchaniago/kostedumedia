@@ -616,15 +616,16 @@ if ($obj) {
 	// 	mapUrl : '<?php echo $this->config->item('map_url') ?>',
 	// 	mapStyleId : 22677
 	// };
-			var configMap = {
-						//gerlong
-						latCenter : -6.862386170,
-						lonCenter : 107.588816285,
-						zoom :17,
+	var configMap = {
+		//gerlong
+		latCenter : -6.862386170,
+		lonCenter : 107.588816285,
+		zoom :17,
 
-						mapUrl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						mapStyleId : 22677
-		};
+		mapUrl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		mapStyleId : 22677
+	};
+	
 	var minimal   = L.tileLayer(configMap.mapUrl, {styleId: configMap.mapStyleId});
 	var southWest = new L.LatLng(85, -180);
 	var northEast = new L.LatLng(-85, 180);

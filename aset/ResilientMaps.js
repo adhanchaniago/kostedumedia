@@ -981,7 +981,7 @@ var KOSANS = new Array();
 INITGAMBARDB();
 
 function modalgalery(i){ 
-	// console.log(i);
+	// console.log(KOSANS);
 	var urldasar = "../aset/img/"+KOSANS[i].properties.foto+"/";
 	console.log(urldasar);
 	var pictureIndex = 0;
@@ -1128,48 +1128,60 @@ function INITGAMBARDB(){
 
 
 		
-		var ldraw = new L.Control.Draw({
-				edit: {
-						featureGroup: drawnItems,
-						// featureGroup: [drawnPolygon, drawnPolyline, drawnRectangle, drawnCircle, drawnMarker, drawnMarkerBulat],
-						poly: {
-								allowIntersection: false  
+var ldraw = new L.Control.Draw({
+		edit: {
+				featureGroup: drawnItems,
+				// featureGroup: [drawnPolygon, drawnPolyline, drawnRectangle, drawnCircle, drawnMarker, drawnMarkerBulat],
+				poly: {
+						allowIntersection: false  
+				}
+		},
+		draw: {
+				polygon: {
+						allowIntersection: false,
+						shapeOptions:{showMeasurements: true},
+						showArea: true
+				},
+				polyline: {
+						shapeOptions:{
+							showMeasurements: true
 						}
 				},
-				draw: {
-						polygon: {
-								allowIntersection: false,
-								shapeOptions:{showMeasurements: true},
-								showArea: true
-						},
-						polyline: {
-								shapeOptions:{
-									showMeasurements: true
-								}
-						},
-						rectangle: {
-								showRadius: true,
-								shapeOptions:{showMeasurements: true}
-						},
-						circle: {
-								shapeOptions:{showMeasurements: true}
-						}
+				rectangle: {
+						showRadius: true,
+						shapeOptions:{showMeasurements: true}
+				},
+				circle: {
+						shapeOptions:{showMeasurements: true}
 				}
-		});
-		ldraw.addTo(map);
-		
-		map.on(L.Draw.Event.CREATED, function (event) {
-				var layer = event.layer;
-				myBindPopUp(layer);
-				drawnItems.addLayer(layer);
-				if(event.layerType == 'polygon'){layer.jenis ="polygon"; drawnPolygon.addLayer(layer)}; 
-				if(event.layerType == 'rectangle'){layer.jenis ="rectangle"; drawnRectangle.addLayer(layer)}; 
-				if(event.layerType == 'polyline'){layer.jenis = "polyline"; drawnPolyline.addLayer(layer)}; 
-				if(event.layerType == 'circle'){layer.jenis="circle"; drawnCircle.addLayer(layer)}; 
-				if(event.layerType == 'marker'){layer.jenis="marker"; drawnMarker.addLayer(layer)}; 
-				if(event.layerType == 'markerbulat'){layer.jenis="markerbulat"; drawnMarkerBulat.addLayer(layer)}; 
-				syncSidebar();
-		});
+		}	
+});
+ldraw.addTo(map);
+
+map.on(L.Draw.Event.CREATED, function (event) {
+	var layer = event.layer;
+	myBindPopUp(layer);
+	drawnItems.addLayer(layer);
+	if(event.layerType == 'polygon'){layer.jenis ="polygon"; drawnPolygon.addLayer(layer)}; 
+	if(event.layerType == 'rectangle'){layer.jenis ="rectangle"; drawnRectangle.addLayer(layer)}; 
+	if(event.layerType == 'polyline'){layer.jenis = "polyline"; drawnPolyline.addLayer(layer)}; 
+	if(event.layerType == 'circle'){layer.jenis="circle"; drawnCircle.addLayer(layer)}; 
+	if(event.layerType == 'marker'){layer.jenis="marker"; drawnMarker.addLayer(layer)}; 
+	if(event.layerType == 'markerbulat'){layer.jenis="markerbulat"; drawnMarkerBulat.addLayer(layer)}; 
+	syncSidebar();
+});
+
+map.on('draw:drawvertex', function (event) {
+	// var layer = event;
+	console.log(event.layer);
+	// L.Draw.Tooltip().updateContent(e.latlng.lat);	 //e.latlng.lat+", "+e.latlng.lng;
+	// console.log("SRAWSTART");
+
+	//kalo lingkaran
+	// if (event.layer && event.layer.getRadius()) {
+		// $('.leaflet-draw-tooltip-subtext').html('Buffer (m): '+Math.floor(event.layer.getRadius()));
+	// }		
+});
 
 // window prompt, asking bindpopup!    
 function myBindPopUp(objek) {
@@ -1227,7 +1239,7 @@ function syncSidebar() {
 
 	/* GEOJSON */
 	drawnGeojson.eachLayer(function (layer) {
-		console.log(layer.properties);
+		// console.log(layer.properties);
 		if (map.getBounds().contains(layer._layers[(layer._leaflet_id-1)].getLatLng())) {
 			$("#feature-list tbody").append('<tr onclick="panto('+layer._layers[(layer._leaflet_id-1)]._latlng.lat+','+layer._layers[(layer._leaflet_id-1)]._latlng.lng+','+layer._leaflet_id+')" class="feature-row" id="' + L.stamp(layer) + '"><td style="text-align: center; vertical-align: middle;"><img src="../aset/img/marker-icon.png" width="13" height="20""></td><td style="vertical-align: middle;" class="feature-name">' + layer.properties.judul + '</td><td class="feature-name">' + layer.properties.desc + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
 		}

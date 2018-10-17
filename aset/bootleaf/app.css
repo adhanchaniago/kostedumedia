@@ -88,12 +88,16 @@ input[type="radio"], input[type="checkbox"] {
   position: relative;
 }
 .rightbar-table {
-  /*position: absolute;*/
-  position: relative;
-  width: 100%;
-  top: 0px;
+  position: absolute;
+  /*position: relative;*/
+  /*width: 100%;*/
+  width: 515px;
+  top: 200px;
   bottom: 0px;
-  overflow: auto;
+  padding-right: 15px;  
+  /*overflow: auto;*/
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .leaflet-control-layers {
   overflow: auto;
@@ -219,16 +223,16 @@ input[type="radio"], input[type="checkbox"] {
   z-index: 999;
 }
 .right-panel-heading{
-   width: 500px;
+   width: 515px;
    /*width: 250px;*/
 }
 .right-panel-body{
-  width: 500px;
+  width: 515px;
   /*width: 250px;*/
 }
 .right-feature-row {
   cursor: pointer;
-  width: 500px;
+  width: 515px;
   /*width: 250px;*/
 }
 
