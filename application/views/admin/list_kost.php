@@ -356,16 +356,6 @@ if ($obj) {
 					<div class="clear"></div>
 				</li>
 				<li>
-					<label>Pembayaran</label>
-					<input class="form-admin" name="pmby_kmr" type="text" class="text-medium">
-					<div class="clear"></div>
-				</li>
-				<li>
-					<label>Sisa Pembayaran</label>
-					<input class="form-admin" name="sisapmby_kmr" type="text" class="text-medium">
-					<div class="clear"></div>
-				</li>
-				<li>
 					<label>Foto Kamar 1</label>
 					<input name="alamat_kosan" id="fotokamar1" type="file" class="text-medium" value="" >	
 					<div class="clear"></div>
