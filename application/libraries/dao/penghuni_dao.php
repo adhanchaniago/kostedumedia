@@ -16,7 +16,7 @@ class penghuni_dao extends Generic_dao  {
 			'hp'=>'hp',
 			'hpdarurat'=>'hpdarurat',
 			'foto'=>'foto',
-			'alamat'=>'alamat_penghuni',
+			'alamat_penghuni'=>'alamat_penghuni',
 			'no_ktp'=>'no_ktp',
 			'tglmasuk'=>'tglmasuk',
 			'tglkeluar'=>'tglkeluar',
@@ -32,7 +32,7 @@ class penghuni_dao extends Generic_dao  {
 			'nim'=>'nim',
 			'ket_ayah'=>'ket_ayah',
 			'ket_ibu'=>'ket_ibu',
-			'pembayaran'=>'pembayaran',
+			'metode_bayar'=>'metode_bayar',
 			'sisa_pelunasan'=>'sisa_pelunasan',
 			'email'=>'email',
 			'fb'=>'fb',
@@ -70,6 +70,16 @@ class penghuni_dao extends Generic_dao  {
 		');
 		
 		$q = $this->ci->db->where('penghuni.id_penghuni = ' . $id_penghuni);
+		$q = $this->ci->db->get();
+		return $q->row();
+	}
+
+	function getDaftarPenghuni() {
+		$this->ci->db->select('penghuni.*, nama_kamar, nama_kosan');
+		$this->ci->db->from('kamar RIGHT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
+				LEFT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)'
+		);
+		
 		$q = $this->ci->db->get();
 		return $q->row();
 	}

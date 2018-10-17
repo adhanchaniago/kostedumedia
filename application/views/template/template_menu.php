@@ -27,6 +27,11 @@
 				</a>
 			</li>
 			<li>
+				<a href="<?php echo base_url() . 'admin/penghuni_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/penghuni_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-home'></i>&nbsp;PENGHUNI
+				</a>
+			</li>
+			<li>
 				<a href="<?php echo base_url() . 'admin/kontrakan_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/kontrakan_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-home'></i>&nbsp;KONTRAKAN
 				</a>
