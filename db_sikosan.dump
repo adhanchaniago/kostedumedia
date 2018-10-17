@@ -29,6 +29,39 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: daftar_agama; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.daftar_agama (
+    id smallint NOT NULL,
+    "desc" character varying(10)
+);
+
+
+ALTER TABLE public.daftar_agama OWNER TO postgres;
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.daftar_agama_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.daftar_agama_id_seq OWNER TO postgres;
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.daftar_agama_id_seq OWNED BY public.daftar_agama.id;
+
+
+--
 -- Name: hist_penghuni; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -180,15 +213,31 @@ CREATE TABLE public.penghuni (
     nama_penghuni character varying(50),
     nama_panggilan character varying(10),
     hp character varying(15),
-    hpdarurat character varying(15),
+    hpdarurat character varying(75),
     foto character varying(255),
-    alamat character varying(255),
+    alamat_penghuni character varying(255),
     no_ktp character varying(17),
     tglmasuk date,
     tglkeluar date,
     fotoktp character varying(255),
     fotoktm character varying(255),
-    lb character varying
+    lb character varying,
+    ttl character varying(30),
+    gender character(1),
+    agama smallint,
+    hp2 character varying(15),
+    jurusan character varying(50),
+    fakultas character varying(15),
+    nim character varying(10),
+    ket_ayah character varying(75),
+    ket_ibu character varying(75),
+    sisa_pelunasan integer,
+    email character varying(50),
+    fb character varying(50),
+    twitter character varying(25),
+    bbm character varying(10),
+    ig character varying(25),
+    metode_bayar character(1)
 );
 
 
@@ -213,6 +262,13 @@ ALTER TABLE public.penghuni_id_penghuni_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.penghuni_id_penghuni_seq OWNED BY public.penghuni.id_penghuni;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.daftar_agama ALTER COLUMN id SET DEFAULT nextval('public.daftar_agama_id_seq'::regclass);
 
 
 --
@@ -244,6 +300,27 @@ ALTER TABLE ONLY public.penghuni ALTER COLUMN id_penghuni SET DEFAULT nextval('p
 
 
 --
+-- Data for Name: daftar_agama; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.daftar_agama (id, "desc") FROM stdin;
+1	Islam
+2	Protestan
+3	Katolik
+4	Hindu
+5	Buddha
+6	Khonghucu
+\.
+
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.daftar_agama_id_seq', 6, true);
+
+
+--
 -- Data for Name: hist_penghuni; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -260,9 +337,10 @@ meee	\N			\N			\N	\N	\N	\N	\N	Edumedia 2 Geger Arum	vcdxcbcvb
 --
 
 COPY public.kamar (id_kamar, nama_kamar, luas, fasilitas, hargath, id_kosan, id_penghuni) FROM stdin;
-1	Kamar 1	7.5	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 6.500.000 / thn	1	0
 2	Kamar 2	7.5	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 6.500.000 / thn	1	0
 3	vcdxcbcvb	345	dbvdfv	345345	2	0
+1	Kamar 1	7.5	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 6.500.000 / thn	1	6
+4	fasdfasfd				2	5
 \.
 
 
@@ -270,7 +348,7 @@ COPY public.kamar (id_kamar, nama_kamar, luas, fasilitas, hargath, id_kosan, id_
 -- Name: kamar_id_kamar_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 3, true);
+SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 4, true);
 
 
 --
@@ -310,7 +388,9 @@ SELECT pg_catalog.setval('public.pengguna_id_pengguna_seq', 1, true);
 -- Data for Name: penghuni; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.penghuni (id_penghuni, nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb) FROM stdin;
+COPY public.penghuni (id_penghuni, nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat_penghuni, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb, ttl, gender, agama, hp2, jurusan, fakultas, nim, ket_ayah, ket_ibu, sisa_pelunasan, email, fb, twitter, bbm, ig, metode_bayar) FROM stdin;
+5	you	\N			\N			2018-10-17	\N	\N	\N	\N		P	1							0						C
+6	wooow	\N			\N			2018-10-17	2019-10-16	\N	\N	\N		P	1							-1						C
 \.
 
 
@@ -318,7 +398,15 @@ COPY public.penghuni (id_penghuni, nama_penghuni, nama_panggilan, hp, hpdarurat,
 -- Name: penghuni_id_penghuni_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.penghuni_id_penghuni_seq', 4, true);
+SELECT pg_catalog.setval('public.penghuni_id_penghuni_seq', 6, true);
+
+
+--
+-- Name: pk_daftar_agama; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.daftar_agama
+    ADD CONSTRAINT pk_daftar_agama PRIMARY KEY (id);
 
 
 --
