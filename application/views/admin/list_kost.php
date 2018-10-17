@@ -433,7 +433,7 @@ if ($obj) {
 				</li>
 				<li>
 					<label>Alamat</label>
-					<input class="form-admin" name="alamat" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->alamat_penghuni ?>" >
+					<input class="form-admin" name="alamat_penghuni" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->alamat_penghuni ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
@@ -489,14 +489,14 @@ if ($obj) {
 				<li>
 					<label>Pembayaran</label>
 					<div class="form-admin-radio">
-						<input type="radio" name="pembayaran" value="L" <?php if ($penghuni && $penghuni->pembayaran == 'L') echo 'checked'; ?> > Lunas
-						<input type="radio" name="pembayaran" value="C" <?php if ($penghuni && $penghuni->pembayaran == 'C') echo 'checked'; ?> > Cicil
+						<input type="radio" name="metode_bayar" value="L" <?php if ($penghuni && $penghuni->metode_bayar == 'L') echo 'checked'; ?> > Lunas
+						<input type="radio" name="metode_bayar" value="C" <?php if ($penghuni && $penghuni->metode_bayar == 'C') echo 'checked'; ?> > Cicil
 					</div>
 					<div class="clear"></div>
 				</li>
 				<li>
 					<label>Sisa Pelunasan</label>
-					<input class="form-admin" name="sisa_pelunasan" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->sisa_pelunasan ?>" >
+					<input class="form-admin" name="sisa_pelunasan" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->sisa_pelunasan; else echo '-1' ?>" >
 					<div class="clear"></div>
 				</li>
 				<li>
