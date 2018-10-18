@@ -16,7 +16,7 @@ class penghuni_dao extends Generic_dao  {
 			'hp'=>'hp',
 			'hpdarurat'=>'hpdarurat',
 			'foto'=>'foto',
-			'alamat'=>'alamat_penghuni',
+			'alamat_penghuni'=>'alamat_penghuni',
 			'no_ktp'=>'no_ktp',
 			'tglmasuk'=>'tglmasuk',
 			'tglkeluar'=>'tglkeluar',
