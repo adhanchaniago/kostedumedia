@@ -12,11 +12,6 @@
 
 <?php if ($permission) { ?>
 			<li>
-				<a href="<?php echo base_url() . 'admin/dashboard_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/dashboard_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-dashboard'></i>&nbsp;DASHBOARD
-				</a>
-			</li>
-			<li>
 				<a href="<?php echo base_url() . 'admin/pemilik_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/pemilik_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-user'></i>&nbsp;PEMILIK
 				</a>
@@ -32,13 +27,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url() . 'admin/kontrakan_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/kontrakan_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-home'></i>&nbsp;KONTRAKAN
+				<a href="<?php echo base_url() . 'admin/history_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/history_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-home'></i>&nbsp;HISTORY PENGHUNI
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url() . 'admin/history_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/history_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-home'></i>&nbsp;HISTORY PENGHUNI
+				<a href="<?php echo base_url() . 'admin/csv_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/csv_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-home'></i>&nbsp;UPLOAD CSV
 				</a>
 			</li>
 <?php } ?>
