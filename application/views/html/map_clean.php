@@ -312,6 +312,7 @@ function includeHTML() {
 								<th>Kosan <i class="fa fa-sort"></i></th>
 								<th>Kamar <i class="fa fa-sort"></i></th>
 								<th>Luas <i class="fa fa-sort"></i></th>
+								<th>Fasilitas Kamar<i class="fa fa-sort"></i></th>
 								<th>Harga <i class="fa fa-sort"></i></th>
 								<th>Terisi <i class="fa fa-sort"></i></th>
 							</tr>
@@ -325,6 +326,7 @@ function includeHTML() {
 									<td><center><?php echo $datakamar->nama_kosan ?></td>
 									<td><center><?php echo $datakamar->nama_kamar ?></td>
 									<td><center><?php echo $datakamar->luas ?></td>
+									<td><center><?php echo $datakamar->fasilitas ?></td>
 									<td><center><?php echo $datakamar->hargath ?></td>
 									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>

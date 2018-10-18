@@ -1101,7 +1101,7 @@ function INITGAMBARDB(){
 													"<table style='font-size:11px'>"+
 														"<tr><td>&nbsp;</td><td>&nbsp;</td></tr>"+
 														"<tr><td>foto kostan</td><td>:&nbsp;<a onclick=\"modalgalery("+i+")\" data-toggle='modal' href='#modalgalery'>Galery</a></td></tr>"+ 
-														"<tr><td>fasilitas umum</td><td>:&nbsp;"+fasum+"</td></tr>"+
+														"<tr><td>fasilitas umum</td><td>:&nbsp;Internet WiFi, kamar mandi luar, "+fasum+"</td></tr>"+
 														"<tr><td>jml kmr mandi</td><td>:&nbsp;"+kamarmandi+"</td></tr>"+
 														"<tr><td>&nbsp;</td><td>&nbsp;</td></tr>"+
 														'<tr><td>link lokasi (direction)</td><td>:&nbsp;<a target="_blank" href="'+lokasi+'">Google Maps</a></td></tr>'+

@@ -127,7 +127,7 @@
 									<th>Nama</th>
 									<th>Alamat</th>
 									<th>Fasilitas</th>
-									<th>Jumlah KM</th>
+									<th>Jumlah Kamar Mandi</th>
 									<th>Keterangan</th>
 								</tr>
 							</thead>
@@ -141,7 +141,7 @@
 								<tr role="row" class="<?php echo alternator("even", "odd"); ?>">
 									<td class="sorting_1"><?php echo $kosan->nama_kosan ?></td>
 									<td><?php echo $kosan->alamat ?></td>
-									<td><?php echo $kosan->fasum ?></td>
+									<td>Internet WiFi, kamar mandi luar, <?php echo $kosan->fasum ?></td>
 									<td><?php echo $kosan->kamarmandi ?></td>
 									<td><?php echo $kosan->deskripsilokasi ?></td>
 								</tr>
@@ -165,6 +165,7 @@
 									<th>Kosan</th>
 									<th>Kamar</th>
 									<th>Luas</th>
+									<th>Fasilitas Kamar</th>
 									<th>Harga</th>
 									<th>Terisi</th>
 								</tr>
@@ -178,6 +179,7 @@
 									<td><?php echo $datakamar->nama_kosan ?></td>
 									<td><?php echo $datakamar->nama_kamar ?></td>
 									<td><?php echo $datakamar->luas ?></td>
+									<td><?php echo $datakamar->fasilitas ?></td>
 									<td><?php echo $datakamar->hargath ?></td>
 									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
