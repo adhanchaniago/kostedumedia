@@ -1,11 +1,13 @@
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.css" />
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.css" />
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.css" />
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/control/util.js"> </script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/geo.js"></script>
+<!-- Bootstrap Core CSS datatable-->
+<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
+	
+<!-- DataTables JavaScript -->
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 
 <script>
 	$(document).ready(function(){
@@ -148,36 +150,19 @@ document.onkeypress = stopRKey;
 	<div class="clear " id="notif-holder"></div>
 	<p class="notif success " style="display:none"></p>
 	<p class="notif error " style="display:none"></p>
-	
-	<p class="tit-form">Daftar History Penghuni <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
-	<div class="filtering" style="display: none;">
-		<form action="<?php echo current_url() ?>" method="post" id="form_search_filter">
-			<ul class="filter-form">
-				<li>
-					<label>Filter POI</label><br />
-					<input type="text" placeholder="Nama Area" name="poi_name" class='filter_param' value="<?php echo $this->input->get('poi_name'); ?>" onkeypress="search_enter_press(event);" />
-				</li>
-			</ul>
 
-			<div class="clear"></div>
-			<div style="border-bottom: 1px dotted #DDD; margin: 15px 0 17px 0;"></div>
-			<input type="button" value="Bersihkan Pencarian" onclick="redirect()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<input type="button" value="Cari" name="search_filter" onclick="create_url()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<div class="clear"></div>
-			<div style="border-bottom: 1px solid #DDD; margin: 15px 0 0 0;"></div>
-		</form>
-	</div>
-	<table class="tab-admin">
+	<div class="col-lg-12">
+	<table class="table table-striped table-bordered table-hover" id="dataTables-histori">
 		<thead>
-			<tr class="tittab">
-				<td class="header" style="width: 20px;">No</th>
-				<td class="header">Kost</td>
-				<td class="header">Kamar</td>
-				<td class="header">Tgl Masuk</td>
-				<td class="header">Tgl Keluar</td>
-				<td class="header">Nama</td>
-				<td class="header">No HP</td>
-				<td class="header">LB</td>
+			<tr >
+				<td style="width: 20px;">No</td>
+				<td>Kost</td>
+				<td>Kamar</td>
+				<td>Tgl Masuk</td>
+				<td>Tgl Keluar</td>
+				<td>Nama</td>
+				<td>No HP</td>
+				<td>LB</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -202,5 +187,22 @@ document.onkeypress = stopRKey;
 
 		</tbody>
 	</table>
+	</div>
 </div> <!-- div main -->
 <div class="clear"></div>
+
+
+<script>
+// DATA TABLE GOPAL
+$(document).ready(function() {
+	$('#dataTables-histori').DataTable({
+		responsive: true,
+		"paging":   false,
+        "searching":   true,
+        "ordering": true,
+        "info":     false
+		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	});
+});
+// DATA TABLE GOPAL
+</script>

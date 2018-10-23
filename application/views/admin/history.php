@@ -1,11 +1,13 @@
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.css" />
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.css" />
-<link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.css" />
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/control/util.js"> </script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/geo.js"></script>
+<!-- Bootstrap Core CSS datatable-->
+<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
+
+<!-- DataTables JavaScript -->
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 
 <script>
 	$(document).ready(function(){
@@ -230,3 +232,18 @@ document.onkeypress = stopRKey;
 	
 </div>
 <div class="clear"></div>
+
+<script>
+// DATA TABLE GOPAL
+$(document).ready(function() {
+	$('#dataTables-history').DataTable({
+		responsive: true,
+		"paging":   false,
+        "searching":   true,
+        "ordering": true,
+        "info":     false
+		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	});
+});
+// DATA TABLE GOPAL
+</script>

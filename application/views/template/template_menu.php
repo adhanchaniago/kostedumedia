@@ -23,17 +23,17 @@
 			</li>
 			<li>
 				<a href="<?php echo base_url() . 'admin/penghuni_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/penghuni_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-home'></i>&nbsp;PENGHUNI
+					<i class='fa fa-users'></i>&nbsp;PENGHUNI
 				</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url() . 'admin/history_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/history_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-home'></i>&nbsp;HISTORY PENGHUNI
+					<i class='fa fa-history'></i>&nbsp;HISTORY PENGHUNI
 				</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url() . 'admin/csv_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/csv_ctrl') echo 'class="current"' ?>>
-					<i class='fa fa-home'></i>&nbsp;UPLOAD CSV
+					<i class='fa fa-upload'></i>&nbsp;UPLOAD CSV
 				</a>
 			</li>
 <?php } ?>
