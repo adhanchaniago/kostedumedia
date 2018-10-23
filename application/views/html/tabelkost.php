@@ -159,14 +159,6 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example" style="width:100%; font-size:13;">
 							<thead>
 								<tr>
-									<th>Kosan</th>
-									<th>Kamar</th>
-									<th>Luas</th>
-									<th>Fasilitas Kamar</th>
-									<th>Harga</th>
-									<th>Terisi</th>
-								</tr>
-								<tr>
 					                <th>Kosan</th>
 									<th>Kamar</th>
 									<th>Luas</th>
