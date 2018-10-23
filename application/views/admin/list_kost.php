@@ -253,6 +253,41 @@ document.onkeypress = stopRKey;
 						<div class="clear"></div>
 					</li>
 					<li>
+						<label>Nomor Token</label>
+						<input class="form-admin" name="no_token" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_token ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor Telp/Internet</label>
+						<input class="form-admin" name="no_telp_internet" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_telp_internet ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor Gembok</label>
+						<input class="form-admin" name="no_gembok" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_gembok ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor PBB</label>
+						<input class="form-admin" name="no_pbb" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_pbb ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor Sertifikat Tanah</label>
+						<input class="form-admin" name="no_sert_tanah" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_sert_tanah ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor AJB</label>
+						<input class="form-admin" name="no_ajb" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_ajb ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Nomor SHM</label>
+						<input class="form-admin" name="no_shm" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_shm ?>" >	
+						<div class="clear"></div>
+					</li>
+					<li>
 						<label>Foto</label>
 						<input name="foto_kosan" id="foto_kosan" type="file" class="text-medium" value="<?php if ($obj) echo $obj->foto_kosan ?>" >	
 						<div class="clear"></div>

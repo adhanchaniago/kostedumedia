@@ -90,7 +90,14 @@ class kost_ctrl extends CI_Controller{
 			'kamarmandi' => $this->input->post('kamarmandi'),
 			'kontak' => $this->input->post('kontak'),
 			'lat' => $this->input->post('lat'),
-			'lon' => $this->input->post('lon')
+			'lon' => $this->input->post('lon'),
+			'no_token' => $this->input->post('no_token'),
+			'no_telp_internet' => $this->input->post('no_telp_internet'),
+			'no_gembok' => $this->input->post('no_gembok'),
+			'no_pbb' => $this->input->post('no_pbb'),
+			'no_sert_tanah' => $this->input->post('no_sert_tanah'),
+			'no_ajb' => $this->input->post('no_ajb'),
+			'no_shm' => $this->input->post('no_shm')
 		);
 
 		return $data;

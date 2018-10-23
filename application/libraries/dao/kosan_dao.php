@@ -22,7 +22,14 @@ class kosan_dao extends Generic_dao  {
 			'deskripsi'=>'deskripsi',
 			'id_pengguna'=>'id_pengguna',
 			'lat'=>'lat',
-			'lon'=>'lon'
+			'lon'=>'lon',
+			'no_token'=>'no_token',
+			'no_telp_internet'=>'no_telp_internet',
+			'no_gembok'=>'no_gembok',
+			'no_pbb'=>'no_pbb',
+			'no_sert_tanah'=>'no_sert_tanah',
+			'no_ajb'=>'no_ajb',
+			'no_shm'=>'no_shm'
 		);
 	}
 
