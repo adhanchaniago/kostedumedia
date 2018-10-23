@@ -166,6 +166,14 @@
 									<th>Harga</th>
 									<th>Terisi</th>
 								</tr>
+								<tr>
+					                <th>Kosan</th>
+									<th>Kamar</th>
+									<th>Luas</th>
+									<th>Fasilitas Kamar</th>
+									<th>Harga</th>
+									<th>Terisi</th>
+					            </tr>
 							</thead>
 							<tbody>
 <?php 
@@ -185,6 +193,16 @@
 	}
 ?>
 							</tbody>
+							<tfoot>
+					            <tr>
+					                <th>Kosan</th>
+									<th>Kamar</th>
+									<th>Luas</th>
+									<th>Fasilitas Kamar</th>
+									<th>Harga</th>
+									<th>Terisi</th>
+					            </tr>
+					        </tfoot>
 						</table>
 						<!-- /.table-responsive -->
 					<!-- </div> -->
@@ -219,16 +237,41 @@
 	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 	<script>
 	// DATA TABLE GOPAL
+	// $(document).ready(function() {
+	// 	$('#dataTables-example').DataTable({
+	// 	responsive: true,
+	// 	"paging":   false,
+ //        "searching":   true,
+ //        "ordering": true,
+ //        "info":     false
+	// 	// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	// 	});
+	// });
+
 	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-		responsive: true,
-		"paging":   false,
-        "searching":   true,
-        "ordering": true,
-        "info":     false
-		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
-		});
-	});
+    $('#dataTables-example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
 	// DATA TABLE GOPAL
 
 	var LOGINSTAT = false;
