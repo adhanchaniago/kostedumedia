@@ -24,6 +24,7 @@ foreach($kosans as $data) {
 		echo '"lokasi":"' . $data->lokasi . '",';
 		echo '"kamarmandi":"' . $data->kamarmandi . '",';
 		echo '"desclok":"' . $data->deskripsilokasi . '",';
+		echo '"alias":"' . $data->alias . '",';
 		echo '"kamar":[';
 
 		if ($data->id_kamar != NULL) { 
@@ -82,6 +83,7 @@ foreach($kosans as $data) {
 			echo '"lokasi":"' . $data->lokasi . '",';
 			echo '"kamarmandi":"' . $data->kamarmandi . '",';
 			echo '"desclok":"' . $data->deskripsilokasi . '",';
+			echo '"alias":"' . $data->alias . '",';
 			echo '"kamar":[';
 
 			if ($data->id_kamar != NULL) { 
