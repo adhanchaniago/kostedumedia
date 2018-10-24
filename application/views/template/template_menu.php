@@ -32,6 +32,11 @@
 				</a>
 			</li>
 			<li>
+				<a href="<?php echo base_url() . 'admin/komplain_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/komplain_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-home'></i>&nbsp;KOMPLAIN
+				</a>
+			</li>
+			<li>
 				<a href="<?php echo base_url() . 'admin/csv_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/csv_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-home'></i>&nbsp;UPLOAD CSV
 				</a>

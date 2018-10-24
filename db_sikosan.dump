@@ -124,6 +124,45 @@ ALTER SEQUENCE public.kamar_id_kamar_seq OWNED BY public.kamar.id_kamar;
 
 
 --
+-- Name: komplain; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.komplain (
+    id_komplain integer NOT NULL,
+    lokasi character varying(50),
+    orang_kamar character varying(50),
+    masalah character varying(255),
+    start_komplain date,
+    end_komplain date,
+    status_beres boolean,
+    foto character varying(255)
+);
+
+
+ALTER TABLE public.komplain OWNER TO postgres;
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.komplain_id_komplain_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.komplain_id_komplain_seq OWNER TO postgres;
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.komplain_id_komplain_seq OWNED BY public.komplain.id_komplain;
+
+
+--
 -- Name: kosan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -286,6 +325,13 @@ ALTER TABLE ONLY public.kamar ALTER COLUMN id_kamar SET DEFAULT nextval('public.
 
 
 --
+-- Name: id_komplain; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.komplain ALTER COLUMN id_komplain SET DEFAULT nextval('public.komplain_id_komplain_seq'::regclass);
+
+
+--
 -- Name: id_kosan; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -359,6 +405,21 @@ SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 4, true);
 
 
 --
+-- Data for Name: komplain; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.komplain (id_komplain, lokasi, orang_kamar, masalah, start_komplain, end_komplain, status_beres, foto) FROM stdin;
+\.
+
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.komplain_id_komplain_seq', 2, true);
+
+
+--
 -- Data for Name: kosan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -422,6 +483,14 @@ ALTER TABLE ONLY public.daftar_agama
 
 ALTER TABLE ONLY public.kamar
     ADD CONSTRAINT pk_kamar PRIMARY KEY (id_kamar);
+
+
+--
+-- Name: pk_komplain; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.komplain
+    ADD CONSTRAINT pk_komplain PRIMARY KEY (id_komplain);
 
 
 --
