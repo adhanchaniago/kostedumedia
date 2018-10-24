@@ -1620,7 +1620,7 @@ function INITGRAFIKKOSAN() {
 			if (dataKosan.features[i].properties.kamar[z].terisi === "terisi"){buffisi++;};	
 			if (dataKosan.features[i].properties.kamar[z].terisi === "kosong"){buffksg++;};		
 		}
-		namaKosanGrafik.push(dataKosan.features[i].properties.judul);
+		namaKosanGrafik.push(dataKosan.features[i].properties.alias);
 		terisiKosanGrafik.push(buffisi);
 		kosongKosanGrafik.push(buffksg);
 	}
