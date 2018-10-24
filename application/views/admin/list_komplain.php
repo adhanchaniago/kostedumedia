@@ -76,6 +76,17 @@
 		window.location = "<?php echo base_url() ?>admin/kost_ctrl/delPenghuni/" + id_penghuni;
 	}
 
+	function beresSelected() {
+		var noww = new Date();
+		document.getElementById("endkomplain").disabled = false;
+		document.getElementById("endkomplain").value = noww.getFullYear() + '-' + (noww.getMonth()+1) + '-' + noww.getDate();
+	}
+
+	function belumBeresSelected() {
+		document.getElementById("endkomplain").disabled = true;
+		document.getElementById("endkomplain").value = '';
+	}
+ 
 </script>
 
 <style>
@@ -203,9 +214,14 @@ document.onkeypress = stopRKey;
 			<li>
 				<label>Status Beres</label>
 				<div class="form-admin-radio">
-					<input type="radio" name="status_beres" value="F" checked > Belum Selesai
-					<input type="radio" name="status_beres" value="T" <?php if ($obj && $obj->status_beres == 't') echo 'checked'; ?> > Sudah Selesai
+					<input type="radio" name="status_beres" onchange="belumBeresSelected()" value="F" checked > Belum Selesai
+					<input type="radio" name="status_beres" onchange="beresSelected()" value="T" <?php if ($obj && $obj->status_beres == 't') echo 'checked'; ?> > Sudah Selesai
 				</div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<label>Selesai Komplain</label>
+				<input class="form-admin" name="end_komplain" id="endkomplain" type="text" class="text-medium" value="<?php if ($obj) echo $obj->end_komplain ?>" <?php if ($obj && $obj->status_beres == 'f') echo 'disabled' ?> >	
 				<div class="clear"></div>
 			</li>
 		</ul>

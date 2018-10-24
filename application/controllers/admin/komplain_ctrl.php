@@ -70,7 +70,7 @@ class komplain_ctrl extends CI_Controller{
 			'orang_kamar' => $this->input->post('orang_kamar'),
 			'masalah' => $this->input->post('masalah'),
 			'start_komplain' => $this->input->post('start_komplain'),
-			// 'end_komplain' => $this->input->post('end_komplain'),
+			'end_komplain' => ($this->input->post('status_beres') == 'T') ? $this->input->post('end_komplain') : null,
 			'status_beres' => $this->input->post('status_beres')
 		);
 
