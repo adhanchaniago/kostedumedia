@@ -97,7 +97,8 @@ class kost_ctrl extends CI_Controller{
 			'no_pbb' => $this->input->post('no_pbb'),
 			'no_sert_tanah' => $this->input->post('no_sert_tanah'),
 			'no_ajb' => $this->input->post('no_ajb'),
-			'no_shm' => $this->input->post('no_shm')
+			'no_shm' => $this->input->post('no_shm'),
+			'alias' => $this->input->post('alias')
 		);
 
 		return $data;

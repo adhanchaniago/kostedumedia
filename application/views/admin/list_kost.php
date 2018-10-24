@@ -218,6 +218,11 @@ document.onkeypress = stopRKey;
 						<div class="clear"></div>
 					</li>
 					<li>
+						<label>Alias</label>
+						<input class="form-admin" name="alias" type="text" class="text-medium" value="<?php if ($obj) echo $obj->alias ?>" maxlength="5" >
+						<div class="clear"></div>
+					</li>
+					<li>
 						<label>Alamat</label>
 						<input class="form-admin" name="alamat_kosan" type="text" class="text-medium" value="<?php if ($obj) echo $obj->alamat ?>" >	
 						<div class="clear"></div>

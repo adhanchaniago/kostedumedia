@@ -186,7 +186,8 @@ CREATE TABLE public.kosan (
     no_pbb character varying(50),
     no_sert_tanah character varying(255),
     no_ajb character varying(255),
-    no_shm character varying(255)
+    no_shm character varying(255),
+    alias character varying(5)
 );
 
 
@@ -423,9 +424,9 @@ SELECT pg_catalog.setval('public.komplain_id_komplain_seq', 2, true);
 -- Data for Name: kosan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.kosan (id_kosan, nama_kosan, alamat, fasum, foto_kosan, kontak, lokasi, kamarmandi, deskripsilokasi, id_pengguna, deskripsi, lat, lon, no_token, no_telp_internet, no_gembok, no_pbb, no_sert_tanah, no_ajb, no_shm) FROM stdin;
-1	Edumedia 1 Geger Asih	Gg Geger Asih no148	15 kamar, mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gs	08122-384-925 (Pak Dadang)</br>  0896-3042-2834 (Pak Dadang)</br>  0856-59-360-489 (Naufal)</br>  0856-225-396 (Nadiya)</br>  0857-2006-4123 (Fathia)	https://goo.gl/b25DH7	lt1=2bh, lt2=2bh, lt3=1bh	masuk jl geger asih, belok kiri, rumahnya sebelah kiri	1	15 kamar	-6.86254328708866979	107.588497102260618	\N	\N	\N	\N	\N	\N	\N
-2	Edumedia 2 Geger Arum	Jl Geger Arum no133	mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gr	08122-384-925 (Pak Dadang)	https://goo.gl/3K9NBy	lt1=3bh, lt2=1bh	sebrang smp29 ada gang kecil, rumahnya di sblh kanan	1	8 kamarr	-6.86085494667260853	107.586737573146848	\N	\N	\N	\N	\N	\N	\N
+COPY public.kosan (id_kosan, nama_kosan, alamat, fasum, foto_kosan, kontak, lokasi, kamarmandi, deskripsilokasi, id_pengguna, deskripsi, lat, lon, no_token, no_telp_internet, no_gembok, no_pbb, no_sert_tanah, no_ajb, no_shm, alias) FROM stdin;
+1	Edumedia 1 Geger Asih	Gg Geger Asih no148	15 kamar, mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gs	08122-384-925 (Pak Dadang)</br>  0896-3042-2834 (Pak Dadang)</br>  0856-59-360-489 (Naufal)</br>  0856-225-396 (Nadiya)</br>  0857-2006-4123 (Fathia)	https://goo.gl/b25DH7	lt1=2bh, lt2=2bh, lt3=1bh	masuk jl geger asih, belok kiri, rumahnya sebelah kiri	1	15 kamar	-6.86254328708866979	107.588497102260618	\N	\N	\N	\N	\N	\N	\N	\N
+2	Edumedia 2 Geger Arum	Jl Geger Arum no133	mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gr	08122-384-925 (Pak Dadang)	https://goo.gl/3K9NBy	lt1=3bh, lt2=1bh	sebrang smp29 ada gang kecil, rumahnya di sblh kanan	1	8 kamarr	-6.86085494667260853	107.586737573146848	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
