@@ -113,7 +113,7 @@ class kost_ctrl extends CI_Controller{
 		else
 			$this->session->set_flashdata("failed", "Kosan baru gagal disimpan.");
 
-		redirect($this->session->userdata('user_url'));
+		redirect(self::$CURRENT_CONTEXT);
 	}
 
 	public function edit_kosan() {

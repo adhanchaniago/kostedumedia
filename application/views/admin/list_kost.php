@@ -170,6 +170,7 @@ document.onkeypress = stopRKey;
 				<tr >
 					<td  style="width: 20px;">No</td>                     
 					<td >Nama Kostan</td>
+					<td >Alias</td>
 					<td >Alamat</td>
 	<!-- 				<td class="header">Lokasi</td>
 					<td class="header">Detail</td> -->
@@ -187,6 +188,7 @@ document.onkeypress = stopRKey;
 							<tr>
 								<td><?php echo ($count++); ?></td>
 								<td><?php echo $kosan->nama_kosan ?></td>
+								<td><?php echo $kosan->alias ?></td>
 								<td><?php echo $kosan->alamat ?></td>
 	<!-- 							<td><?php echo $deskripsi['lokasi'] ?></td>
 								<td><?php echo $deskripsi['desclok'] ?></td> -->
@@ -203,10 +205,9 @@ document.onkeypress = stopRKey;
 		</table>
 	<!-- </div> -->
 	<!-- </div> -->
+	<br><br>
 	</div>
 	<!-- </div> -->
-
-	<br><br><br><br><br><br><br><br><br>  
 
 	<p id="formkosan" class="tit-form"><?php if ($obj) echo "Edit Kostan"; else echo "Tambah Kosan Baru"; ?></p>
 	<form action="<?php if ($obj) echo base_url() . 'admin/kost_ctrl/edit_kosan'; else echo base_url() . 'admin/kost_ctrl/add_kosan'; ?>" method="post" >

@@ -164,7 +164,7 @@
 									<th>Luas</th>
 									<th>Fasilitas Kamar</th>
 									<th>Harga</th>
-									<th>Terisi</th>
+									<th>Terisi (YYYY-mm-dd)</th>
 					            </tr>
 							</thead>
 							<tbody>
@@ -178,7 +178,7 @@
 									<td><?php echo $datakamar->luas ?></td>
 									<td><?php echo $datakamar->fasilitas ?></td>
 									<td><?php echo $datakamar->hargath ?></td>
-									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
+									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi sampai ' . $datakamar->tglkeluar : 'kosong') ?></td>
 								</tr>
 <?php
 		}
@@ -192,7 +192,7 @@
 									<th>Luas</th>
 									<th>Fasilitas Kamar</th>
 									<th>Harga</th>
-									<th>Terisi</th>
+									<th>Terisi (YYYY-mm-dd)</th>
 					            </tr>
 					        </tfoot>
 						</table>

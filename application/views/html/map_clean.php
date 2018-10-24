@@ -317,7 +317,7 @@ function includeHTML() {
 								<th>Luas </th>
 								<!-- <th>Fasilitas Kamar</th> -->
 								<th>Harga </th>
-								<th>Terisi </th>
+								<th>Terisi (YYYY-mm-dd) </th>
 							</tr>
 						</thead>
 		                <tbody class="list">
@@ -326,12 +326,12 @@ function includeHTML() {
 		foreach($kosans as $datakamar) {
 ?>
 								<tr class="<?php echo alternator("even", "odd"); ?>">
-									<td><center><?php echo $datakamar->nama_kosan ?></td>
+									<td><center><?php echo $datakamar->alias ?></td>
 									<td><center><?php echo $datakamar->nama_kamar ?></td>
 									<td><center><?php echo $datakamar->luas ?></td>
 									<!-- <td><center><?php echo $datakamar->fasilitas ?></td> -->
 									<td><center><?php echo $datakamar->hargath ?></td>
-									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
+									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi sampai ' . $datakamar->tglkeluar : 'kosong') ?></td>
 								</tr>
 <?php
 		}

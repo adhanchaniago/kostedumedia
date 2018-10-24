@@ -75,7 +75,7 @@ class penghuni_dao extends Generic_dao  {
 	}
 
 	function getDaftarPenghuni() {
-		$this->ci->db->select('penghuni.*, nama_kamar, nama_kosan');
+		$this->ci->db->select('penghuni.*, nama_kamar, nama_kosan, alias');
 		$this->ci->db->from('kamar RIGHT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
 				LEFT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)'
 		);

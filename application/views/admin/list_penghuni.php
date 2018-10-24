@@ -174,7 +174,7 @@ document.onkeypress = stopRKey;
 						?>
 						<tr class="<?php echo alternator("row-two", "row-one"); ?>">
 							<td><?php echo ($count++); ?></td>
-							<td><?php echo $data->nama_kosan ?></td>
+							<td><?php echo $data->alias ?></td>
 							<td><?php echo $data->nama_kamar ?></td>
 							<td><?php echo $data->nama_penghuni ?></td>
 							<td><?php echo $data->hp ?></td>

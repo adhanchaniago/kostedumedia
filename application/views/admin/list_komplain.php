@@ -113,28 +113,11 @@ document.onkeypress = stopRKey;
 	<div class="clear " id="notif-holder"></div>
 	<p class="notif success " style="display:none"></p>
 	<p class="notif error " style="display:none"></p>
-	
-	<p class="tit-form">Daftar Keluarga <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
-	<div class="filtering" style="display: none;">
-		<form action="<?php echo current_url() ?>" method="post" id="form_search_filter">
-			<ul class="filter-form">
-				<li>
-					<label>Filter POI</label><br />
-					<input type="text" placeholder="Nama Area" name="poi_name" class='filter_param' value="<?php echo $this->input->get('poi_name'); ?>" onkeypress="search_enter_press(event);" />
-				</li>
-			</ul>
 
-			<div class="clear"></div>
-			<div style="border-bottom: 1px dotted #DDD; margin: 15px 0 17px 0;"></div>
-			<input type="button" value="Bersihkan Pencarian" onclick="redirect('')" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<input type="button" value="Cari" name="search_filter" onclick="create_url()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<div class="clear"></div>
-			<div style="border-bottom: 1px solid #DDD; margin: 15px 0 0 0;"></div>
-		</form>
-	</div>
-	<table class="tab-admin">
+	<div class="col-lg-12">
+	<table class="table table-striped table-bordered table-hover" id="dataTables-penghuni">
 		<thead>
-			<tr class="tittab">
+			<tr>
 				<td class="header" style="width: 30px;">No</td>
 				<td class="header" style="cursor: pointer ;">Lokasi</td>
 				<td class="header" style="cursor: pointer ;">Orang - Kamar</td>
@@ -171,8 +154,8 @@ document.onkeypress = stopRKey;
 
 		</tbody>
 	</table>
-	<br />
-	<br />
+	<br><br>
+	</div>
 
 	<p class="tit-form"><?php if ($obj) echo "Edit Komplain"; else echo "Tambah Komplain Baru"; ?></p>
 	<form action="<?php if ($obj) echo base_url() . 'admin/komplain_ctrl/edit_komplain'; else echo base_url() . 'admin/komplain_ctrl/add_komplain'; ?>" method="post" >
@@ -218,3 +201,18 @@ document.onkeypress = stopRKey;
 	</form>
 </div> <!-- div main -->
 <div class="clear"></div>
+
+<script>
+// DATA TABLE GOPAL
+$(document).ready(function() {
+	$('#dataTables-penghuni').DataTable({
+		responsive: true,
+		"paging":   false,
+        "searching":   true,
+        "ordering": true,
+        "info":     false
+		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	});
+});
+// DATA TABLE GOPAL
+</script>
