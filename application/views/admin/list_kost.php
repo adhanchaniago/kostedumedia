@@ -263,7 +263,7 @@ document.onkeypress = stopRKey;
 						<div class="clear"></div>
 					</li>
 					<li>
-						<label>Nomor Token</label>
+						<label>Nomor Token Listrik</label>
 						<input class="form-admin" name="no_token" type="text" class="text-medium" value="<?php if ($obj) echo $obj->no_token ?>" >	
 						<div class="clear"></div>
 					</li>

@@ -1,3 +1,14 @@
+<!-- Bootstrap Core CSS datatable-->
+<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
+	
+<!-- DataTables JavaScript -->
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
+
 <script>
 	$(document).ready(function(){
 		
@@ -181,7 +192,7 @@ document.onkeypress = stopRKey;
 			</li>
 			<li>
 				<label>Masalah</label>
-				<input class="form-admin" name="masalah" type="text" class="text-medium" value="<?php if ($obj) echo $obj->masalah ?>" >	
+				<textarea class="form-admin" name="masalah" type="text" class="text-medium" value="<?php if ($obj) echo $obj->masalah ?>" ></textarea>
 				<div class="clear"></div>
 			</li>
 			<li>
