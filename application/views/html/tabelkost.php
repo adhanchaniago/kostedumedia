@@ -36,21 +36,17 @@
 	<title>Kost Putri EDUMEDIA</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-	<!-- Bootstrap Core CSS -->
-	<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 	<!-- MetisMenu CSS -->
 	<link href="<?php echo base_url() ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-	<!-- DataTables CSS -->
-	<link href="<?php echo base_url() ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-	<!-- DataTables Responsive CSS -->
-	<link href="<?php echo base_url() ?>vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+	
+	<!-- Bootstrap Core CSS data table-->
+	<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
-	<link href="<?php echo base_url() ?>dist/css/sb-admin-2.css" rel="stylesheet">
-	<link href="<?php echo base_url() ?>dist/css/datatable.min.css" rel="stylesheet">
+	<!-- <link href="<?php echo base_url() ?>dist/css/sb-admin-2.css" rel="stylesheet"> -->
+	<!-- <link href="<?php echo base_url() ?>dist/css/datatable.min.css" rel="stylesheet"> -->
 
 	<!-- Custom Fonts -->
 	<link href="<?php echo base_url() ?>vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -112,7 +108,7 @@
 
 	<div id="container" >
 		<!-- overflow-y: scroll; overflow-x: hidden; -->
-		<div class="row" style="max-height: 100%; max-width: 100%; overflow: auto;">
+		<!-- <div class="row" style="max-height: 100%; max-width: 100%; overflow: auto;"> -->
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -120,14 +116,14 @@
 					</div>
 					<?php //var_dump($kosts); die(); ?>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
+					<!-- <div class="panel-body"> -->
 						<table id="example" class="table table-striped table-bordered table-hover" style="width:100%; font-size:13;">
 							<thead>
 								<tr>
 									<th>Nama</th>
 									<th>Alamat</th>
 									<th>Fasilitas</th>
-									<th>Jumlah KM</th>
+									<th>Jumlah Kamar Mandi</th>
 									<th>Keterangan</th>
 								</tr>
 							</thead>
@@ -141,7 +137,7 @@
 								<tr role="row" class="<?php echo alternator("even", "odd"); ?>">
 									<td class="sorting_1"><?php echo $kosan->nama_kosan ?></td>
 									<td><?php echo $kosan->alamat ?></td>
-									<td><?php echo $kosan->fasum ?></td>
+									<td>Internet WiFi, kamar mandi luar, <?php echo $kosan->fasum ?></td>
 									<td><?php echo $kosan->kamarmandi ?></td>
 									<td><?php echo $kosan->deskripsilokasi ?></td>
 								</tr>
@@ -151,23 +147,25 @@
 							</tbody>
 						</table>
 						
-					</div>
+					<!-- </div> -->
 					<!-- /.panel-body -->
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<center><h3><b>List KAMAR</b></h3></center>
 					</div>
-					<div class="panel-body">
+					<!-- <div class="panel-body"> -->
+					<br>
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example" style="width:100%; font-size:13;">
 							<thead>
 								<tr>
-									<th>Kosan</th>
+					                <th>Kosan</th>
 									<th>Kamar</th>
 									<th>Luas</th>
+									<th>Fasilitas Kamar</th>
 									<th>Harga</th>
 									<th>Terisi</th>
-								</tr>
+					            </tr>
 							</thead>
 							<tbody>
 <?php 
@@ -178,6 +176,7 @@
 									<td><?php echo $datakamar->nama_kosan ?></td>
 									<td><?php echo $datakamar->nama_kamar ?></td>
 									<td><?php echo $datakamar->luas ?></td>
+									<td><?php echo $datakamar->fasilitas ?></td>
 									<td><?php echo $datakamar->hargath ?></td>
 									<td><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
@@ -186,15 +185,25 @@
 	}
 ?>
 							</tbody>
+							<tfoot>
+					            <tr>
+					                <th>Kosan</th>
+									<th>Kamar</th>
+									<th>Luas</th>
+									<th>Fasilitas Kamar</th>
+									<th>Harga</th>
+									<th>Terisi</th>
+					            </tr>
+					        </tfoot>
 						</table>
 						<!-- /.table-responsive -->
-					</div>
+					<!-- </div> -->
 					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
 			</div>
 			<!-- /.col-lg-12 -->
-		</div>
+		<!-- </div> -->
 		<!-- /.row -->
 	</div>
 	<!-- container -->
@@ -208,23 +217,55 @@
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-	<!-- DataTables JavaScript -->
-	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-
 	<!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<!-- <script src="<?php echo base_url() ?>aset/jQuery-v3.1.1.js"></script> -->
+	
+	<!-- DataTables JavaScript -->
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 	<script>
+	// DATA TABLE GOPAL
+	// $(document).ready(function() {
+	// 	$('#dataTables-example').DataTable({
+	// 	responsive: true,
+	// 	"paging":   false,
+ //        "searching":   true,
+ //        "ordering": true,
+ //        "info":     false
+	// 	// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	// 	});
+	// });
+
 	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"lengthMenu": [[25, 50, 100], [25, 50, 100]]
-		});
-	});
+    $('#dataTables-example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
+	// DATA TABLE GOPAL
+
 	var LOGINSTAT = false;
 	$("#login").click(function() {
 	window.location.href = "../home/login";

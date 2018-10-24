@@ -162,7 +162,7 @@ function includeHTML() {
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 	<link rel="icon" type="image/x-icon" href="<?php echo base_url() ?>favicon.ico">
-	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleafootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/font-awesome.min.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleaf/leaflet.groupedlayercontrol.css" />
 	<!-- <link rel="stylesheet" href="<?php echo base_url() ?>aset/bootleaf/L.Control.Locate.css" /> -->
@@ -178,8 +178,11 @@ function includeHTML() {
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-search.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/leaflet-measure-path.css" />
 	<link rel="stylesheet" href="<?php echo base_url() ?>aset/wind-js-leaflet.css" />
-	<link href="<?php echo base_url() ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
+	<!-- Bootstrap Core CSS Data table-->		
+	<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
 </head>
 
 <body>
@@ -309,11 +312,12 @@ function includeHTML() {
 		              <table class="table table-hover table-striped table-condensed" id="dataTables-example" style="font-size:12px;">
 		                <thead>
 							<tr>
-								<th>Kosan <i class="fa fa-sort"></i></th>
-								<th>Kamar <i class="fa fa-sort"></i></th>
-								<th>Luas <i class="fa fa-sort"></i></th>
-								<th>Harga <i class="fa fa-sort"></i></th>
-								<th>Terisi <i class="fa fa-sort"></i></th>
+								<th>Kosan </th>
+								<th>Kamar </th>
+								<th>Luas </th>
+								<!-- <th>Fasilitas Kamar</th> -->
+								<th>Harga </th>
+								<th>Terisi </th>
 							</tr>
 						</thead>
 		                <tbody class="list">
@@ -325,6 +329,7 @@ function includeHTML() {
 									<td><center><?php echo $datakamar->nama_kosan ?></td>
 									<td><center><?php echo $datakamar->nama_kamar ?></td>
 									<td><center><?php echo $datakamar->luas ?></td>
+									<!-- <td><center><?php echo $datakamar->fasilitas ?></td> -->
 									<td><center><?php echo $datakamar->hargath ?></td>
 									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi' : 'kosong') ?></td>
 								</tr>
@@ -499,16 +504,15 @@ function includeHTML() {
 	<script src="<?php echo base_url() ?>aset/chartjs/Chart.bundle.js"></script>
 	<script src="<?php echo base_url() ?>aset/chartjs/Chart.bundle.min.js"></script>
 
-	<!-- bootstrap -->
-	<script src="<?php echo base_url() ?>aset/bootstrap.min.js"></script>
 
 	<!-- JSONjs -->
 	<script src="<?php echo base_url() ?>aset/JSONjs/json2.js"></script>
 
 	<!-- DataTables JavaScript -->
-	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 
 
 	<!-- MAP ASLI -->

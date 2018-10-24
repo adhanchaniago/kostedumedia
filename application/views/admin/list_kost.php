@@ -1,11 +1,23 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.css" />
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.css" />
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.css" />
+	
+	<!-- Bootstrap Core CSS datatable-->
+	<link href="<?php echo base_url() ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>vendor/datatables/css/dataTables.responsive.css" rel="stylesheet">
+	
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.draw.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/leaflet/leaflet.label.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/control/util.js"> </script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/geo.js"></script>
+
+<!-- DataTables JavaScript -->
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>vendor/datatables/js/dataTables.responsive.js"></script>
 
 <script>
 	$(document).ready(function(){
@@ -149,59 +161,52 @@ document.onkeypress = stopRKey;
 	<p class="notif success " style="display:none"></p>
 	<p class="notif error " style="display:none"></p>
 	
-	<p class="tit-form">Daftar Kostan <a href="#" id="filtering-form">Table Filter <img src="<?php echo base_url() ?>assets/html/img/arrow-down-black.png" /></a></p>
-	<div class="filtering" style="display: none;">
-		<form action="<?php echo current_url() ?>" method="post" id="form_search_filter">
-			<ul class="filter-form">
-				<li>
-					<label>Filter POI</label><br />
-					<input type="text" placeholder="Nama Area" name="poi_name" class='filter_param' value="<?php echo $this->input->get('poi_name'); ?>" onkeypress="search_enter_press(event);" />
-				</li>
-			</ul>
+	<!-- <div class="row"> -->
+	<div class="col-lg-12">
+	<!-- <div class="panel panel-default"> -->
+	<!-- <div class="panel-body"> -->
+		<table class="table table-striped table-bordered table-hover" id="dataTables-kosan">
+			<thead>
+				<tr >
+					<td  style="width: 20px;">No</td>                     
+					<td >Nama Kostan</td>
+					<td >Alamat</td>
+	<!-- 				<td class="header">Lokasi</td>
+					<td class="header">Detail</td> -->
+					<td  style="width: 60px;">Aksi</td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+					$count=1;
+					if(!empty($kosts)){
+						foreach($kosts as $kosan) {
+							// $deskripsi = $kosan['properties']; 
+							?>
+							<!-- <tr class="<?php echo alternator("row-two", "row-one"); ?>"> -->
+							<tr>
+								<td><?php echo ($count++); ?></td>
+								<td><?php echo $kosan->nama_kosan ?></td>
+								<td><?php echo $kosan->alamat ?></td>
+	<!-- 							<td><?php echo $deskripsi['lokasi'] ?></td>
+								<td><?php echo $deskripsi['desclok'] ?></td> -->
+								<!-- <td class="action"> -->
+								<td >
+									<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan  . '#formkosan' ?>"><div class="tab-edit"></div></a>
+									<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="del-kosan"><div class="tab-delete"></div></a>
+								</td>
+							</tr>
+				<?php 	}
+					} ?>
 
-			<div class="clear"></div>
-			<div style="border-bottom: 1px dotted #DDD; margin: 15px 0 17px 0;"></div>
-			<input type="button" value="Bersihkan Pencarian" onclick="redirect()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<input type="button" value="Cari" name="search_filter" onclick="create_url()" class="button-form" style="float: right; margin-right: 15px; border: 1px solid #CCC;" />
-			<div class="clear"></div>
-			<div style="border-bottom: 1px solid #DDD; margin: 15px 0 0 0;"></div>
-		</form>
+			</tbody>
+		</table>
+	<!-- </div> -->
+	<!-- </div> -->
 	</div>
-	<table class="tab-admin">
-		<thead>
-			<tr class="tittab">
-				<td class="header" style="width: 20px;">No</th>                     
-				<td class="header">Nama Kostan</td>
-				<td class="header">Alamat</td>
-<!-- 				<td class="header">Lokasi</td>
-				<td class="header">Detail</td> -->
-				<td class="header delete" style="width: 52px;">Aksi</td>
-			</tr>
-		</thead>
-		<tbody>
-			<?php 
-				$count=1;
-				if(!empty($kosts)){
-					foreach($kosts as $kosan) {
-						// $deskripsi = $kosan['properties']; 
-						?>
-						<tr class="<?php echo alternator("row-two", "row-one"); ?>">
-							<td><?php echo ($count++); ?></td>
-							<td><?php echo $kosan->nama_kosan ?></td>
-							<td><?php echo $kosan->alamat ?></td>
-<!-- 							<td><?php echo $deskripsi['lokasi'] ?></td>
-							<td><?php echo $deskripsi['desclok'] ?></td> -->
-							<td class="action">
-								<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $kosan->id_kosan  . '#formkosan' ?>"><div class="tab-edit"></div></a>
-								<a href="<?php echo base_url();?>admin/kost_ctrl/delete/<?php echo $kosan->id_kosan ?>" class="del-kosan"><div class="tab-delete"></div></a>
-							</td>
-						</tr>
-			<?php 	}
-				} ?>
+	<!-- </div> -->
 
-		</tbody>
-	</table>
-	<br />  
+	<br><br><br><br><br><br><br><br><br>  
 
 	<p id="formkosan" class="tit-form"><?php if ($obj) echo "Edit Kostan"; else echo "Tambah Kosan Baru"; ?></p>
 	<form action="<?php if ($obj) echo base_url() . 'admin/kost_ctrl/edit_kosan'; else echo base_url() . 'admin/kost_ctrl/add_kosan'; ?>" method="post" >
@@ -331,8 +336,9 @@ document.onkeypress = stopRKey;
 <?php if ($kamars) { ?>
 	<br/>
 	<p class="tit-form">Daftar Kamar</p>
-	<table class="tab-admin">
-		<tr class="tittab">
+	<table class="table table-striped table-bordered table-hover" id="dataTables-kamar">
+		<thead>
+		<tr >
 			<td>No</td>
 			<td>Nama</td>
 			<td>Luas (m<sup>2</sup>)</td>
@@ -341,21 +347,24 @@ document.onkeypress = stopRKey;
 			<td>Terisi</td>
 			<td style="width: 78px;">Aksi</td>
 		</tr>
+		</thead>
 <?php $count_kamar = 1;
 	foreach ($kamars as $kamar) {
 ?>
-		<tr class="<?php echo alternator("row-one", "row-two"); ?>">
+		<tbody>
+		<tr >
 			<td><?php echo $count_kamar; ?></td>
 			<td><?php echo $kamar->nama_kamar ?></td>
 			<td><?php echo $kamar->luas ?></td>
 			<td><?php echo $kamar->fasilitas ?></td>
 			<td><?php echo $kamar->hargath ?></td>
 			<td><?php if ($kamar->id_penghuni > 0) echo 'Ya'; else echo 'Tidak'; ?></td>
-			<td class="action">
+			<td >
 				<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $obj->id_kosan . '/' . $kamar->id_kamar . '#formkamar' ?>"><div class="tab-edit"></div></a>
 				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kmr/<?php echo $kamar->id_kamar ?>" class="del-kamar"><div class="tab-delete"></div></a>
 			</td>
 		</tr>
+		<tbody>
 <?php
 		$count_kamar++;
 	} 
@@ -672,5 +681,30 @@ if ($obj) {
 		document.getElementById("inputlat").value = e.latlng.lat;
 		document.getElementById("inputlon").value = e.latlng.lng; 
 	});
+</script>
 
+
+<script>
+// DATA TABLE GOPAL
+$(document).ready(function() {
+	$('#dataTables-kosan').DataTable({
+		responsive: true,
+		"paging":   false,
+        "searching":   true,
+        "ordering": true,
+        "info":     false
+		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	});
+});
+$(document).ready(function() {
+	$('#dataTables-kamar').DataTable({
+		responsive: true,
+		"paging":   false,
+        "searching":   true,
+        "ordering": true,
+        "info":     false
+		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+	});
+});
+// DATA TABLE GOPAL
 </script>
