@@ -488,7 +488,7 @@ if ($obj) {
 				</li>
 				<li>
 					<label>Tgl Masuk</label>
-					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk; else echo date('Y-m-d',strtotime('+1 years -1 day')) ?>" >
+					<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($penghuni) echo $penghuni->tglmasuk; else echo date('Y-m-d') ?>" >
 					<div class="clear"></div>
 				</li>
 	<?php if ($penghuni) { ?>
