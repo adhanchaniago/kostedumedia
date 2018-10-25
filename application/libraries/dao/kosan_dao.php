@@ -70,7 +70,7 @@ class kosan_dao extends Generic_dao  {
 				LEFT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
 		');
 		
-		$this->ci->db->where("is_active = 't'");
+		$this->ci->db->where("is_active = 't' AND show_on_map = 't'");
 		$this->ci->db->order_by('kosan.id_kosan', 'asc');
 		$this->ci->db->order_by('kamar.id_kamar', 'asc');
 		$q = $this->ci->db->get();
