@@ -175,6 +175,18 @@ class kost_ctrl extends CI_Controller{
 		redirect($this->session->userdata('user_url'));
 	}
 
+	public function del_kamar($id_kamar = null) {
+		if ($id_kamar) {
+			if ($this->kamar_dao->deleteKamar($id_kamar)) {
+				$this->session->set_flashdata("success", "Kamar berhasil dihapus.");
+			}
+			else
+				$this->session->set_flashdata("failed", "Kamar gagal dihapus.");
+
+		}
+		redirect($this->session->userdata('user_url'));
+	}
+
 	private function fetch_input_penghuni(){
 		$data = null;
 		$data = array(

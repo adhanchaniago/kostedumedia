@@ -16,7 +16,8 @@ class kamar_dao extends Generic_dao  {
 			'fasilitas'=>'fasilitas',
 			'hargath'=>'hargath',
 			'id_kosan'=>'id_kosan',
-			'id_penghuni'=>'id_penghuni'
+			'id_penghuni'=>'id_penghuni',
+			'is_existed'=>'is_existed'
 		);
 	}
 
@@ -27,13 +28,7 @@ class kamar_dao extends Generic_dao  {
 	function getDaftarKamar($id_kosan) {
 		$limit = 100;
 		$offset = 0;
-		return $this->fetch($limit, $offset, 'nama_kamar', array('id_kosan' => $id_kosan));
-	}
-
-	function getKamars() {
-		$limit = 1000;
-		$offset = 0;
-		return $this->fetch($limit, $offset, 'nama_kamar');
+		return $this->fetch($limit, $offset, 'nama_kamar', array('id_kosan' => $id_kosan, 'is_existed' => 't'));
 	}
 
 	function getInfoKamar($id_kamar) {
@@ -50,6 +45,10 @@ class kamar_dao extends Generic_dao  {
 
 	function setPenghuni($id_kamar, $id_penghuni) {
 		return $this->update(array('id_penghuni' => $id_penghuni), array('id_kamar' => $id_kamar));
+	}
+
+	function deleteKamar($id) {
+		return $this->update(array('is_existed' => 'f'), array('id_kamar' => $id));
 	}
 }
 

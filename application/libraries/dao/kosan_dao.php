@@ -40,12 +40,14 @@ class kosan_dao extends Generic_dao  {
 		parent::__construct();
 	}
 
+	// dipanggil di menu Kosan
 	function getDaftarKosan($id_user) {
 		$limit = 100;
 		$offset = 0;
 		return $this->fetch($limit, $offset, 'nama_kosan', array('id_pengguna' => $id_user, 'is_active' => 't'));
 	}
 
+	// dipanggil di menu tabelkost yg ada di depan
 	function getKosans() {
 		$limit = 1000;
 		$offset = 0;
@@ -64,6 +66,7 @@ class kosan_dao extends Generic_dao  {
 		return $this->update($obj, array('id_kosan' => $id));
 	}
 
+	// dipanggil utk nyusun data kosan format edumedia.json
 	function getAllKosan() {
 		$this->ci->db->select('*');
 		$this->ci->db->from('kamar RIGHT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)

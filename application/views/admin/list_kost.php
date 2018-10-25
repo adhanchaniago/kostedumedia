@@ -361,7 +361,7 @@ document.onkeypress = stopRKey;
 			<td><?php if ($kamar->id_penghuni > 0) echo 'Ya'; else echo 'Tidak'; ?></td>
 			<td >
 				<a href="<?php echo base_url();?>admin/kost_ctrl/edit/<?php echo $obj->id_kosan . '/' . $kamar->id_kamar . '#formkamar' ?>"><div class="tab-edit"></div></a>
-				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kmr/<?php echo $kamar->id_kamar ?>" class="del-kamar"><div class="tab-delete"></div></a>
+				<a href="<?php echo base_url();?>admin/kost_ctrl/del_kamar/<?php echo $kamar->id_kamar ?>" class="del-kamar"><div class="tab-delete"></div></a>
 			</td>
 		</tr>
 		<tbody>

@@ -27,7 +27,7 @@ foreach($kosans as $data) {
 		echo '"alias":"' . $data->alias . '",';
 		echo '"kamar":[';
 
-		if ($data->id_kamar != NULL) { 
+		if ($data->id_kamar != NULL && $data->is_existed == 't') { 
 			echo '{"nama" : "' . $data->nama_kamar . '",';
 			echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
 			echo '"fasilitas":"' . $data->fasilitas . '",';
@@ -86,7 +86,7 @@ foreach($kosans as $data) {
 			echo '"alias":"' . $data->alias . '",';
 			echo '"kamar":[';
 
-			if ($data->id_kamar != NULL) { 
+			if ($data->id_kamar != NULL && $data->is_existed == 't') { 
 				echo '{"nama" : "' . $data->nama_kamar . '",';
 				echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
 				echo '"fasilitas":"' . $data->fasilitas . '",';
