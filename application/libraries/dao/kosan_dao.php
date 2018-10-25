@@ -30,7 +30,9 @@ class kosan_dao extends Generic_dao  {
 			'no_sert_tanah'=>'no_sert_tanah',
 			'no_ajb'=>'no_ajb',
 			'no_shm'=>'no_shm',
-			'alias'=>'alias'
+			'alias'=>'alias',
+			'show_on_map'=>'show_on_map',
+			'is_active'=>'is_active'
 		);
 	}
 
@@ -41,7 +43,7 @@ class kosan_dao extends Generic_dao  {
 	function getDaftarKosan($id_user) {
 		$limit = 100;
 		$offset = 0;
-		return $this->fetch($limit, $offset, 'nama_kosan', array('id_pengguna' => $id_user));
+		return $this->fetch($limit, $offset, 'nama_kosan', array('id_pengguna' => $id_user, 'is_active' => 't'));
 	}
 
 	function getKosans() {
@@ -68,10 +70,15 @@ class kosan_dao extends Generic_dao  {
 				LEFT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
 		');
 		
+		$this->ci->db->where("is_active = 't'");
 		$this->ci->db->order_by('kosan.id_kosan', 'asc');
 		$this->ci->db->order_by('kamar.id_kamar', 'asc');
 		$q = $this->ci->db->get();
 		return $q->result();
+	}
+
+	function deleteKosan($id) {
+		return $this->update(array('is_active' => 'f'), array('id_kosan' => $id));
 	}
 }
 

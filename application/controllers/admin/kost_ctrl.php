@@ -18,7 +18,6 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span class="note error">', '</span>');
-		$this->load->library('pagination'); // GA KEPAKE
 		$this->load->library('tank_auth');
 		$this->load->library('upload');
 		$this->load->library('image_lib');
@@ -27,7 +26,6 @@ class kost_ctrl extends CI_Controller{
 		$this->load->library('dao/penghuni_dao');
 		$this->load->library('dao/hist_penghuni_dao');
 		$this->load->library('dao/daftar_agama_dao');
-		// $this->load->model('Kosts','',TRUE);
 
 		$this->logged_in();
 		$this->role_user();
@@ -98,7 +96,8 @@ class kost_ctrl extends CI_Controller{
 			'no_sert_tanah' => $this->input->post('no_sert_tanah'),
 			'no_ajb' => $this->input->post('no_ajb'),
 			'no_shm' => $this->input->post('no_shm'),
-			'alias' => $this->input->post('alias')
+			'alias' => $this->input->post('alias'),
+			'show_on_map' => $this->input->post('show_on_map')
 		);
 
 		return $data;
@@ -128,11 +127,15 @@ class kost_ctrl extends CI_Controller{
 		redirect(self::$CURRENT_CONTEXT);
 	}
 
-	public function delete($kosan_judul = null){
-		$id_user = $this->data['user_id'];
-		$this->Kosts->deleteKosan($id_user, urldecode($kosan_judul));
-		$this->session->set_flashdata("info", "Hapus Data Kosan berhasil!");
+	public function delete($id_kosan = null) {
+		if ($id_kosan) {
+			if ($this->kosan_dao->deleteKosan($id_kosan)) {
+				$this->session->set_flashdata("success", "Kosan berhasil dihapus.");
+			}
+			else
+				$this->session->set_flashdata("failed", "Kosan gagal dihapus.");
 
+		}
 		redirect(self::$CURRENT_CONTEXT);
 	}
 

@@ -83,16 +83,6 @@
 		});
 	});
 
-	function create_url(){
-		var url = $('#form_search_filter').attr('action')+'/?filter=true&';
-		var param = '';
-		$('.filter_param').each(function(){
-			param += $(this).attr('name')+'='+$(this).val()+'&';
-		});
-		
-		$('#form_search_filter').attr('action',url+param).submit();
-	}
-
 	function redirect(tambahan = null){
 		if (tambahan == null)
 			window.location = "<?php echo base_url() ?>admin/kost_ctrl";
@@ -153,6 +143,7 @@ function stopRKey(evt) {
 } 
 document.onkeypress = stopRKey; 
 </script> 
+
 <div id="spotting-holder" style="display: none;"></div>
 <div id="backlight" style="display: none;"></div>
 
@@ -320,6 +311,14 @@ document.onkeypress = stopRKey;
 					<li>
 						<label>Lokasi</label>
 						<div id="map" style="width: 400px; height: 300px"></div>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>Tampilkan di Peta</label>
+						<div class="form-admin-radio">
+							<input type="radio" name="show_on_map" value="t" checked > Ya
+							<input type="radio" name="show_on_map" value="f" <?php if ($obj && $obj->show_on_map == 'f') echo 'checked' ?> > Tidak
+						</div>
 						<div class="clear"></div>
 					</li>
 				</ul>
