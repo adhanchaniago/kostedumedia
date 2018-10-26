@@ -83,6 +83,21 @@ class penghuni_dao extends Generic_dao  {
 		$q = $this->ci->db->get();
 		return $q->result();
 	}
+
+	function cekAdaPenghuni($id_kosan) {
+		$this->ci->db->select('*');
+		$this->ci->db->from('kamar RIGHT JOIN penghuni ON (kamar.id_penghuni = penghuni.id_penghuni)
+				LEFT JOIN kosan ON (kamar.id_kosan = kosan.id_kosan)'
+		);
+		
+		$q = $this->ci->db->where('kosan.id_kosan = ' . $id_kosan);
+		$q = $this->ci->db->get();
+		$hasil = $q->result();
+		if (sizeof($hasil) > 0 )
+			return true;
+		else
+			return false;
+	}
 }
 
 ?>

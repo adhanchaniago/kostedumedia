@@ -129,12 +129,14 @@ class kost_ctrl extends CI_Controller{
 
 	public function delete($id_kosan = null) {
 		if ($id_kosan) {
-			if ($this->kosan_dao->deleteKosan($id_kosan)) {
-				$this->session->set_flashdata("success", "Kosan berhasil dihapus.");
-			}
-			else
-				$this->session->set_flashdata("failed", "Kosan gagal dihapus.");
-
+			if (!$this->penghuni_dao->cekAdaPenghuni($id_kosan)) {
+				if ($this->kosan_dao->deleteKosan($id_kosan)) {
+							$this->session->set_flashdata("success", "Kosan berhasil dihapus.");
+						}
+						else
+							$this->session->set_flashdata("failed", "Kosan gagal dihapus.");
+			} else
+				$this->session->set_flashdata("failed", "Kosan gagal dihapus. Kosongkan dahulu penghuni tiap kamar. ");
 		}
 		redirect(self::$CURRENT_CONTEXT);
 	}
