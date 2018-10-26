@@ -69,17 +69,33 @@ CREATE TABLE public.hist_penghuni (
     nama_penghuni character varying(50),
     nama_panggilan character varying(10),
     hp character varying(15),
-    hpdarurat character varying(15),
+    hpdarurat character varying(75),
     foto character varying(255),
-    alamat character varying(255),
+    alamat_penghuni character varying(255),
     no_ktp character varying(17),
     tglmasuk date,
     tglkeluar date,
     fotoktp character varying(255),
     fotoktm character varying(255),
     lb character varying,
+    ttl character varying(30),
+    gender character(1),
+    agama smallint,
+    hp2 character varying(15),
+    jurusan character varying(50),
+    fakultas character varying(15),
+    nim character varying(10),
+    ket_ayah character varying(75),
+    ket_ibu character varying(75),
+    sisa_pelunasan integer,
+    email character varying(50),
+    fb character varying(50),
+    twitter character varying(25),
+    bbm character varying(10),
+    ig character varying(25),
     hist_kosan character varying(25),
-    hist_kamar character varying(25)
+    hist_kamar character varying(25),
+    alias_kosan character varying(5)
 );
 
 
@@ -381,11 +397,8 @@ SELECT pg_catalog.setval('public.daftar_agama_id_seq', 6, true);
 -- Data for Name: hist_penghuni; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.hist_penghuni (nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb, hist_kosan, hist_kamar) FROM stdin;
-Naufal	Gopal	085659360489	08123456789	\N	Jl Cihanjuang no124 Cimahi	\N	2017-08-14	2018-08-14	\N	\N	\N	Edumedia 1 Geger Asih	Kamar 1
-Dika	\N	08456789123		\N			\N	\N	\N	\N	\N	Edumedia 1 Geger Asih	Kamar 2
-ando	\N			\N			\N	\N	\N	\N	\N	Edumedia 2 Geger Arum	vcdxcbcvb
-meee	\N			\N			\N	\N	\N	\N	\N	Edumedia 2 Geger Arum	vcdxcbcvb
+COPY public.hist_penghuni (nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat_penghuni, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb, ttl, gender, agama, hp2, jurusan, fakultas, nim, ket_ayah, ket_ibu, sisa_pelunasan, email, fb, twitter, bbm, ig, hist_kosan, hist_kamar, alias_kosan) FROM stdin;
+erfdsa	\N	asfd	asdf	\N	adfsa	dfdasf	2018-10-26	2019-10-25	\N	\N	\N	fdasdf	P	1	asfd	safdsa	safdasf	dsfasfd	asdfasfd	safdas	-1	dfasfd	dfasf	safd	asfd	sfd	fasfd	1	AD
 \.
 
 
@@ -398,6 +411,7 @@ COPY public.kamar (id_kamar, nama_kamar, luas, fasilitas, hargath, id_kosan, id_
 3	vcdxcbcvb	345	dbvdfv	345345	2	0	t
 1	Kamar 1	7.5	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 6.500.000 / thn	1	6	t
 4	fasdfasfd				2	5	t
+5	1	2	dfad	asfdads	3	0	t
 \.
 
 
@@ -405,7 +419,7 @@ COPY public.kamar (id_kamar, nama_kamar, luas, fasilitas, hargath, id_kosan, id_
 -- Name: kamar_id_kamar_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 4, true);
+SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 5, true);
 
 
 --
@@ -432,7 +446,7 @@ SELECT pg_catalog.setval('public.komplain_id_komplain_seq', 4, true);
 COPY public.kosan (id_kosan, nama_kosan, alamat, fasum, foto_kosan, kontak, lokasi, kamarmandi, deskripsilokasi, id_pengguna, deskripsi, lat, lon, no_token, no_telp_internet, no_gembok, no_pbb, no_sert_tanah, no_ajb, no_shm, alias, show_on_map, is_active) FROM stdin;
 1	Edumedia 1 Geger Asih	Gg Geger Asih no148	15 kamar, mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gs	08122-384-925 (Pak Dadang)</br>  0896-3042-2834 (Pak Dadang)</br>  0856-59-360-489 (Naufal)</br>  0856-225-396 (Nadiya)</br>  0857-2006-4123 (Fathia)	https://goo.gl/b25DH7	lt1=2bh, lt2=2bh, lt3=1bh	masuk jl geger asih, belok kiri, rumahnya sebelah kiri	1	15 kamar	-6.86254328708866979	107.588497102260618	\N	\N	\N	\N	\N	\N	\N	\N	t	t
 2	Edumedia 2 Geger Arum	Jl Geger Arum no133	mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gr	08122-384-925 (Pak Dadang)	https://goo.gl/3K9NBy	lt1=3bh, lt2=1bh	sebrang smp29 ada gang kecil, rumahnya di sblh kanan	1	8 kamarr	-6.86085494667260853	107.586737573146848	\N	\N	\N	\N	\N	\N	\N	\N	t	t
-3	fasfd	asdf	adsf	\N	asdfasdf	asfd	fasdfsaf	asfd	1	fsadsd	-6.86244475634561102	107.588086556643233	asfdsafd	dsafsadf	dfasd	sadfsadf	afsdf	sadfasfd	asdfasfd	dfsaf	t	t
+3	fasfd	asdf	adsf	\N	asdfasdf	asfd	fasdfsaf	asfd	1	fsadsd	-6.86244475634561013	107.588086556643006	asfdsafd	dsafsadf	dfasd	sadfsadf	afsdf	sadfasfd	asdfasfd	AD	t	t
 \.
 
 
@@ -473,7 +487,7 @@ COPY public.penghuni (id_penghuni, nama_penghuni, nama_panggilan, hp, hpdarurat,
 -- Name: penghuni_id_penghuni_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.penghuni_id_penghuni_seq', 6, true);
+SELECT pg_catalog.setval('public.penghuni_id_penghuni_seq', 7, true);
 
 
 --

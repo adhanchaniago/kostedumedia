@@ -256,7 +256,6 @@ class kost_ctrl extends CI_Controller{
 		$objpenghuni = $this->penghuni_dao->getCompletePenghuni($id_penghuni);
 		$id_penghuni = $objpenghuni->id_penghuni;
 		$id_kamar = $objpenghuni->id_kamar;
-		$objpenghuni['tglkeluar'] = date('Y-m-d'); 
 
 		if ($this->hist_penghuni_dao->saveNewHistPenghuni($objpenghuni)) { // delete dr tabel penghuni
 			$this->kamar_dao->setPenghuni($id_kamar, 0);

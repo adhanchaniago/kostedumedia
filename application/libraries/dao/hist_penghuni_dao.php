@@ -15,15 +15,31 @@ class hist_penghuni_dao extends Generic_dao  {
 			'hp'=>'hp',
 			'hpdarurat'=>'hpdarurat',
 			'foto'=>'foto',
-			'alamat'=>'alamat',
+			'alamat_penghuni'=>'alamat_penghuni',
 			'no_ktp'=>'no_ktp',
 			'tglmasuk'=>'tglmasuk',
 			'tglkeluar'=>'tglkeluar',
 			'fotoktp'=>'fotoktp',
 			'fotoktm'=>'fotoktm',
 			'lb'=>'lb',
+			'ttl'=>'ttl',
+			'gender'=>'gender',
+			'agama'=>'agama',
+			'hp2'=>'hp2',
+			'jurusan'=>'jurusan',
+			'fakultas'=>'fakultas',
+			'nim'=>'nim',
+			'ket_ayah'=>'ket_ayah',
+			'ket_ibu'=>'ket_ibu',
+			'sisa_pelunasan'=>'sisa_pelunasan',
+			'email'=>'email',
+			'fb'=>'fb',
+			'twitter'=>'twitter',
+			'bbm'=>'bbm',
+			'ig'=>'ig',
 			'hist_kosan'=>'hist_kosan',
-			'hist_kamar'=>'hist_kamar'
+			'hist_kamar'=>'hist_kamar',
+			'alias_kosan'=>'alias_kosan'
 		);
 	}
 
@@ -35,6 +51,7 @@ class hist_penghuni_dao extends Generic_dao  {
 		// penyesuaian data
 		unset($obj->id_penghuni);
 		unset($obj->id_kamar);
+		unset($obj->metode_bayar);
 		// convert ke array biar bisa pake fungsi yg udah dibikin
 		$arrPenghuni = (array) $obj;
 

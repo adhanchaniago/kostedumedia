@@ -156,7 +156,7 @@ document.onkeypress = stopRKey;
 		<thead>
 			<tr >
 				<td style="width: 20px;">No</td>
-				<td>Kost</td>
+				<td>Alias</td>
 				<td>Kamar</td>
 				<td>Tgl Masuk</td>
 				<td>Tgl Keluar</td>
@@ -174,7 +174,7 @@ document.onkeypress = stopRKey;
 						?>
 						<tr class="<?php echo alternator("row-two", "row-one"); ?>">
 							<td><?php echo ($count++); ?></td>
-							<td><?php echo $data->hist_kosan ?></td>
+							<td><?php echo $data->alias_kosan ?></td>
 							<td><?php echo $data->hist_kamar ?></td>
 							<td><?php echo $data->tglmasuk ?></td>
 							<td><?php echo $data->tglkeluar ?></td>
