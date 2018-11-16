@@ -136,6 +136,7 @@ document.onkeypress = stopRKey;
 				<td class="header" style="cursor: pointer ;">Mulai Komplain</td>
 				<td class="header" style="cursor: pointer ;">Selesai Komplain</td>
 				<td class="header" style="cursor: pointer ;">Status Beres</td>
+				<td class="header" style="cursor: pointer ;">Solusi</td>
 				<td class="header delete" style="width: 52px;">Aksi</td>
 			</tr>
 		</thead>
@@ -153,6 +154,7 @@ document.onkeypress = stopRKey;
 				<td><?php echo $row->start_komplain ?></td>
 				<td><?php echo $row->end_komplain ?></td>
 				<td><?php echo ($row->status_beres == 't') ? 'Sudah' : 'Belum' ?></td>
+				<td><?php echo $row->solusi ?></td>
 				<td class="action"> 
 					<a href="<?php echo base_url();?>admin/komplain_ctrl/edit/<?php echo $row->id_komplain  . '#formedit' ?>"><div class="tab-edit"></div></a>
 					<a href="<?php echo base_url();?>admin/komplain_ctrl/delete/<?php echo $row->id_komplain ?>" class="delete-tab"><div class="tab-delete"></div></a>
@@ -186,7 +188,7 @@ document.onkeypress = stopRKey;
 			</li>
 			<li>
 				<label>Masalah</label>
-				<textarea class="form-admin" name="masalah" type="text" class="text-medium" value="<?php if ($obj) echo $obj->masalah ?>" ></textarea>
+				<textarea class="form-admin" name="masalah" type="text" class="text-medium" ><?php if ($obj) echo $obj->masalah ?></textarea>
 				<div class="clear"></div>
 			</li>
 			<li>
@@ -205,6 +207,11 @@ document.onkeypress = stopRKey;
 			<li>
 				<label>Selesai Komplain</label>
 				<input class="form-admin" name="end_komplain" id="endkomplain" type="text" class="text-medium" value="<?php if ($obj) echo $obj->end_komplain ?>" <?php if ($obj && $obj->status_beres == 'f') echo 'disabled' ?> >	
+				<div class="clear"></div>
+			</li>
+			<li>
+				<label>Solusi</label>
+				<textarea class="form-admin" name="solusi" type="text" class="text-medium" ><?php if ($obj) echo $obj->solusi ?></textarea>
 				<div class="clear"></div>
 			</li>
 		</ul>

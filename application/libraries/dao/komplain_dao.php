@@ -17,7 +17,8 @@ class komplain_dao extends Generic_dao  {
 			'start_komplain'=>'start_komplain',
 			'end_komplain'=>'end_komplain',
 			'status_beres'=>'status_beres',
-			'foto'=>'foto'
+			'foto'=>'foto',
+			'solusi'=>'solusi'
 		);
 	}
 

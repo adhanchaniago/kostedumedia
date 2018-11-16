@@ -152,7 +152,8 @@ CREATE TABLE public.komplain (
     start_komplain date,
     end_komplain date,
     status_beres boolean,
-    foto character varying(255)
+    foto character varying(255),
+    solusi character varying(255)
 );
 
 
@@ -426,9 +427,9 @@ SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 5, true);
 -- Data for Name: komplain; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.komplain (id_komplain, lokasi, orang_kamar, masalah, start_komplain, end_komplain, status_beres, foto) FROM stdin;
-3	daffsadf	dasfsd	dfasfdafds	2018-10-24	2018-10-25	t	\N
-4	aaa	dfd		2018-10-24	2018-10-27	t	\N
+COPY public.komplain (id_komplain, lokasi, orang_kamar, masalah, start_komplain, end_komplain, status_beres, foto, solusi) FROM stdin;
+4	aaa	dfd		2018-10-24	2018-10-27	t	\N	\N
+3	daffsadf	dasfsd	dfasfdafds	2018-10-24	2018-10-25	t	\N	sesdika
 \.
 
 
@@ -470,7 +471,7 @@ COPY public.pengguna (id_pengguna, username, nama_lengkap, hp, alamat, password)
 -- Name: pengguna_id_pengguna_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pengguna_id_pengguna_seq', 1, true);
+SELECT pg_catalog.setval('public.pengguna_id_pengguna_seq', 2, true);
 
 
 --

@@ -71,7 +71,8 @@ class komplain_ctrl extends CI_Controller{
 			'masalah' => $this->input->post('masalah'),
 			'start_komplain' => $this->input->post('start_komplain'),
 			'end_komplain' => ($this->input->post('status_beres') == 'T') ? $this->input->post('end_komplain') : null,
-			'status_beres' => $this->input->post('status_beres')
+			'status_beres' => $this->input->post('status_beres'),
+			'solusi' => $this->input->post('solusi')
 		);
 
 		return $data;
