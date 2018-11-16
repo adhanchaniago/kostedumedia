@@ -41,6 +41,11 @@
 					<i class='fa fa-upload'></i>&nbsp;UPLOAD CSV
 				</a>
 			</li>
+			<li>
+				<a href="<?php echo base_url() . 'admin/pengguna_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/pengguna_ctrl') echo 'class="current"' ?>>
+					<i class='fa fa-upload'></i>&nbsp;DAFTAR PENGGUNA
+				</a>
+			</li>
 <?php } ?>
 
 		</ul>

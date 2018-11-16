@@ -45,7 +45,16 @@ class pengguna_dao extends Generic_dao  {
 	function change_password($id, $new_pass) {
 		return $this->update(array('password' => $new_pass), array('id_pengguna' => $id));
 	}
+
+	function getDaftarPengguna() {
+		$limit = 1000;
+		$offset = 0;
+		return $this->fetch($limit, $offset, 'username');
+	}
 	
+	function saveNewPengguna($obj) {
+		return $this->insert($obj);
+	}
 }
 
 ?>
