@@ -546,7 +546,7 @@ function includeHTML() {
 		$("#modalcobabody").append(
 			'<ul class="nav nav-tabs" role="tablist">'+
 				'<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
-				'<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
+				// '<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
 				'<li role="presentation"><a href="#ketpenghuni" aria-controls="ketpenghuni" role="tab" data-toggle="tab">Penghuni (khusus admin)</a></li>'+
 			'</ul>'+
 			'<div class="tab-content">'+
@@ -599,7 +599,7 @@ function includeHTML() {
 		$("#modalcobabody").append(
 			'<ul class="nav nav-tabs" role="tablist">'+
 				'<li role="presentation" class="active"><a href="#ketdetail" aria-controls="ketdetail" role="tab" data-toggle="tab">Keterangan</a></li>'+
-				'<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
+				// '<li role="presentation"><a onclick="gambarkamar('+i+','+ii+')" href="#ketgalery" aria-controls="ketgalery" role="tab" data-toggle="tab">Galery</a></li>'+
 			'</ul>'+
 			'<div class="tab-content">'+
 				'<div role="tabpanel" class="tab-pane active" id="ketdetail">'+
