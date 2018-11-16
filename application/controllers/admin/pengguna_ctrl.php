@@ -69,18 +69,28 @@ class pengguna_ctrl extends CI_Controller{
 			'username' => $this->input->post('username'),
 			'nama_lengkap' => $this->input->post('nama_lengkap'),
 			'hp' => $this->input->post('hp'),
-			'alamat' => $this->input->post('alamat'),
-			'password' => $this->input->post('password')
+			'alamat' => $this->input->post('alamat')
 		);
 
 		return $data;
 	}
 
+	private function is_pass_changed($id_pengguna, $password) {
+		if ($password != '') {
+			$this->tank_auth->change_password($id_pengguna, $password);
+			return true;
+		} else
+			return false;
+	}
+
 	public function add_pengguna() {
 		$obj = $this->fetch_input();
-		
-		if ($this->pengguna_dao->saveNewPengguna($obj))
+		$gen_id_pengguna = $this->pengguna_dao->saveNewPengguna($obj);
+
+		if ($gen_id_pengguna > 0) {
+			$this->is_pass_changed($gen_id_pengguna, $this->input->post('password'));
 			$this->session->set_flashdata("success", "Pengguna baru berhasil disimpan.");
+		}
 		else
 			$this->session->set_flashdata("failed", "Pengguna baru gagal disimpan.");
 
@@ -91,9 +101,12 @@ class pengguna_ctrl extends CI_Controller{
 		$obj = $this->fetch_input();
 		$id_pengguna = $this->input->post('id_pengguna');
 
-		if ($this->pengguna_dao->editPengguna($id_pengguna, $obj))
-			$this->session->set_flashdata("success", "Data Pengguna berhasil diubah.");
-		else
+		if ($this->pengguna_dao->editPengguna($id_pengguna, $obj)) {
+			$notif = "Data Pengguna berhasil diubah. ";
+			if ($this->is_pass_changed($id_pengguna, $this->input->post('password')))
+				$notif .= "Password berhasil diubah. ";
+			$this->session->set_flashdata("success", $notif);
+		} else
 			$this->session->set_flashdata("failed", "Data Pengguna gagal diubah.");
 
 		redirect($this->session->userdata('user_url'));

@@ -53,7 +53,8 @@ class pengguna_dao extends Generic_dao  {
 	////////////////////////////////////////////////////////////
 
 	function saveNewPengguna($obj) {
-		return $this->insert($obj);
+		$this->insert($obj);
+		return $this->insert_id();
 	}
 
 	function getDataPengguna($id_pengguna) {

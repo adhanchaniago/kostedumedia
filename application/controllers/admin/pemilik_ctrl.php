@@ -64,7 +64,7 @@ class pemilik_ctrl extends CI_Controller{
 			'username' => $this->input->post('username'),
 			'nama_lengkap' => $this->input->post('userfullname'),
 			'hp' => $this->input->post('userhp'),
-			'alamat' => $this->input->post('useralamat'),
+			'alamat' => $this->input->post('useralamat')
 		);
 
 		return $data;
