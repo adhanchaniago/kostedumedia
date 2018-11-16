@@ -1085,7 +1085,7 @@ function INITGAMBARDB(){
 						var fasum,foto,kontak,lokasi,desclok,kamarmandi;
 						var desc="";
 						for (var ii=0; ii<data.features[i].properties.kamar.length; ii++){
-								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-bed'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+"&nbsp;&nbsp;</a></i></td></tr>"
+								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-bed'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+' s/d '+data.features[i].properties.kamar[ii].tglkeluar+"&nbsp;&nbsp;</a></i></td></tr>"
 						}
 						fasum = data.features[i].properties.fasum;
 						foto = data.features[i].properties.foto;
@@ -1108,7 +1108,7 @@ function INITGAMBARDB(){
 														"<tr><td>kontak</td><td>:&nbsp;"+kontak+"</td></tr>"+
 													"</table>";
 						// BINpop.push(binpop);
-						var gelo = L.geoJSON(data.features[i]).bindPopup(binpop,{minWidth : 300}).addTo(map);
+						var gelo = L.geoJSON(data.features[i]).bindPopup(binpop,{minWidth : 330}).addTo(map);
 						gelo.properties = data.features[i].properties;
 						drawnGeojson.addLayer(gelo);
 						// desc ="";
@@ -1673,7 +1673,7 @@ function INITGRAFIKKOSAN() {
 
 
 
-
+console.log(dataKosan);
 
 
 // var ctx = document.getElementById("myChart").getContext('2d');

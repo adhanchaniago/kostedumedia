@@ -333,7 +333,7 @@ function includeHTML() {
 									<td><center><?php echo $datakamar->luas ?></td>
 									<!-- <td><center><?php echo $datakamar->fasilitas ?></td> -->
 									<td><center><?php echo $datakamar->hargath ?></td>
-									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi sampai ' . $datakamar->tglkeluar : 'kosong') ?></td>
+									<td><center><?php echo ($datakamar->id_penghuni > 0 ? 'terisi s/d ' . $datakamar->tglkeluar : 'kosong') ?></td>
 								</tr>
 <?php
 		}
@@ -557,7 +557,7 @@ function includeHTML() {
 							'<tr><td>Luas :</td>                  <td>'+KOSANS[i].properties.kamar[ii].luas+'</td></tr>'+
 							'<tr><td>Fasilitas :</td>             <td>'+KOSANS[i].properties.kamar[ii].fasilitas+'</td></tr>'+
 							'<tr><td>Harga /thn :</td>            <td>'+KOSANS[i].properties.kamar[ii].hargath+'</td></tr>'+
-							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+'</td></tr>'+
+							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+' '+KOSANS[i].properties.kamar[ii].tglkeluar+'</td></tr>'+
 						'</tbody>'+
 					'</table>'+
 				'</div>'+
@@ -609,7 +609,7 @@ function includeHTML() {
 							'<tr><td>Luas :</td>                  <td>'+KOSANS[i].properties.kamar[ii].luas+'</td></tr>'+
 							'<tr><td>Fasilitas :</td>             <td>'+KOSANS[i].properties.kamar[ii].fasilitas+'</td></tr>'+
 							'<tr><td>Harga /thn :</td>            <td>'+KOSANS[i].properties.kamar[ii].hargath+'</td></tr>'+
-							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+'</td></tr>'+
+							'<tr><td>Terisi :</td>                <td>'+KOSANS[i].properties.kamar[ii].terisi+' '+KOSANS[i].properties.kamar[ii].tglkeluar+'</td></tr>'+
 						'</tbody>'+
 					'</table>'+
 				'</div>'+
