@@ -55,8 +55,8 @@
 
 		$('.delete-tab').click(function(){
 			var page = $(this).attr("href");
-			var $dialog = $('<div title="Hapus Komplain"></div>')
-			.html('Semua informasi komplain akan ikut dihapus! Hapus komplain? <div class="clear"></div>').dialog({
+			var $dialog = $('<div title="Hapus Pengguna"></div>')
+			.html('Semua informasi pengguna akan ikut dihapus! Hapus pengguna? <div class="clear"></div>').dialog({
 				autoOpen: false,
 				width: 280,
 				show: "fade",

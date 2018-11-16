@@ -50,14 +50,14 @@ class pengguna_ctrl extends CI_Controller{
 		$this->load->view('template/template_footer');
 	}
 
-	public function edit($id_komplain = null){
+	public function edit($id_pengguna = null){
 		$this->preload();
 
-		if ($id_komplain == null) {
+		if ($id_pengguna == null) {
 			$this->load_view('admin/list_pengguna');
 		} else {
-			$this->data['obj'] = $this->pengguna_dao->getDataKomplain($id_komplain);
-			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_komplain);
+			$this->data['obj'] = $this->pengguna_dao->getDataPengguna($id_pengguna);
+			$this->session->set_userdata('user_url', self::$CURRENT_CONTEXT . '/edit/' . $id_pengguna);
 
 			$this->load_view('admin/list_pengguna', $this->data);
 		}
@@ -80,31 +80,31 @@ class pengguna_ctrl extends CI_Controller{
 		$obj = $this->fetch_input();
 		
 		if ($this->pengguna_dao->saveNewPengguna($obj))
-			$this->session->set_flashdata("success", "Komplain baru berhasil disimpan.");
+			$this->session->set_flashdata("success", "Pengguna baru berhasil disimpan.");
 		else
-			$this->session->set_flashdata("failed", "Komplain baru gagal disimpan.");
+			$this->session->set_flashdata("failed", "Pengguna baru gagal disimpan.");
 
 		redirect(self::$CURRENT_CONTEXT);
 	}
 
-	public function edit_komplain() {
+	public function edit_pengguna() {
 		$obj = $this->fetch_input();
-		$id_komplain = $this->input->post('id_komplain');
+		$id_pengguna = $this->input->post('id_pengguna');
 
-		if ($this->pengguna_dao->editKomplain($id_komplain, $obj))
-			$this->session->set_flashdata("success", "Data Komplain berhasil diubah.");
+		if ($this->pengguna_dao->editPengguna($id_pengguna, $obj))
+			$this->session->set_flashdata("success", "Data Pengguna berhasil diubah.");
 		else
-			$this->session->set_flashdata("failed", "Data Komplain gagal diubah.");
+			$this->session->set_flashdata("failed", "Data Pengguna gagal diubah.");
 
 		redirect($this->session->userdata('user_url'));
 	}
 
-	public function delete($id_komplain = null){
-		if ($this->pengguna_dao->deleteKomplain($id_komplain)) { // delete dr tabel penghuni
-			$this->session->set_flashdata("success", "Komplain berhasil dihapus.");
+	public function delete($id_pengguna = null){
+		if ($this->pengguna_dao->deletePengguna($id_pengguna)) {
+			$this->session->set_flashdata("success", "Pengguna berhasil dihapus.");
 		}
 		else
-			$this->session->set_flashdata("failed", "Komplain gagal dihapus.");
+			$this->session->set_flashdata("failed", "Pengguna gagal dihapus.");
 
 		redirect(self::$CURRENT_CONTEXT);
 	}

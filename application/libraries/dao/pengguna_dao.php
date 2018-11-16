@@ -38,10 +38,6 @@ class pengguna_dao extends Generic_dao  {
 		return false;
 	}
 
-	function editPengguna($id, $obj) {
-		return $this->update($obj, array('id_pengguna' => $id));
-	}
-
 	function change_password($id, $new_pass) {
 		return $this->update(array('password' => $new_pass), array('id_pengguna' => $id));
 	}
@@ -52,8 +48,24 @@ class pengguna_dao extends Generic_dao  {
 		return $this->fetch($limit, $offset, 'username');
 	}
 	
+	////////////////////////////////////////////////////////////
+	// Method2 di bawah ini untuk fitur admin daftar Pengguna //
+	////////////////////////////////////////////////////////////
+
 	function saveNewPengguna($obj) {
 		return $this->insert($obj);
+	}
+
+	function getDataPengguna($id_pengguna) {
+		return $this->by_id(array('id_pengguna' => $id_pengguna));
+	}
+
+	function editPengguna($id, $obj) {
+		return $this->update($obj, array('id_pengguna' => $id));
+	}
+
+	function deletePengguna($id) {
+		return $this->delete(array('id_pengguna' => $id));
 	}
 }
 
