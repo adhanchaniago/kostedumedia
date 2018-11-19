@@ -36,11 +36,11 @@
 					<i class='fa fa-home'></i>&nbsp;KOMPLAIN
 				</a>
 			</li>
-			<li>
+<!-- 			<li>
 				<a href="<?php echo base_url() . 'admin/csv_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/csv_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-upload'></i>&nbsp;UPLOAD CSV
 				</a>
-			</li>
+			</li> -->
 			<li>
 				<a href="<?php echo base_url() . 'admin/pengguna_ctrl' ?>" <?php if (isset($current_context) && $current_context == '/admin/pengguna_ctrl') echo 'class="current"' ?>>
 					<i class='fa fa-upload'></i>&nbsp;DAFTAR PENGGUNA
