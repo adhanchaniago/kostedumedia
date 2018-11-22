@@ -56,7 +56,7 @@ class Tank_auth
 				$get_user_func = 'get_user_by_email';
 			}
 
-			if (!is_null($user = $this->ci->pengguna_dao->get_user_by_login(array("nama_lengkap" => $login)))) {	// login ok
+			if (!is_null($user = $this->ci->pengguna_dao->get_user_by_login(array("username" => $login)))) {	// login ok
 				// Does password match hash in database?
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
