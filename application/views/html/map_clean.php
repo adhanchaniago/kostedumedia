@@ -109,7 +109,7 @@ foreach($kosans as $data) {
 	}
 }
 
-echo ']}}'; // kurawal penutup array penghuni & kurawal rumah
+if (sizeof($kosans)) echo ']}}'; // kurawal penutup array penghuni & kurawal rumah
 echo ']};'; // kurawal penutup akhir
 ?>
 
