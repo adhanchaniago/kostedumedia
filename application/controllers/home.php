@@ -18,8 +18,6 @@ class Home extends CI_Controller {
 
 	public function index() {
 		$this->is_logged_in();
-
-		$this->load->view('home/home');
 	}
 
 	/**

@@ -10,7 +10,6 @@ captcha/*.jpg
 application/logs
 
 #Ignore some files in application/config
-application/config/config.php
 application/config/database.php
 
 #Ignore the application/logs folder
