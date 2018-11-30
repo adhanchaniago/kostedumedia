@@ -163,6 +163,7 @@ document.onkeypress = stopRKey;
 				<td>Nama</td>
 				<td>No HP</td>
 				<td>LB</td>
+				<td>Aksi</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -170,7 +171,6 @@ document.onkeypress = stopRKey;
 				$count=1;
 				if(!empty($hists)){
 					foreach($hists as $data) {
-						// $deskripsi = $data['properties']; 
 						?>
 						<tr class="<?php echo alternator("row-two", "row-one"); ?>">
 							<td><?php echo ($count++); ?></td>
@@ -181,6 +181,9 @@ document.onkeypress = stopRKey;
 							<td><?php echo $data->nama_penghuni ?></td>
 							<td><?php echo $data->hp ?></td>
 							<td><?php echo $data->lb ?></td>
+							<td class="action"> 
+								<a href="<?php echo base_url(); ?>admin/history_ctrl/view/<?php echo $data->id_history . '?' . http_build_query($_GET) . '#form-pos' ?>"><div class="tab-view"></div></a> 
+							</td>
 						</tr>
 			<?php 	}
 				} ?>
@@ -188,6 +191,140 @@ document.onkeypress = stopRKey;
 		</tbody>
 	</table>
 	</div>
+
+	<p class="tit-form">Detail History Penghuni</p>
+	<ul class="form-admin">
+		<li>
+			<label>Nama Penghuni</label>
+			<input class="form-admin" name="nama_penghuni" type="text" class="text-medium" value="<?php if ($hist) echo $hist->nama_penghuni ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Histori Kosan</label>
+			<input class="form-admin" name="hist_kosan" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hist_kosan ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Histori Kamar</label>
+			<input class="form-admin" name="hist_kamar" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hist_kamar ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>TTL</label>
+			<input class="form-admin" name="ttl" type="text" class="text-medium" value="<?php if ($hist) echo $hist->ttl ?>" >
+			</select>
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Gender</label>
+			<div class="form-admin-radio">
+				<input type="radio" name="gender" value="P" checked > P
+				<input type="radio" name="gender" value="L" <?php if ($hist && $hist->gender == 'L') echo 'checked'; ?> > L
+			</div>
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Agama</label>
+			<input class="form-admin" name="agama" type="text" class="text-medium" value="<?php if ($hist) echo $hist->agama_penghuni ?>" >
+			</select>
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>No KTP</label>
+			<input class="form-admin" name="noktp" type="text" class="text-medium" value="<?php if ($hist) echo $hist->no_ktp ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Alamat</label>
+			<input class="form-admin" name="alamat_penghuni" type="text" class="text-medium" value="<?php if ($hist) echo $hist->alamat_penghuni ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>No HP</label>
+			<input class="form-admin" name="hp" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hp ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>No HP2</label>
+			<input class="form-admin" name="hp2" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hp2 ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Jurusan</label>
+			<input class="form-admin" name="jurusan" type="text" class="text-medium" value="<?php if ($hist) echo $hist->jurusan ?>">
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Fakultas</label>
+			<input class="form-admin" name="fakultas" type="text" class="text-medium" value="<?php if ($hist) echo $hist->fakultas ?>">
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>NIM</label>
+			<input class="form-admin" name="nim" type="text" class="text-medium" value="<?php if ($hist) echo $hist->nim ?>">
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Tgl Masuk</label>
+			<input class="form-admin" id="tglmasuk" name="tglmasuk" type="text" class="text-medium" value="<?php if ($hist) echo $hist->tglmasuk; else echo date('Y-m-d') ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Tgl Keluar</label>
+			<input class="form-admin" id="tglkeluar" name="tglkeluar" type="text" class="text-medium" value="<?php echo $hist->tglkeluar ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Ket Ayah</label>
+			<input class="form-admin" name="ket_ayah" type="text" class="text-medium" value="<?php if ($hist) echo $hist->ket_ayah ?>">
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Ket Ibu</label>
+			<input class="form-admin" name="ket_ibu" type="text" class="text-medium" value="<?php if ($hist) echo $hist->ket_ibu ?>">
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Kontak Darurat</label>
+			<input class="form-admin" name="kontakdarurat" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hpdarurat ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>No HP darurat</label>
+			<input class="form-admin" name="hpdarurat" type="text" class="text-medium" value="<?php if ($hist) echo $hist->hpdarurat ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Sisa Pelunasan</label>
+			<input class="form-admin" name="sisa_pelunasan" type="text" class="text-medium" value="<?php if ($hist) echo $hist->sisa_pelunasan; else echo '-1' ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Email</label>
+			<input class="form-admin" name="email" type="text" class="text-medium" value="<?php if ($hist) echo $hist->email ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>FB</label>
+			<input class="form-admin" name="fb" type="text" class="text-medium" value="<?php if ($hist) echo $hist->fb ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Twitter</label>
+			<input class="form-admin" name="twitter" type="text" class="text-medium" value="<?php if ($hist) echo $hist->twitter ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>BBM</label>
+			<input class="form-admin" name="bbm" type="text" class="text-medium" value="<?php if ($hist) echo $hist->bbm ?>" >
+			<div class="clear"></div>
+		</li>
+		<li>
+			<label>Instagram</label>
+			<input class="form-admin" name="ig" type="text" class="text-medium" value="<?php if ($hist) echo $hist->ig ?>" >
+			<div class="clear"></div>
+		</li>
+	</ul>		
 </div> <!-- div main -->
 <div class="clear"></div>
 

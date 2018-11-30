@@ -10,6 +10,7 @@ class hist_penghuni_dao extends Generic_dao  {
 
 	public function field_map() {
 		return array (
+			'id_history'=>'id_history',
 			'nama_penghuni'=>'nama_penghuni',
 			'nama_panggilan'=>'nama_panggilan',
 			'hp'=>'hp',
@@ -62,6 +63,15 @@ class hist_penghuni_dao extends Generic_dao  {
 		$limit = 1000;
 		$offset = 0;
 		return $this->fetch($limit, $offset, 'hist_kosan');
+	}
+
+	function getDataHistPenghuni($id_history) {
+		$this->ci->db->select('hist_penghuni.*, daftar_agama.desc AS agama_penghuni');
+		$this->ci->db->from('hist_penghuni LEFT JOIN daftar_agama ON (hist_penghuni.agama = daftar_agama.id)');
+		
+		$q = $this->ci->db->where('id_history = ' . $id_history);
+		$q = $this->ci->db->get();
+		return $q->row();
 	}
 }
 

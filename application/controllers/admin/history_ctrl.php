@@ -41,6 +41,7 @@ class history_ctrl extends CI_Controller{
 		$this->data['title'] = self::$TITLE;
 
 		$this->data['hists'] = $this->hist_penghuni_dao->getDaftarHistPenghuni();
+		$this->data['hist'] = null;
 	}
 
 	public function load_view($page, $data = null){
@@ -48,6 +49,17 @@ class history_ctrl extends CI_Controller{
 		$this->load->view('template/template_menu',$this->data);
 		$this->load->view($page, $data);
 		$this->load->view('template/template_footer');
+	}
+
+	public function view($id_history = null) {
+		$this->preload();
+		if ($id_history == null) {
+			$this->load_view('admin/list_hist_penghuni');
+		} 
+		else {
+			$this->data['hist'] = $this->hist_penghuni_dao->getDataHistPenghuni($id_history);
+			$this->load_view('admin/list_hist_penghuni', $this->data);
+		}
 	}
 
 	function role_user() {
