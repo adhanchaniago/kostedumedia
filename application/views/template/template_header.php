@@ -8,7 +8,7 @@
 
 <html>
     <head>
-        <title>Puskodal Side Menu</title>
+        <title>Halaman Admin Edumedia</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
             <link rel="stylesheet" href="<?php echo base_url() ?>aset/font-awesome.min.css" />

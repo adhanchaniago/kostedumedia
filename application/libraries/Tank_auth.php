@@ -63,6 +63,10 @@ class Tank_auth
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
 
 				// if ($hasher->CheckPassword($password, $user['password'])) 
+				// print_r($user);
+				// echo '<br>';
+				// print_r($hasher);
+				// die();
 				if ($hasher->CheckPassword($password, $user->password))
 				{		// password ok
 					$this->ci->session->set_userdata(array(
