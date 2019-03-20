@@ -76,7 +76,7 @@ foreach($kosans as $data) {
 			echo '"properties": {';
 			echo '"judul":"' . $data->nama_kosan . '",';
 			echo '"jenis":"marker",';
-			echo '"desc":"' . $data->deskripsi . '",';
+			echo '"desc":"' . $data->alamat . '",';
 			echo '"fasum":"' . $data->fasum . '",';
 			echo '"foto":"' . $data->foto_kosan . '",';
 			echo '"kontak":"' . $data->kontak . '",';
@@ -237,75 +237,30 @@ function includeHTML() {
 	<div id="container">
 		<div id="sidebar">
 			<div class="sidebar-wrapper">
-				<!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
 				<div class="panel panel-default" style="max-height: 100%; " id="features">
-					
-					<!-- <div class="panel-heading">
-						<h3 class="panel-title">Legend Draw Map
-						<button type="button" class="btn btn-xs btn-default pull-right" id="tutupS"><i class="fa fa-chevron-left"></i></button></h3>
-					</div>
-
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-xs-8 col-md-8">
-								<input type="text" class="form-control search" placeholder="Filter" />
-							</div>
-							<div class="col-xs-4 col-md-4">
-								<button type="button" class="btn btn-primary pull-right sort" data-sort="feature-name" id="download-btn"><i class="fa fa-download"></i>&nbsp;&nbsp;Download All</button>
-							</div>
-						</div>
-					</div> -->
-					
 					<div class="sidebar-table">
 						<table class="table table-hover table-striped table-condensed" id="feature-list" style="font-size:12px;" >
-							<!-- <thead class="hidden"> -->
 							<thead>
 								<tr>
 									<th>Jenis</th>
 									<th>Judul</th>
-									<th>Deskripsi</th>
+									<th>Alamat</th>
 								<tr>
 							</thead>
 							<tbody class="list">
-							 <!--  <tr>
-									<td><img src="<?php echo base_url() ?>aset/img/lingkaran.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr>
-								<tr>
-									<td><img src="<?php echo base_url() ?>aset/img/marker.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr>
-								<tr>
-									<td><img src="<?php echo base_url() ?>aset/img/markerbulat.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr><tr>
-									<td><img src="<?php echo base_url() ?>aset/img/polyline.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr>
-								<tr>
-									<td><img src="<?php echo base_url() ?>aset/img/polygon.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr>
-								<tr>
-									<td><img src="<?php echo base_url() ?>aset/img/kotak.png" width="20" height="20"></td>
-									<td>kawasan bajak laut</td>
-								</tr> -->
 							</tbody>
 						</table>
 					</div>
-				
 				</div>
 			</div>
 		</div>
 
 		<div id="rightbar" style="max-height: 100%; max-width: 100%;">
 	      <div class="rightbar-wrapper">
-	        <!-- <div class="panel panel-default" style="max-height: 100%; overflow-y: scroll; overflow-x: hidden;" id="features"> -->
 	        <div class="panel panel-default"  id="features">
       		  <div class="right-panel-body">
 			  	<div class="row">
 					<div class="col-xs-12 col-md-12">
-						<!-- <input type="text" class="form-control search" id="myinput" onkeyup="ngefilter()" placeholder="cari nama / alamat" /> -->
 						<div id="piechart"></div>
 						<canvas id="myChart" width="515" height="200"></canvas>
 
