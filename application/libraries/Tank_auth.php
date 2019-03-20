@@ -56,31 +56,26 @@ class Tank_auth
 				$get_user_func = 'get_user_by_email';
 			}
 
-			if (!is_null($user = $this->ci->pengguna_dao->get_user_by_login(array("username" => $login)))) {	// login ok
+			if (!empty($user = $this->ci->pengguna_dao->get_user_by_login(array("username" => $login)))) {	// login ok
 				// Does password match hash in database?
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
 
-				// if ($hasher->CheckPassword($password, $user['password'])) 
-				// print_r($user);
-				// echo '<br>';
-				// print_r($hasher);
-				// die();
 				if ($hasher->CheckPassword($password, $user->password))
 				{		// password ok
 					$this->ci->session->set_userdata(array(
-						// 'user_id'	=> $user['id'],
-						// 'username'	=> $user['username'],
 						'user_id'	=> $user->id_pengguna,
 						'username'	=> $user->username,
 						'status'	=> STATUS_ACTIVATED
 					));
 					return TRUE;
-				} else {														// fail - wrong password
+				} else { 
+					// fail - wrong password
 					$this->error = array('password' => 'auth_incorrect_password');
 				}
-			} else {															// fail - wrong login
+			} else {
+				// fail - wrong login
 				$this->error = array('login' => 'auth_incorrect_login');
 			}
 		}
