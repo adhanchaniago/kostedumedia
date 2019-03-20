@@ -604,59 +604,18 @@ if ($obj) {
 <div class="clear"></div>
 
 <script type="text/javascript">
-	// var configMap = {
-	// 	latCenter : -6.862386170,
-	// 	lonCenter : 107.588816285,
-	// 	zoom :17,
-	// 	mapUrl : '<?php echo $this->config->item('map_url') ?>',
-	// 	mapStyleId : 22677
-	// };
+
 	var configMap = {
 		//gerlong
 		latCenter : -6.862386170,
 		lonCenter : 107.588816285,
 		zoom :17,
-
 		mapUrl : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		mapStyleId : 22677
 	};
 	
 	var minimal   = L.tileLayer(configMap.mapUrl, {styleId: configMap.mapStyleId});
-	var southWest = new L.LatLng(85, -180);
-	var northEast = new L.LatLng(-85, 180);
-	var bounds = new L.LatLngBounds(southWest, northEast);
-	var bounds_area_input = $("#bounds_area_input");
 
-	//fixation for pan inside bounds
-
-	L.Map.include({panInsideBounds: function(bounds) {
-		bounds = L.latLngBounds(bounds);
-
-		var viewBounds = this.getBounds(),
-			viewSw = this.project(viewBounds.getSouthWest()),
-			viewNe = this.project(viewBounds.getNorthEast()),
-			sw = this.project(bounds.getSouthWest()),
-			ne = this.project(bounds.getNorthEast()),
-			dx = 0,
-			dy = 0;
-
-		if (viewNe.y < ne.y) { // north
-			dy = ne.y - viewNe.y + Math.max(0, this.latLngToContainerPoint([85.05112878, 0]).y); // + extra vertical scroll
-		}
-		if (viewNe.x > ne.x) { // east
-			dx = ne.x - viewNe.x;
-		}
-		if (viewSw.y > sw.y) { // south
-			dy = sw.y - viewSw.y + Math.min(0, this.latLngToContainerPoint([-85.05112878, 0]).y - this.getSize().y); // + extra vertical scroll
-		}
-		if (viewSw.x < sw.x) { // west
-			dx = sw.x - viewSw.x;
-		}
-
-		return this.panBy(new L.Point(dx, dy, true));
-	}});
-
-	//fixation for pan inside bounds
 	var map = new L.map('map', {
 		center: [configMap.latCenter, configMap.lonCenter],
 		zoom: configMap.zoom,
@@ -664,9 +623,6 @@ if ($obj) {
 		maxZoom : 19,
 		minZoom : 3
 	});
-
-	var drawnItems = new L.FeatureGroup();
-	map.addLayer(drawnItems);
 
 	//View for Longitude and Latitude topright in the map
 	var attrib = new L.Control.Attribution();
@@ -676,6 +632,14 @@ if ($obj) {
 		var latlng = e.latlng;
 		attrib.setPrefix('Koordinat : '+viewableCoordinate(latlng.lat,'lat') + ", " + viewableCoordinate(latlng.lng,'lng'));
 	});
+
+	var newMarker = new L.marker();
+
+	if (document.getElementById("inputlat").value != "" && document.getElementById("inputlon").value != "")
+	{
+		newMarker.setLatLng({lat: document.getElementById("inputlat").value, lng: document.getElementById("inputlon").value}).addTo(map);
+		map.setView([document.getElementById("inputlat").value, document.getElementById("inputlon").value], 16);
+	}
 
 	map.on('click', function(e) {
 		document.getElementById("inputlat").value = e.latlng.lat;
@@ -695,8 +659,7 @@ $(document).ready(function() {
         "info":     false
 		// "lengthMenu": [[25, 50, 100], [25, 50, 100]]
 	});
-});
-$(document).ready(function() {
+
 	$('#dataTables-kamar').DataTable({
 		responsive: true,
 		"paging":   false,
