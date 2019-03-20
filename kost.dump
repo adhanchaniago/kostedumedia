@@ -1,0 +1,683 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: daftar_agama; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.daftar_agama (
+    id smallint NOT NULL,
+    "desc" character varying(10)
+);
+
+
+ALTER TABLE public.daftar_agama OWNER TO postgres;
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.daftar_agama_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.daftar_agama_id_seq OWNER TO postgres;
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.daftar_agama_id_seq OWNED BY public.daftar_agama.id;
+
+
+--
+-- Name: hist_penghuni; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.hist_penghuni (
+    nama_penghuni character varying(50),
+    nama_panggilan character varying(10),
+    hp character varying(15),
+    hpdarurat character varying(75),
+    foto character varying(255),
+    alamat_penghuni character varying(255),
+    no_ktp character varying(17),
+    tglmasuk date,
+    tglkeluar date,
+    fotoktp character varying(255),
+    fotoktm character varying(255),
+    lb character varying,
+    ttl character varying(30),
+    gender character(1),
+    agama smallint,
+    hp2 character varying(15),
+    jurusan character varying(50),
+    fakultas character varying(15),
+    nim character varying(10),
+    ket_ayah character varying(75),
+    ket_ibu character varying(75),
+    sisa_pelunasan integer,
+    email character varying(50),
+    fb character varying(50),
+    twitter character varying(25),
+    bbm character varying(10),
+    ig character varying(25),
+    hist_kosan character varying(25),
+    hist_kamar character varying(25),
+    alias_kosan character varying(5),
+    id_history integer NOT NULL
+);
+
+
+ALTER TABLE public.hist_penghuni OWNER TO postgres;
+
+--
+-- Name: hist_penghuni_id_history_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hist_penghuni_id_history_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hist_penghuni_id_history_seq OWNER TO postgres;
+
+--
+-- Name: hist_penghuni_id_history_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.hist_penghuni_id_history_seq OWNED BY public.hist_penghuni.id_history;
+
+
+--
+-- Name: kamar; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.kamar (
+    id_kamar integer NOT NULL,
+    nama_kamar character varying(25),
+    luas character varying(10),
+    fasilitas character varying,
+    hargath character varying(25),
+    id_kosan integer,
+    id_penghuni integer,
+    is_existed boolean DEFAULT true
+);
+
+
+ALTER TABLE public.kamar OWNER TO postgres;
+
+--
+-- Name: kamar_id_kamar_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.kamar_id_kamar_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kamar_id_kamar_seq OWNER TO postgres;
+
+--
+-- Name: kamar_id_kamar_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.kamar_id_kamar_seq OWNED BY public.kamar.id_kamar;
+
+
+--
+-- Name: komplain; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.komplain (
+    id_komplain integer NOT NULL,
+    lokasi character varying(50),
+    orang_kamar character varying(50),
+    masalah character varying(255),
+    start_komplain date,
+    end_komplain date,
+    status_beres boolean,
+    foto character varying(255),
+    solusi character varying(255)
+);
+
+
+ALTER TABLE public.komplain OWNER TO postgres;
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.komplain_id_komplain_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.komplain_id_komplain_seq OWNER TO postgres;
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.komplain_id_komplain_seq OWNED BY public.komplain.id_komplain;
+
+
+--
+-- Name: kosan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.kosan (
+    id_kosan integer NOT NULL,
+    nama_kosan character varying(25),
+    alamat character varying(255),
+    fasum character varying,
+    foto_kosan character varying(255),
+    kontak character varying,
+    lokasi character varying(25),
+    kamarmandi character varying,
+    deskripsilokasi character varying,
+    id_pengguna integer,
+    deskripsi character varying,
+    lat double precision DEFAULT 0,
+    lon double precision DEFAULT 0,
+    no_token character varying(50),
+    no_telp_internet character varying(255),
+    no_gembok character varying(10),
+    no_pbb character varying(50),
+    no_sert_tanah character varying(255),
+    no_ajb character varying(255),
+    no_shm character varying(255),
+    alias character varying(5),
+    show_on_map boolean DEFAULT true,
+    is_active boolean DEFAULT true
+);
+
+
+ALTER TABLE public.kosan OWNER TO postgres;
+
+--
+-- Name: kosan_id_kosan_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.kosan_id_kosan_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kosan_id_kosan_seq OWNER TO postgres;
+
+--
+-- Name: kosan_id_kosan_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.kosan_id_kosan_seq OWNED BY public.kosan.id_kosan;
+
+
+--
+-- Name: pengguna; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.pengguna (
+    id_pengguna integer NOT NULL,
+    username character varying(15),
+    nama_lengkap character varying(50),
+    hp character varying(15),
+    alamat character varying(255),
+    password character varying(255)
+);
+
+
+ALTER TABLE public.pengguna OWNER TO postgres;
+
+--
+-- Name: pengguna_id_pengguna_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pengguna_id_pengguna_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pengguna_id_pengguna_seq OWNER TO postgres;
+
+--
+-- Name: pengguna_id_pengguna_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pengguna_id_pengguna_seq OWNED BY public.pengguna.id_pengguna;
+
+
+--
+-- Name: penghuni; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.penghuni (
+    id_penghuni integer NOT NULL,
+    nama_penghuni character varying(50),
+    nama_panggilan character varying(10),
+    hp character varying(15),
+    hpdarurat character varying(75),
+    foto character varying(255),
+    alamat_penghuni character varying(255),
+    no_ktp character varying(17),
+    tglmasuk date,
+    tglkeluar date,
+    fotoktp character varying(255),
+    fotoktm character varying(255),
+    lb character varying,
+    ttl character varying(30),
+    gender character(1),
+    agama smallint,
+    hp2 character varying(15),
+    jurusan character varying(50),
+    fakultas character varying(15),
+    nim character varying(10),
+    ket_ayah character varying(75),
+    ket_ibu character varying(75),
+    sisa_pelunasan integer,
+    email character varying(50),
+    fb character varying(50),
+    twitter character varying(25),
+    bbm character varying(10),
+    ig character varying(25),
+    metode_bayar character(1)
+);
+
+
+ALTER TABLE public.penghuni OWNER TO postgres;
+
+--
+-- Name: penghuni_id_penghuni_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.penghuni_id_penghuni_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.penghuni_id_penghuni_seq OWNER TO postgres;
+
+--
+-- Name: penghuni_id_penghuni_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.penghuni_id_penghuni_seq OWNED BY public.penghuni.id_penghuni;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.daftar_agama ALTER COLUMN id SET DEFAULT nextval('public.daftar_agama_id_seq'::regclass);
+
+
+--
+-- Name: id_history; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hist_penghuni ALTER COLUMN id_history SET DEFAULT nextval('public.hist_penghuni_id_history_seq'::regclass);
+
+
+--
+-- Name: id_kamar; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.kamar ALTER COLUMN id_kamar SET DEFAULT nextval('public.kamar_id_kamar_seq'::regclass);
+
+
+--
+-- Name: id_komplain; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.komplain ALTER COLUMN id_komplain SET DEFAULT nextval('public.komplain_id_komplain_seq'::regclass);
+
+
+--
+-- Name: id_kosan; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.kosan ALTER COLUMN id_kosan SET DEFAULT nextval('public.kosan_id_kosan_seq'::regclass);
+
+
+--
+-- Name: id_pengguna; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pengguna ALTER COLUMN id_pengguna SET DEFAULT nextval('public.pengguna_id_pengguna_seq'::regclass);
+
+
+--
+-- Name: id_penghuni; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.penghuni ALTER COLUMN id_penghuni SET DEFAULT nextval('public.penghuni_id_penghuni_seq'::regclass);
+
+
+--
+-- Data for Name: daftar_agama; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.daftar_agama (id, "desc") FROM stdin;
+1	Islam
+2	Protestan
+3	Katolik
+4	Hindu
+5	Buddha
+6	Khonghucu
+\.
+
+
+--
+-- Name: daftar_agama_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.daftar_agama_id_seq', 6, true);
+
+
+--
+-- Data for Name: hist_penghuni; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.hist_penghuni (nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat_penghuni, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb, ttl, gender, agama, hp2, jurusan, fakultas, nim, ket_ayah, ket_ibu, sisa_pelunasan, email, fb, twitter, bbm, ig, hist_kosan, hist_kamar, alias_kosan, id_history) FROM stdin;
+erfdsa	\N	asfd	asdf	\N	adfsa	dfdasf	2018-10-26	2019-10-25	\N	\N	\N	fdasdf	P	1	asfd	safdsa	safdasf	dsfasfd	asdfasfd	safdas	-1	dfasfd	dfasf	safd	asfd	sfd	fasfd	1	AD	1
+\.
+
+
+--
+-- Name: hist_penghuni_id_history_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hist_penghuni_id_history_seq', 1, true);
+
+
+--
+-- Data for Name: kamar; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.kamar (id_kamar, nama_kamar, luas, fasilitas, hargath, id_kosan, id_penghuni, is_existed) FROM stdin;
+5	1	2	dfad	asfdads	3	0	t
+4	GR-101	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	2	5	t
+3	GR-102	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	2	0	t
+21	GR-103	10	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	2	\N	t
+22	GR-104	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	2	\N	t
+23	GR-205	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	2	\N	t
+24	GR-206	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	2	\N	t
+25	GR-207	10	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	2	\N	t
+26	GR-208	10	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	2	\N	t
+1	GS-101	7	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 8.400.000 / thn	1	6	t
+2	GS-102	7	kosong (kcuali ada peninggalan pghuni sblmny)	Rp 6.500.000 / thn	1	8	t
+27	GB-101	10	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	4	\N	t
+7	GS-104	7	kosong (kecuali ada peninggalan penghuni sebelumnya))	Rp 6.900.000 / thn	1	9	t
+28	GB-102	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	4	\N	t
+8	GS-105	8.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.500.000 / thn	1	10	t
+29	GB-203	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+9	GS-106	8.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.500.000 / thn	1	11	t
+30	GB-204	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+10	GS-207	5.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	1	12	t
+31	GB-205	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+11	GS-208	7	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	1	13	t
+32	GB-206	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+12	GS-209	7	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	1	14	t
+33	GB-207	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+34	GB-208	6	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.000.000 / thn	4	\N	t
+14	GS-211	8.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.500.000 / thn	1	15	t
+35	GK-101A	9.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 4.645.000 / thn	5	\N	t
+15	GS-212	12	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 8.300.000 / thn	1	16	t
+36	GK-101B	9.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 4.645.000 / thn	5	\N	t
+16	GS-313	7	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.000.000 / thn	1	17	t
+37	GK-102	6.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.300.000 / thn	5	\N	t
+17	GS-314	5.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	1	18	t
+38	GK-203	6.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.300.000 / thn	5	\N	t
+18	GS-315	5.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	1	19	t
+39	GK-204	6.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.300.000 / thn	5	\N	t
+40	GK-205	7.85	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.750.000 / thn	5	\N	t
+6	GS-103A	7	kosong (kecuali ada peninggalan penghuni sebelumnya))	Rp 4.550.000 / thn	1	20	t
+19	GS-103B	7	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 4.350.000 / thn	1	21	t
+41	GK-206	7.85	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.750.000 / thn	5	\N	t
+13	GS-210A	8.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 7.500.000 / thn	1	22	t
+20	GS-210B	8.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 2.250.000 / thn	1	23	t
+42	GI-101	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+43	GI-102	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+44	GI-103A	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 4.125.000 / thn	6	\N	t
+45	GI-103B	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 4.125.000 / thn	6	\N	t
+46	GI-104	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+47	GI-105	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+48	GI-106	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+49	GI-207	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+50	GI-208	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+51	GI-209	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+52	GI-210	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+53	GI-211	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+54	GI-212	7.5	kosong (kecuali ada peninggalan penghuni sebelumnya)	Rp 6.500.000 / thn	6	\N	t
+\.
+
+
+--
+-- Name: kamar_id_kamar_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.kamar_id_kamar_seq', 54, true);
+
+
+--
+-- Data for Name: komplain; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.komplain (id_komplain, lokasi, orang_kamar, masalah, start_komplain, end_komplain, status_beres, foto, solusi) FROM stdin;
+4	aaa	dfd		2018-10-24	2018-10-27	t	\N	\N
+3	daffsadf	dasfsd	dfasfdafds	2018-10-24	2018-10-25	t	\N	sesdika
+\.
+
+
+--
+-- Name: komplain_id_komplain_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.komplain_id_komplain_seq', 4, true);
+
+
+--
+-- Data for Name: kosan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.kosan (id_kosan, nama_kosan, alamat, fasum, foto_kosan, kontak, lokasi, kamarmandi, deskripsilokasi, id_pengguna, deskripsi, lat, lon, no_token, no_telp_internet, no_gembok, no_pbb, no_sert_tanah, no_ajb, no_shm, alias, show_on_map, is_active) FROM stdin;
+3	fasfd	asdf	adsf	\N	asdfasdf	asfd	fasdfsaf	asfd	1	fsadsd	-6.86244475634561013	107.588086556643006	asfdsafd	dsafsadf	dfasd	sadfsadf	afsdf	sadfasfd	asdfasfd	AD	t	f
+2	Edumedia 2 Geger Arum	Jl Geger Arum no133	mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gr	08122-384-925 (Pak Dadang)	https://goo.gl/3K9NBy	lt1=3bh, lt2=1bh	sebrang smp29 ada gang kecil, rumahnya di sblh kanan	1	8 kamar	-6.86085494667261031	107.586737573147005								GR	t	t
+4	Edumedia 3 Geger Bakti	Gang Geger Bakti no.6B	mesin cuci, kamar mandi, Wi-Fi, TV, dapur, kompor gas, teras, gerbang, jemuran dengan atap	\N	08122384925 (Pa Dadang)		1 di lantai 1, 2 di lantai 2	Gang terletak di sebrang Alfamart Gegerkalong	1	8 kamar	-6.86304126647808665	107.587107717990889								GB	t	t
+5	Edumedia 4 Geger Kiara	Gang Geger Kiara-2 no.10	mesin cuci, TV, dapur, kompor gas, Wi-Fi, kamar mandi, ruang tamu, teras, gerbang, jemuran aman dari hujan	\N	08122384925 (Pa Dadang)		1 di lantai 1, 1 di lantai 2	gang di sebelah alfamart KPAD	1	6 kamar	-6.86408782039545073	107.587257921695738								GK	t	t
+6	Edumedia 5 Geger Sari	Gang Geger Sari no.45 	mesin cuci, TV, dapur, kompor gas, Wi-Fi, kamar mandi, ruang tamu, teras, gerbang, jemuran aman dari hujan	\N	08122384925 (Pa Dadang)		2 kamar mandi di setiap lantai	gang di sebrang mesjid nurul falah gegerkalong sebelum jalan geger arum	1	12 kamar	-6.86304659245803972	107.586488127707995								GI	t	t
+1	Edumedia 1 Geger Asih	Gg Geger Asih no148	15 kamar, mesin cuci, kompor gas, </br>  alat masak, jemuran, tv	gs	08122-384-925 (Pak Dadang)</br>  0896-3042-2834 (Pak Dadang)</br>  0856-59-360-489 (Naufal)</br>  0856-225-396 (Nadiya)</br>  0857-2006-4123 (Fathia)	https://goo.gl/b25DH7	lt1=2bh, lt2=2bh, lt3=1bh	masuk jl geger asih, belok kiri, rumahnya sebelah kiri	1	15 kamar	-6.86254328708866979	107.588497102261002								GS	t	t
+\.
+
+
+--
+-- Name: kosan_id_kosan_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.kosan_id_kosan_seq', 6, true);
+
+
+--
+-- Data for Name: pengguna; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pengguna (id_pengguna, username, nama_lengkap, hp, alamat, password) FROM stdin;
+1	dadangm	Dadang Machmudin	08123546789	Jl Sarimanis blok.18 no.166 RT.04 RW.06 	$2a$08$B.QR6O/g1KonzKkoQHA/4.cYWoNiZlNtIHeHq5/o3HymcWQFngg3e
+\.
+
+
+--
+-- Name: pengguna_id_pengguna_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pengguna_id_pengguna_seq', 2, true);
+
+
+--
+-- Data for Name: penghuni; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.penghuni (id_penghuni, nama_penghuni, nama_panggilan, hp, hpdarurat, foto, alamat_penghuni, no_ktp, tglmasuk, tglkeluar, fotoktp, fotoktm, lb, ttl, gender, agama, hp2, jurusan, fakultas, nim, ket_ayah, ket_ibu, sisa_pelunasan, email, fb, twitter, bbm, ig, metode_bayar) FROM stdin;
+5	you	\N			\N			2018-10-17	\N	\N	\N	\N		P	1							0						C
+6	Annisa Alifia	\N	082268637831		\N	Jl. Hangtuah Gg.Ros No.98, Pekanbaru. Piau	471106204000002	2018-08-13	2019-08-12	\N	\N	\N	Pekanbaru, 4/22/2000	P	1		Pendidikan Fisika	FPMIPA	1801114	Nurhadi Sudiro	Masniari 081365375500	0	annisalifia22@gmail.com				annisa_alifia	L
+8	Lubida Nuthi Shafa	\N	82116314467	08565300001	\N	Jl. Telindung no.91 RT.86 Balikpapan	6471035611990002	2019-03-16	2020-03-15	\N	\N	\N	Balikpapan, 11/16/1999	P	1		Bahasa Korea	FPBS	1701976	Faridjun Sjachrial 082158025185	Lista Pritanti 082255193158	0	lubidams99@gmail.com				galaluv	L
+9	Mila Nursolah	\N	82319824027		\N	Kp. Pamijahan RT 07 RW 02 Desa Pamijahan Kec.Bantarkalong	3206085101980004	2018-07-08	2019-07-07	\N	\N	\N	Tasikmalaya, 1/11/1998	P	1		Bahasa Sunda	FPBS	1601312	085321859490	081323010242	0	milanursolah@gmail.com	Mila Nursolah				L
+10	Rifa Aang Diyastuti	\N	83812826443	081320796633	\N	Kp. Kadu Heuleut Desa Cering Kec.Cikedal Pandeglang	3601265001980003	2019-03-16	2020-03-15	\N	\N	\N	Pandeglang, 1/9/1998	P	1		Pendidikan Kimia	FPMIPA	1603927	Aang Bahrudin 08596689555	Lilis Kurniawati 083160997637	0	rifa.diyastuti@gmail.com	Rifa Aang Diyastuti			rifrif_rifa	L
+11	Rika Yustika	\N	83816741933		\N			2019-03-16	2020-03-15	\N	\N	\N		P	1		Bahasa Daerah	FPBS				0						L
+12	Fira Fatimatu Zahra	\N	85723358365	085749423361	\N	Jl. Raya Karang Tengah, Kp.Ciandam RT.03/05 no.9, Cibadak, Sukabumi		2018-08-18	2019-08-17	\N	\N	\N		P	1		PG PAUD	FIP	1801039	Eri Firdaus (alm)    Mulyadi (Wali)	Siti Laela Heryani 085798080838	0	fira.fzahra6910@gmail.com				fira_fz	L
+13	Annisa Puspita Anggraini	\N	81315385908		\N	Jl. H. Ung RT.005/03 No.9 Kel. Utan Panjang Kec. Kemayoran Jakarta Pusat	3171036103000003	2018-08-25	2019-08-24	\N	\N	\N	Jakarta, 3/21/2000	P	1	89519826548	Pendidikan Agama Islam	FPIPS	1801039	Suparman 08129164708	Tri Kadarningsih 081315385908	0	annisa.puspita2103@gmail.com				annisa_pus	L
+14	Dinda Castury	\N	85863508380	 Dini (teman) 082218629077	\N	Cipondoh Makmur Blok M I/32 RT.02 RW.08 Cipondoh Makmur, Kec. Cipondoh	3671056910980001	2018-08-19	2019-08-18	\N	\N	\N	Tangerang, 10/29/1998	P	1		Keperawatan	FPOK	1705071	Mulyono 088211036259	Warsinah 083872122355	0	casturydinda@gmail.com					L
+15	Charunia Dwi Puspita	\N	82312403220		\N	Jl. Resik No.39 Kramatwatu Serang Banten	3604055003000002	2018-08-25	2019-08-24	\N	\N	\N	Cilegon, 3/10/2000	P	1		Pendidikan Matematika	FPMIPA	1804509	Suyatmo 08128978750	Dwi Marwiyati 085215561436	0	pchairunia@gmail.com	Charunia Dwi Puspita			charuniacantik	L
+16	Dina Mauliddiana	\N	89673123474		\N	Jl. Raya Labuan KM 3 Pandeglang	3601345307980003	2019-03-16	2020-03-15	\N	\N	\N	Pandeglang, 7/13/1998	P	1		Pendidikan Matematika	FPMIPA	1600970	Suwardi 087871382930	Mimin 087871166780	0	dina.mauliddiana@yahoo.com	Dina Mauliddiana			dinamauliddiana	L
+17	Lifia Dwi Amalia	\N	85720556054		\N	Jl. Kelapa I Sukawayana RT.07/02 Desa Cikakak Kab Sukabumi 	3202035807980001	2019-03-16	2020-03-15	\N	\N	\N	Sukabumi, 7/18/1998	P	1		Pendidikan Matematika	FPMIPA	1600302	Sunarna 081296720719	Amal Gusmiati 08562010968	0	lifiadwi@gmail.com	Lifia Dwi Amalia			d_lifia	L
+18	Kameliah Mushonev	\N	85759808186		\N	Kampung Pesantren No.07 Desa Pasrepan Kab.Pasuruan	3514054208920001	2018-08-25	2019-08-24	\N	\N	\N	Pasuruan, 8/2/1992	P	1		ITB Biologi S2	SITH	20616007	Moh. Shohak	Sriyamah	0	maymemushonev@gmail.com	Memi Mushonev				L
+19	Siti Nurul Izzah	\N	89698690912		\N	Kp. Kalahang Masjid RT.08/03 no.10 Desa Kadudodo Kec. Cimanuk Kab. Pandeglang Banten, 42271	3601184312000001	2019-03-16	2020-03-15	\N	\N	\N	Pandeglang, 12/3/2000	P	1		PG PAUD	FIP	1801450	Kosasih (08129108650)	Muslimah (082111417333)	9	lulusnikulh@gmail.com				lulunurikulh	L
+20	Pitria Sari	\N	82278369901		\N	Muara Lintang Baru, Pendopo Barat, Empat Lawang, Sumatera Selatan	1611024905010001	2018-08-25	2019-08-24	\N	\N	\N	Pendopo, 5/9/2001	P	1		Matematika	FPMIPA	1800258	Samsudin 085382474646	Herlita Krisna 085377643611	0	pitrias05@gmail.com	Pitriasari			pitria.09	L
+21	Demvi Vebiana	\N	81379009162		\N	Pagar Ragung Kec.Kota Agung Kab.Lahat Sumatera Selatan	1604076703000001	2018-08-25	2019-08-24	\N	\N	\N	Pagar Ruyung, 3/27/2000	P	1		akuntansi	FPEB	1800612	Wisnu 085273277424	Halila 081368497667	0	demvivb@gmail.com	Demvi Vebiani			demvivebiani	L
+22	Nadiyatulkhair	\N	89513803975		\N	Jl.  Akik 1 C3 No.16 RT.01/01 Kel.Kalijaga Kec.Harjamukti, Kota Cirebon	3274047107000005	2018-08-23	2019-08-22	\N	\N	\N	Cirebon, 7/31/2000	P	1		Ilmu Komunikasi	FPIPS	1804788	Mohammad Dahlan 082318428451	Emi Amalia Mustariah 081214012785	0	phyunji3123@gmail.com	Nadiyatulkhair			nadiyatlkhr	L
+23	Zahra Novyani	\N	82321447120		\N	Graha Keandra Kalijaga Blok X No.18 Kel. Kalijaga Kec.Harjamukti	3274035111990012	2018-08-24	2019-08-23	\N	\N	\N	Kota Cirebon, 11/11/1999	P	1		kimia	FPMIPA	1802075	Yayan Gustyana 08231722900	Ade Iis Kusmayanti 085224203303	0	zahra.nvyn@gmail.com	Zahra Novyani			yeozah	L
+\.
+
+
+--
+-- Name: penghuni_id_penghuni_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.penghuni_id_penghuni_seq', 23, true);
+
+
+--
+-- Name: pk_daftar_agama; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.daftar_agama
+    ADD CONSTRAINT pk_daftar_agama PRIMARY KEY (id);
+
+
+--
+-- Name: pk_history; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.hist_penghuni
+    ADD CONSTRAINT pk_history PRIMARY KEY (id_history);
+
+
+--
+-- Name: pk_kamar; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.kamar
+    ADD CONSTRAINT pk_kamar PRIMARY KEY (id_kamar);
+
+
+--
+-- Name: pk_komplain; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.komplain
+    ADD CONSTRAINT pk_komplain PRIMARY KEY (id_komplain);
+
+
+--
+-- Name: pk_kosan; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.kosan
+    ADD CONSTRAINT pk_kosan PRIMARY KEY (id_kosan);
+
+
+--
+-- Name: pk_pengguna; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.pengguna
+    ADD CONSTRAINT pk_pengguna PRIMARY KEY (id_pengguna);
+
+
+--
+-- Name: pk_penghuni; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.penghuni
+    ADD CONSTRAINT pk_penghuni PRIMARY KEY (id_penghuni);
+
+
+--
+-- Name: fk_kamar_kosan; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.kamar
+    ADD CONSTRAINT fk_kamar_kosan FOREIGN KEY (id_kosan) REFERENCES public.kosan(id_kosan);
+
+
+--
+-- Name: fk_kosan_pengguna; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.kosan
+    ADD CONSTRAINT fk_kosan_pengguna FOREIGN KEY (id_pengguna) REFERENCES public.pengguna(id_pengguna);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
