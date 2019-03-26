@@ -32,7 +32,7 @@ foreach($kosans as $data) {
 			echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
 			echo '"fasilitas":"' . $data->fasilitas . '",';
 			echo '"hargath":"' . $data->hargath . '",';
-			echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+			echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi s/d' : 'kosong') . '",';
 			echo '"penghuninama":"' . $data->nama_penghuni . '",';
 			echo '"penghunihp":"' . $data->hp . '",';
 			echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
@@ -53,7 +53,7 @@ foreach($kosans as $data) {
 				echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
 				echo '"fasilitas":"' . $data->fasilitas . '",';
 				echo '"hargath":"' . $data->hargath . '",';
-				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi s/d' : 'kosong') . '",';
 				echo '"penghuninama":"' . $data->nama_penghuni . '",';
 				echo '"penghunihp":"' . $data->hp . '",';
 				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';
@@ -91,7 +91,7 @@ foreach($kosans as $data) {
 				echo '"luas":"' . $data->luas . 'm<sup>2</sup>",';
 				echo '"fasilitas":"' . $data->fasilitas . '",';
 				echo '"hargath":"' . $data->hargath . '",';
-				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi' : 'kosong') . '",';
+				echo '"terisi":"' . ($data->id_penghuni > 0 ? 'terisi s/d' : 'kosong') . '",';
 				echo '"penghuninama":"' . $data->nama_penghuni . '",';
 				echo '"penghunihp":"' . $data->hp . '",';
 				echo '"penghunihpdarurat":"' . $data->hpdarurat . '",';

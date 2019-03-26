@@ -1085,7 +1085,7 @@ function INITGAMBARDB(){
 						var fasum,foto,kontak,lokasi,desclok,kamarmandi;
 						var desc="";
 						for (var ii=0; ii<data.features[i].properties.kamar.length; ii++){
-								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-bed'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+' s/d '+data.features[i].properties.kamar[ii].tglkeluar+"&nbsp;&nbsp;</a></i></td></tr>"
+								desc = desc+"<tr><td><i style='font-size:11px' class='fa fa-bed'>&nbsp;<a onclick=\'modalkamar("+i+","+ii+")\' data-toggle='modal' href='#modalcoba'>"+data.features[i].properties.kamar[ii].nama+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].luas+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].hargath+"&nbsp;&nbsp;</td><td>&nbsp;&nbsp;"+data.features[i].properties.kamar[ii].terisi+' '+data.features[i].properties.kamar[ii].tglkeluar+"&nbsp;&nbsp;</a></i></td></tr>"
 						}
 						fasum = data.features[i].properties.fasum;
 						foto = data.features[i].properties.foto;
@@ -1617,7 +1617,7 @@ function INITGRAFIKKOSAN() {
 	for (var i=0; i<dataKosan.features.length; i++){
 		var buffisi = 0; var buffksg = 0;
 		for(var z=0; z<dataKosan.features[i].properties.kamar.length; z++){
-			if (dataKosan.features[i].properties.kamar[z].terisi === "terisi"){buffisi++;};	
+			if (dataKosan.features[i].properties.kamar[z].terisi === "terisi s/d"){buffisi++;};	
 			if (dataKosan.features[i].properties.kamar[z].terisi === "kosong"){buffksg++;};		
 		}
 		namaKosanGrafik.push(dataKosan.features[i].properties.alias);
